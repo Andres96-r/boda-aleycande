@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin — Boda Ale & Cande</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1a1a1a;}
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#1a1a2e,#16213e);}
+.login-box{background:#fff;border-radius:12px;padding:40px;width:320px;box-shadow:0 20px 60px rgba(0,0,0,.3);text-align:center;}
+.login-box h1{font-size:22px;margin-bottom:6px;}
+.login-box p{font-size:13px;color:#888;margin-bottom:24px;}
+.login-box input{width:100%;padding:12px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:15px;outline:none;margin-bottom:12px;}
+.login-box input:focus{border-color:#6c63ff;}
+.login-box button{width:100%;padding:12px;background:#6c63ff;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;}
+.login-error{color:#e53935;font-size:13px;margin-top:8px;}
+#app{display:none;min-height:100vh;}
+.header{background:#1a1a2e;color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.header h1{font-size:18px;font-weight:600;}
+.header span{font-size:12px;opacity:.6;}
+.tabs{display:flex;background:#fff;border-bottom:1px solid #e8e8e8;padding:0 16px;overflow-x:auto;position:sticky;top:53px;z-index:99;}
+.tab{padding:14px 18px;font-size:13px;font-weight:500;color:#888;cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;}
+.tab.active{color:#6c63ff;border-color:#6c63ff;}
+.container{padding:16px;}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px;}
+.stat-card{background:#fff;border-radius:10px;padding:16px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.stat-num{font-size:28px;font-weight:700;color:#6c63ff;}
+.stat-label{font-size:11px;color:#888;margin-top:4px;}
+.section-card{background:#fff;border-radius:10px;padding:20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.section-card h2{font-size:15px;font-weight:600;margin-bottom:12px;}
+.import-info{font-size:13px;color:#666;margin-bottom:14px;line-height:1.6;}
+.file-upload{border:2px dashed #d0d0d0;border-radius:8px;padding:24px;text-align:center;cursor:pointer;transition:border-color .2s;}
+.file-upload:hover,.file-upload.drag{border-color:#6c63ff;background:#f8f6ff;}
+.file-upload input{display:none;}
+.file-upload p{font-size:13px;color:#888;margin-top:6px;}
+.btn{padding:10px 20px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s;}
+.btn-primary{background:#6c63ff;color:#fff;}
+.btn-primary:hover{background:#5a52d5;}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;}
+.btn-danger{background:#fee;color:#e53935;border:1px solid #fcc;}
+.btn-sm{padding:5px 10px;font-size:12px;border-radius:6px;}
+.table-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.table-header h2{font-size:15px;font-weight:600;}
+.search-bar{padding:8px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:13px;outline:none;width:200px;}
+.search-bar:focus{border-color:#6c63ff;}
+.filter-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.filter-btn{padding:6px 12px;border:1px solid #e0e0e0;border-radius:20px;background:#fff;font-size:12px;cursor:pointer;color:#666;}
+.filter-btn.active{background:#6c63ff;color:#fff;border-color:#6c63ff;}
+.inv-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.inv-table th{background:#f8f8f8;padding:10px 12px;text-align:left;font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid #e8e8e8;white-space:nowrap;}
+.inv-table td{padding:10px 12px;border-bottom:1px solid #f5f5f5;vertical-align:top;font-size:13px;}
+.inv-table tr:last-child td{border-bottom:none;}
+.inv-table tr:hover td{background:#fafafa;}
+.badge{display:inline-block;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;}
+.badge-ok{background:#e8f5e9;color:#2e7d32;}
+.badge-pending{background:#fff8e1;color:#f57f17;}
+.badge-cena{background:#e3f2fd;color:#1565c0;}
+.badge-brindis{background:#f3e5f5;color:#6a1b9a;}
+.pago-toggle{display:flex;align-items:center;gap:6px;cursor:pointer;}
+.pago-toggle input{accent-color:#6c63ff;width:16px;height:16px;cursor:pointer;}
+.copy-link{background:none;border:none;cursor:pointer;color:#6c63ff;font-size:11px;padding:2px 4px;text-decoration:underline;}
+.persona-item{display:flex;gap:6px;align-items:center;font-size:12px;color:#555;margin-bottom:3px;flex-wrap:wrap;}
+.song-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.song-card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.song-card-name{font-weight:600;font-size:13px;margin-bottom:8px;color:#333;border-bottom:1px solid #f5f5f5;padding-bottom:8px;}
+.song-item{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px;}
+.empty{text-align:center;padding:40px;color:#aaa;}
+.loading{text-align:center;padding:40px;color:#aaa;font-size:13px;}
+.preview-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px;}
+.preview-table th{background:#f5f5f5;padding:8px 10px;text-align:left;font-weight:600;border-bottom:1px solid #e8e8e8;}
+.preview-table td{padding:7px 10px;border-bottom:1px solid #f5f5f5;}
+.status-msg{margin-top:10px;font-size:13px;padding:10px 14px;border-radius:6px;}
+.status-ok{background:#e8f5e9;color:#2e7d32;}
+.status-err{background:#fee;color:#c62828;}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;}
+.modal-bg.open{display:flex;}
+.modal{background:#fff;border-radius:12px;padding:24px;width:min(440px,95vw);}
+.modal h2{font-size:16px;font-weight:600;margin-bottom:16px;}
+.modal-close{float:right;background:none;border:none;font-size:20px;cursor:pointer;color:#888;}
+.form-row{margin-bottom:14px;}
+.form-row label{display:block;font-size:12px;font-weight:600;color:#888;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em;}
+.form-row input{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;}
+.form-row input:focus{border-color:#6c63ff;}
+@media(max-width:600px){
+  .inv-table th:nth-child(4),.inv-table td:nth-child(4),
+  .inv-table th:nth-child(5),.inv-table td:nth-child(5){display:none;}
+}
+</style>
+</head>
+<body>
+
+<div id="login-screen">
+  <div class="login-box">
+    <h1>&#128141; Panel Boda</h1>
+    <p>Ale &amp; Cande &mdash; 14.11.2026</p>
+    <input type="password" id="pwd-input" placeholder="Contrase&ntilde;a" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button onclick="doLogin()">Ingresar</button>
+    <div class="login-error" id="login-err"></div>
+  </div>
+</div>
+
+<div id="app">
+  <div class="header">
+    <h1>&#128141; Panel &mdash; Ale &amp; Cande</h1>
+    <span>&#9679; en vivo</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('resumen')">&#128202; Resumen</div>
+    <div class="tab" onclick="showTab('invitados')">&#128101; Invitados</div>
+    <div class="tab" onclick="showTab('canciones')">&#127925; Canciones</div>
+    <div class="tab" onclick="showTab('importar')">&#128229; Importar Excel</div>
+  </div>
+
+  <!-- RESUMEN -->
+  <div id="tab-resumen" class="container">
+    <div class="stats">
+      <div class="stat-card"><div class="stat-num" id="st-total">0</div><div class="stat-label">Tarjetas</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-conf">0</div><div class="stat-label">Confirmadas</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-pend">0</div><div class="stat-label">Sin respuesta</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-personas">0</div><div class="stat-label">Personas</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-cena">0</div><div class="stat-label">&#127869;&#65039; Cena</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-brindis">0</div><div class="stat-label">&#129346; Brindis</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-celiaco">0</div><div class="stat-label">&#127806; Cel&iacute;acos</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-veggie">0</div><div class="stat-label">&#129367; Vegetarianos</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-pagado">0</div><div class="stat-label">&#128176; Pagaron</div></div>
+      <div class="stat-card"><div class="stat-num" id="st-canciones">0</div><div class="stat-label">&#127925; Canciones</div></div>
+    </div>
+  </div>
+
+  <!-- INVITADOS -->
+  <div id="tab-invitados" class="container" style="display:none;">
+    <div class="table-header">
+      <h2>Lista de invitados</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <input class="search-bar" placeholder="Buscar..." oninput="filterTable(this.value)"/>
+        <button class="btn btn-sm btn-primary" onclick="showAddModal()">+ Agregar</button>
+      </div>
+    </div>
+    <div class="filter-btns">
+      <button class="filter-btn active" onclick="setFilter('todos',this)">Todos</button>
+      <button class="filter-btn" onclick="setFilter('confirmados',this)">&#10003; Confirmados</button>
+      <button class="filter-btn" onclick="setFilter('pendientes',this)">&#8987; Sin respuesta</button>
+      <button class="filter-btn" onclick="setFilter('cena',this)">Cena</button>
+      <button class="filter-btn" onclick="setFilter('brindis',this)">Brindis</button>
+      <button class="filter-btn" onclick="setFilter('nopagaron',this)">No pagaron</button>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="inv-table">
+        <thead>
+          <tr>
+            <th>Destinatario</th>
+            <th>Estado</th>
+            <th>Personas</th>
+            <th>Evento</th>
+            <th>Dieta</th>
+            <th>Pag&oacute;</th>
+            <th>Link</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="inv-tbody"><tr><td colspan="8" class="loading">Cargando...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CANCIONES -->
+  <div id="tab-canciones" class="container" style="display:none;">
+    <div class="table-header">
+      <h2>Canciones pedidas</h2>
+      <span id="songs-count" style="font-size:13px;color:#888;"></span>
+    </div>
+    <div id="songs-container" class="song-cards"><div class="loading">Cargando...</div></div>
+  </div>
+
+  <!-- IMPORTAR -->
+  <div id="tab-importar" class="container" style="display:none;">
+    <div class="section-card">
+      <h2>&#128229; Importar invitados desde Excel</h2>
+      <div class="import-info">
+        El archivo debe tener una columna llamada <strong>destinatario</strong> con el nombre de cada invitado tal como aparecer&aacute; en el sobre.<br><br>
+        Ejemplo de formato:<br>
+        <code style="background:#f5f5f5;padding:6px 10px;border-radius:4px;font-size:12px;display:block;margin-top:6px;">destinatario<br>Juan y Mar&iacute;a<br>Federico y Flia<br>T&iacute;a Rosa</code><br>
+        El ID y link se generan autom&aacute;ticamente.
+      </div>
+      <div class="file-upload" id="drop-zone" onclick="document.getElementById('excel-file').click()"
+        ondragover="event.preventDefault();this.classList.add('drag')"
+        ondragleave="this.classList.remove('drag')"
+        ondrop="handleDrop(event)">
+        <input type="file" id="excel-file" accept=".xlsx,.xls,.csv" onchange="handleFile(this.files[0])"/>
+        <div style="font-size:36px;">&#128194;</div>
+        <p><strong>Hac&eacute; click o arrastr&aacute; tu archivo ac&aacute;</strong></p>
+        <p>Acepta .xlsx, .xls o .csv</p>
+      </div>
+      <div id="import-preview" style="display:none;margin-top:16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+          <strong id="preview-count"></strong>
+          <button class="btn btn-primary" id="import-btn" onclick="importInvitados()">&#8679; Importar a Firebase</button>
+        </div>
+        <div style="overflow-x:auto;max-height:300px;overflow-y:auto;">
+          <table class="preview-table">
+            <thead><tr><th>#</th><th>Destinatario</th><th>ID</th><th>Link</th></tr></thead>
+            <tbody id="preview-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div id="import-status" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#215;</button>
+    <h2>Agregar invitado</h2>
+    <div class="form-row">
+      <label>Destinatario (aparece en el sobre)</label>
+      <input type="text" id="modal-dest" placeholder="Ej: Juan y Mar&iacute;a"/>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;">
+      <button class="btn" style="background:#f5f5f5;" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" id="modal-save-btn" onclick="saveInvitado()">Guardar</button>
+    </div>
+    <div id="modal-error" style="font-size:13px;color:#e53935;margin-top:8px;"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+const PASS = 'bodaac2026';
+function doLogin(){
+  if(document.getElementById('pwd-input').value===PASS){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').style.display='block';
+    initApp();
+  } else {
+    document.getElementById('login-err').textContent='Contrasena incorrecta';
+  }
+}
+document.getElementById('pwd-input').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+
+function showTab(t){
+  ['resumen','invitados','canciones','importar'].forEach(id=>{
+    document.getElementById('tab-'+id).style.display=id===t?'block':'none';
+  });
+  document.querySelectorAll('.tab').forEach((el,i)=>{
+    el.classList.toggle('active',['resumen','invitados','canciones','importar'][i]===t);
+  });
+  if(t==='canciones') renderSongsTab();
+}
+
+function genId(dest){
+  return dest.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-zA-Z0-9\s]/g,'').trim().replace(/\s+/g,'-').toLowerCase();
+}
+// ══════════════════════════════════════════════════
+// CONFIGURACION — cambiá esta URL si la tarjeta
+// está en otro sitio de Netlify
+const TARJETA_URL = 'https://andres96-r.github.io/boda-aleycande/';
+// ══════════════════════════════════════════════════
+function makeLink(id){ return TARJETA_URL + '?id=' + encodeURIComponent(id); }
+
+function copyText(text){
+  navigator.clipboard.writeText(text).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+  });
+}
+
+let currentFilter='todos', searchVal='';
+function setFilter(f,el){
+  currentFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderTable();
+}
+function filterTable(v){ searchVal=v.toLowerCase(); renderTable(); }
+
+// EXCEL
+let previewData=[];
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('drag');
+  if(e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+}
+function handleFile(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const data=new Uint8Array(e.target.result);
+    // Try XLSX first
+    if(typeof XLSX!=='undefined'){
+      try{
+        const wb=XLSX.read(data,{type:'array'});
+        const ws=wb.Sheets[wb.SheetNames[0]];
+        const rows=XLSX.utils.sheet_to_json(ws,{defval:''});
+        processRows(rows);
+      } catch(err){ showStatus('Error: '+err.message,true); }
+    } else {
+      // CSV fallback
+      const text=new TextDecoder().decode(data);
+      const lines=text.trim().split('\n').map(l=>l.trim());
+      const header=lines[0].split(',').map(h=>h.trim().replace(/"/g,'').toLowerCase());
+      const rows=lines.slice(1).map(line=>{
+        const vals=line.split(',').map(v=>v.trim().replace(/"/g,''));
+        const obj={};header.forEach((h,i)=>{obj[h]=vals[i]||'';});return obj;
+      });
+      processRows(rows);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+function processRows(rows){
+  previewData=rows.map(r=>{
+    const dest=(r.destinatario||r.Destinatario||r.nombre||r.Nombre||'').trim();
+    return dest?{destinatario:dest,id:genId(dest)}:null;
+  }).filter(Boolean);
+  if(!previewData.length){ showStatus('No se encontraron destinatarios. La columna debe llamarse "destinatario".',true); return; }
+  document.getElementById('import-status').style.display='none';
+  document.getElementById('import-preview').style.display='block';
+  document.getElementById('preview-count').textContent=previewData.length+' invitados encontrados';
+  document.getElementById('preview-tbody').innerHTML=previewData.map((r,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td>${esc(r.destinatario)}</td>
+      <td style="font-family:monospace;color:#888;">${esc(r.id)}</td>
+      <td><span style="font-family:monospace;font-size:10px;color:#6c63ff;">${makeLink(r.id)}</span></td>
+    </tr>`).join('');
+}
+function showStatus(msg,isErr){
+  const el=document.getElementById('import-status');
+  el.style.display='block';
+  el.className='status-msg '+(isErr?'status-err':'status-ok');
+  el.textContent=msg;
+}
+
+// MODAL
+function showAddModal(){
+  document.getElementById('modal-dest').value='';
+  document.getElementById('modal-error').textContent='';
+  document.getElementById('modal-bg').classList.add('open');
+  setTimeout(()=>document.getElementById('modal-dest').focus(),100);
+}
+function closeModal(){ document.getElementById('modal-bg').classList.remove('open'); }
+
+function esc(t){ return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
+
+<script type="module">
+import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import{getFirestore,collection,doc,setDoc,updateDoc,deleteDoc,onSnapshot,writeBatch,serverTimestamp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+const FB_CONFIG={
+  apiKey:"AIzaSyB4kzCf-bP_Pugektvai9Yhq5BCdyIubbg",
+  authDomain:"boda-aleycande.firebaseapp.com",
+  projectId:"boda-aleycande",
+  storageBucket:"boda-aleycande.firebasestorage.app",
+  messagingSenderId:"576590448403",
+  appId:"1:576590448403:web:a577eba607016bbfbd7ce6"
+};
+
+let db;
+let invitadosData={}, confirmacionesData={}, cancionesData={};
+
+window.initApp=function(){
+  const app=initializeApp(FB_CONFIG);
+  db=getFirestore(app);
+
+  onSnapshot(collection(db,'invitados'),snap=>{
+    snap.docChanges().forEach(ch=>{
+      if(ch.type==='removed') delete invitadosData[ch.doc.id];
+      else invitadosData[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};
+    });
+    renderTable(); updateStats();
+  });
+
+  onSnapshot(collection(db,'confirmaciones'),snap=>{
+    snap.docChanges().forEach(ch=>{
+      if(ch.type==='removed') delete confirmacionesData[ch.doc.id];
+      else confirmacionesData[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};
+    });
+    renderTable(); updateStats();
+  });
+
+  onSnapshot(collection(db,'canciones_master'),snap=>{
+    snap.docChanges().forEach(ch=>{
+      if(ch.type==='removed') delete cancionesData[ch.doc.id];
+      else cancionesData[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};
+    });
+    updateStats(); renderSongsTab();
+  });
+};
+
+window.renderTable=function(){
+  const tbody=document.getElementById('inv-tbody');
+  let invs=Object.values(invitadosData);
+  if(searchVal) invs=invs.filter(i=>i.destinatario.toLowerCase().includes(searchVal));
+  const getP=id=>Object.values(confirmacionesData).filter(a=>a.invitadoId===id);
+  if(currentFilter==='confirmados') invs=invs.filter(i=>getP(i.id).length>0);
+  if(currentFilter==='pendientes')  invs=invs.filter(i=>getP(i.id).length===0);
+  if(currentFilter==='cena')        invs=invs.filter(i=>getP(i.id).some(p=>p.evento==='cena'));
+  if(currentFilter==='brindis')     invs=invs.filter(i=>getP(i.id).some(p=>p.evento==='brindis'));
+  if(currentFilter==='nopagaron')   invs=invs.filter(i=>!i.pagado);
+  invs.sort((a,b)=>a.destinatario.localeCompare(b.destinatario,'es'));
+  if(!invs.length){tbody.innerHTML='<tr><td colspan="8" class="empty">Sin resultados</td></tr>';return;}
+  const emojis={"celiaco":"&#127806;","vegetariano":"&#129367;"};
+  tbody.innerHTML=invs.map(inv=>{
+    const personas=getP(inv.id);
+    const conf=personas.length>0;
+    const eventoSet=[...new Set(personas.map(p=>p.evento).filter(Boolean))];
+    const dietaSet=[...new Set(personas.map(p=>p.dieta).filter(Boolean))];
+    const personasHtml=conf?personas.map(p=>`<div class="persona-item"><span>${esc(p.nombre||"—")}</span><span class="badge ${p.evento==="cena"?"badge-cena":"badge-brindis"}" style="font-size:10px;">${p.evento==="cena"?"Cena":"Brindis"}</span>${p.dieta?`<span style="font-size:11px;">${emojis[p.dieta]||""}</span>`:""}</div>`).join(''):'—';
+    return `<tr>
+      <td><div style="font-weight:500;">${esc(inv.destinatario)}</div><div style="font-size:10px;color:#aaa;margin-top:2px;">${esc(inv.id)}</div></td>
+      <td>${conf?`<span class="badge badge-ok">&#10003; Confirm&oacute; (${personas.length})</span>`:'<span class="badge badge-pending">&#8987; Sin respuesta</span>'}</td>
+      <td><div>${personasHtml}</div></td>
+      <td>${eventoSet.map(e=>`<span class="badge ${e==="cena"?"badge-cena":"badge-brindis"}">${e==="cena"?"Cena":"Brindis"}</span>`).join(' ')||'—'}</td>
+      <td>${dietaSet.map(d=>emojis[d]||d).join(' ')||'—'}</td>
+      <td><label class="pago-toggle"><input type="checkbox" ${inv.pagado?'checked':''} onchange="togglePago('${inv.id}',this.checked)"/><span style="font-size:12px;">${inv.pagado?'&#10003; Pag&oacute;':'&#10005;'}</span></label></td>
+      <td><button class="copy-link" onclick="copyLinkBtn('${inv.id}',this)">&#128203; Copiar</button></td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteInv('${inv.id}')">&#128465;</button></td>
+    </tr>`;
+  }).join('');
+};
+
+window.updateStats=function(){
+  const invs=Object.values(invitadosData);
+  const asis=Object.values(confirmacionesData);
+  const songs=Object.values(cancionesData);
+  const getP=id=>asis.filter(a=>a.invitadoId===id);
+  const conf=invs.filter(i=>getP(i.id).length>0);
+  document.getElementById('st-total').textContent=invs.length;
+  document.getElementById('st-conf').textContent=conf.length;
+  document.getElementById('st-pend').textContent=invs.length-conf.length;
+  document.getElementById('st-personas').textContent=asis.length;
+  document.getElementById('st-cena').textContent=asis.filter(a=>a.evento==='cena').length;
+  document.getElementById('st-brindis').textContent=asis.filter(a=>a.evento==='brindis').length;
+  document.getElementById('st-celiaco').textContent=asis.filter(a=>a.dieta==='celiaco').length;
+  document.getElementById('st-veggie').textContent=asis.filter(a=>a.dieta==='vegetariano').length;
+  document.getElementById('st-pagado').textContent=invs.filter(i=>i.pagado).length;
+  document.getElementById('st-canciones').textContent=songs.length;
+};
+
+window.renderSongsTab=function(){
+  const songs=Object.values(cancionesData);
+  const container=document.getElementById('songs-container');
+  document.getElementById('songs-count').textContent=songs.length+' canciones';
+  if(!songs.length){container.innerHTML='<div class="empty">&#127925; Todav&iacute;a no hay canciones</div>';return;}
+  const groups={};
+  songs.forEach(s=>{
+    const key=s.invitadoId||'sin-id';
+    if(!groups[key]) groups[key]={nombre:invitadosData[key]?.destinatario||key,songs:[]};
+    groups[key].songs.push(s);
+  });
+  const emj=['&#127925;','&#127926;','&#127908;','&#127881;'];
+  container.innerHTML=Object.entries(groups).map(([id,g])=>`
+    <div class="song-card">
+      <div class="song-card-name">&#128100; ${esc(g.nombre)}</div>
+      ${g.songs.map((s,i)=>`<div class="song-item"><span>${emj[i%4]}</span><span>${esc(s.texto||'')}</span></div>`).join('')}
+    </div>`).join('');
+};
+
+window.togglePago=async function(id,val){
+  await updateDoc(doc(db,'invitados',id),{pagado:val});
+};
+
+window.copyLinkBtn=function(id,btn){
+  copyText(makeLink(id));
+  const orig=btn.textContent;
+  btn.textContent='&#10003; Copiado';
+  setTimeout(()=>{btn.textContent=orig;},2000);
+};
+
+window.deleteInv=async function(id){
+  if(!confirm('Borrar invitado "'+id+'"?')) return;
+  await deleteDoc(doc(db,'invitados',id));
+};
+
+window.saveInvitado=async function(){
+  const dest=document.getElementById('modal-dest').value.trim();
+  if(!dest){document.getElementById('modal-error').textContent='Ingres&aacute; el nombre';return;}
+  const id=genId(dest);
+  const btn=document.getElementById('modal-save-btn');
+  btn.disabled=true;
+  try{
+    await setDoc(doc(db,'invitados',id),{destinatario:dest,pagado:false,creado:serverTimestamp()},{merge:true});
+    closeModal();
+  } catch(e){document.getElementById('modal-error').textContent='Error: '+e.message;}
+  btn.disabled=false;
+};
+
+window.importInvitados=async function(){
+  if(!previewData.length)return;
+  const btn=document.getElementById('import-btn');
+  btn.disabled=true; btn.textContent='Importando...';
+  try{
+    const batch=writeBatch(db);
+    previewData.forEach(r=>{
+      batch.set(doc(db,'invitados',r.id),{destinatario:r.destinatario,pagado:false,creado:serverTimestamp()},{merge:true});
+    });
+    await batch.commit();
+    showStatus('&#10003; '+previewData.length+' invitados importados correctamente.',false);
+    previewData=[];
+    document.getElementById('import-preview').style.display='none';
+  } catch(e){showStatus('Error: '+e.message,true);}
+  btn.disabled=false; btn.textContent='&#8679; Importar a Firebase';
+};
+</script>
+</body>
+</html>
