@@ -767,7 +767,7 @@ const sScope=INVITADO_ID||DID;
 const sCol=collection(db,'canciones_master'),sMap={};
 onSnapshot(sCol,snap=>{snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete sMap[ch.doc.id];else{const d={id:ch.doc.id,...ch.doc.data()};if(d.invitadoId===sScope)sMap[ch.doc.id]=d;}});renderSongs();});
 window.addSong=async()=>{const inp=document.getElementById('song-input'),v=inp.value.trim();if(!v)return;inp.value='';await addDoc(sCol,{texto:v,dispositivo:DID,invitadoId:INVITADO_ID||DID,ts:serverTimestamp()});};
-window.removeSong=async id=>{await deleteDoc(doc(db,'canciones',id));};
+window.removeSong=async id=>{await deleteDoc(doc(db,'canciones_master',id));};
 const emojis=['🎵','🎶','🎤','🎉'];
 function renderSongs(){
   const list=document.getElementById('song-list'),items=Object.values(sMap);
@@ -807,7 +807,7 @@ function showConf(){
 
 function showForm(){document.getElementById('rsvp-confirmed').style.display='none';document.getElementById('rsvp-form').style.display='flex';if(!persons.length)addPerson();renderP();}
 window.editRsvp=()=>{editMode=true;persons=myG().map(d=>({id:Date.now()+Math.random(),tipo:d.tipo,nombre:d.nombre,dieta:d.dieta||'',evento:d.evento||'cena'}));showForm();};
-window.delG=async id=>{await deleteDoc(doc(db,'asistentes',id));if(!myG().length){editMode=false;persons=[];showForm();}};
+window.delG=async id=>{await deleteDoc(doc(db,'confirmaciones',id));if(!myG().length){editMode=false;persons=[];showForm();}};
 window.addPerson=()=>{saveN();persons.push({id:Date.now(),tipo:'adulto',nombre:'',dieta:'',evento:'cena'});renderP();};
 window.removePerson=id=>{saveN();persons=persons.filter(p=>p.id!==id);renderP();};
 window.setDieta=(id,dieta)=>{saveN();const p=persons.find(p=>p.id===id);if(p){p.dieta=dieta;}renderP();};
@@ -861,7 +861,7 @@ window.submitRsvp=async()=>{
   if(!ts.length){addPerson();return;}
   const btn=document.getElementById('rsvp-btn'),st=document.getElementById('rsvp-status');
   btn.disabled=true;st.textContent='Guardando...';
-  for(const g of myG())await deleteDoc(doc(db,'asistentes',g.id));
+  for(const g of myG())await deleteDoc(doc(db,'confirmaciones',g.id));
   for(const p of ts)await addDoc(rCol,{...p,dispositivo:DID,invitadoId:INVITADO_ID||DID,ts:serverTimestamp()});
   btn.disabled=false;st.textContent='';editMode=false;
 };
