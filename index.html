@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Ale & Cande — 14.11.2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Great+Vibes&family=Pinyon+Script&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Great+Vibes&family=Pinyon+Script&family=Corinthia&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
@@ -44,7 +44,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 .env-rect{position:absolute;inset:0;background:linear-gradient(170deg,#fdfaf4 0%,#f5f0e6 100%);border-radius:3px;box-shadow:0 2px 4px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.10),0 20px 48px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.8);border:1px solid #e0d8c8;overflow:hidden;}
 .env-rect::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom-right,transparent 49.5%,#e8e0d0 49.5%,#e8e0d0 50%,transparent 50%),linear-gradient(to bottom-left,transparent 49.5%,#e8e0d0 49.5%,#e8e0d0 50%,transparent 50%);opacity:.5;}
 /* Iniciales en el cuerpo del sobre */
-.env-initials{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:2;}
+.env-initials{position:absolute;top:65%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:11;}
 /* Fecha en el sobre */
 .env-fecha{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;font-weight:700;color:#c8a870;white-space:nowrap;z-index:2;}
 /* Solapa — sin sello, solo triángulo limpio */
@@ -52,11 +52,11 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 .env-flap-inner{width:100%;height:100%;transform-origin:top center;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.4,0,.2,1);backface-visibility:hidden;}
 .env-flap-svg{position:absolute;top:0;left:0;width:100%;height:100%;}
 /* Texto invitados */
-.env-invite{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(17px,5vw,23px);color:#8a7050;text-align:center;line-height:1.6;}
+.env-invite{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(17px,5vw,23px);color:#8a7050;text-align:center;line-height:1.6;}
 .env-sub{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#b0a080;margin-top:2px;text-align:center;}
-.env-names{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(22px,7vw,32px);color:#6a5030;text-align:center;line-height:1.4;}
+.env-names{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(22px,7vw,32px);color:#6a5030;text-align:center;line-height:1.4;}
 .env-para{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#8a7858;text-align:center;margin-bottom:2px;}
-.env-hint{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4.5vw,20px);font-style:italic;font-weight:700;color:#6a5030;text-align:center;animation:pulse 2.4s ease infinite;}
+.env-hint{font-family:'Playfair Display',serif;font-size:clamp(16px,4.5vw,20px);font-style:italic;font-weight:700;color:#6a5030;text-align:center;animation:pulse 2.4s ease infinite;}
 @keyframes pulse{0%,100%{opacity:.35;}50%{opacity:.9;}}
 
 /* ── CARD ── */
@@ -162,6 +162,8 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 .guest-name{flex:1;}
 .guest-badge{font-size:15px;color:#9a9488;flex-shrink:0;}
 .guest-del{background:none;border:none;color:#c8bfa8;cursor:pointer;font-size:16px;padding:0 2px;flex-shrink:0;}
+.guest-edit{background:none;border:.5px solid #d8d4cc;border-radius:2px;color:#9a9488;cursor:pointer;font-size:12px;padding:0 6px;height:26px;flex-shrink:0;font-family:'Jost',sans-serif;letter-spacing:.05em;white-space:nowrap;}
+.guest-editing{opacity:.4;}
 .rsvp-edit-btn{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:10px;border:.5px solid #d8d4cc;border-radius:2px;background:transparent;color:#9a9488;cursor:pointer;width:100%;margin-top:10px;}
 .fb-status{font-size:14px;text-align:center;color:#9a9488;min-height:18px;}
 .loading-wrap{text-align:center;padding:16px;font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:#9a9488;}
@@ -175,14 +177,32 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 .precio-fila:last-child{border-bottom:none;}
 .precio-tipo{font-size:17px;color:#4a4843;display:flex;align-items:center;gap:5px;}
 .precio-valor{font-family:'Cormorant Garamond',serif;font-size:21px;color:#2a2a28;}
-.qr-alias{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:#2a2a28;margin-bottom:3px;}
-.qr-cbu{font-size:16px;color:#7a7870;margin-bottom:13px;}
+.qr-alias{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;color:#2a2a28;margin-bottom:3px;transition:color .5s ease,letter-spacing .4s ease;}
+.qr-alias.confirmed{color:#c8872a;letter-spacing:.06em;}
+.qr-cbu{font-size:13px;color:#7a7870;margin-bottom:13px;}
 .qr-img-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:10px;}
 .qr-img-wrap img{width:96px;height:96px;border:.5px solid #d8d4cc;border-radius:2px;padding:5px;background:#fff;}
 .qr-caption{font-size:14px;color:#9a9488;letter-spacing:.09em;}
 .copy-btn{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.15em;text-transform:uppercase;padding:8px 16px;border:.5px solid #d8d4cc;border-radius:2px;background:transparent;color:#4a4843;cursor:pointer;margin-bottom:4px;}
 .total-pagar{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:#c8722a;margin-top:10px;line-height:1.5;}
 .footer{text-align:center;padding:20px 24px 12px;}
+
+/* ── TOAST PAGO ── */
+.pay-toast{
+  position:fixed;bottom:88px;left:50%;
+  transform:translateX(-50%) translateY(16px);
+  background:#2a2a28;color:#f5f3ef;
+  padding:13px 20px;border-radius:14px;
+  font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;
+  text-align:center;z-index:3000;
+  opacity:0;transition:opacity .3s,transform .3s;
+  pointer-events:none;max-width:320px;width:calc(100% - 40px);
+  box-shadow:0 8px 28px rgba(0,0,0,.28);
+  line-height:1.45;
+}
+.pay-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+/* botón copiar alias locked */
+.copy-btn.pay-locked{color:#b0aa9e;border-color:#e8e4dc;cursor:default;}
 
 /* ── FAB CONFIRMAR ── */
 .fab-confirm{
@@ -240,31 +260,33 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
   text-align:center;
 }
 /* ── GALERÍA ── */
-.galeria-wrap{position:relative;display:flex;align-items:center;justify-content:center;gap:0;padding:0 8px 36px;}
-.galeria-track-wrap{overflow:hidden;width:calc(100% - 96px);border-radius:6px;flex:1;-webkit-overflow-scrolling:touch;}
+.galeria-wrap{position:relative;padding:0 0 42px;}
+.galeria-track-wrap{overflow:hidden;width:100%;border-radius:12px;-webkit-overflow-scrolling:touch;}
 .galeria-track{display:flex;transition:transform .75s cubic-bezier(.4,0,.2,1);width:100%;will-change:transform;-webkit-transform:translateX(0);}
 .gal-slide{min-width:100%;width:100%;height:270px;flex-shrink:0;-webkit-flex-shrink:0;}
-.gal-slide img,.gal-slide video{width:100%;height:100%;object-fit:cover;object-position:center bottom;display:block;border-radius:6px;}
+.gal-slide img,.gal-slide video{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;border-radius:0;}
 .gal-btn{
-  position:relative;top:auto;transform:none;
-  width:40px;height:64px;flex-shrink:0;
-  background:#faf9f7;
-  border:.5px solid #d8d4cc;
-  border-radius:4px;
-  font-size:32px;color:#4a4843;
+  position:absolute;top:50%;transform:translateY(-calc(50% + 18px));
+  width:44px;height:60px;flex-shrink:0;
+  background:rgba(250,249,247,.82);
+  border:.5px solid #ddd5c0;
+  border-radius:8px;
+  font-size:26px;color:#7a7870;
   cursor:pointer;
   display:flex;align-items:center;justify-content:center;
   z-index:10;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  transition:background .15s;
+  transition:background .15s, opacity .2s;
   line-height:1;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  margin-top:-30px;
 }
-.gal-btn:hover{background:#ede8df;}
-.gal-prev{margin-right:4px;}
-.gal-next{margin-left:4px;}
-.gal-dots{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:7px;}
-.gal-dot{width:6px;height:6px;border-radius:50%;background:#c8bfa8;opacity:.35;transition:all .2s;cursor:pointer;}
-.gal-dot.active{opacity:1;background:#2a2a28;transform:scale(1.4);}
+.gal-btn:hover{background:rgba(250,249,247,1);color:#2a2a28;}
+.gal-prev{left:-52px;}
+.gal-next{right:-52px;}
+.gal-btn.hidden{opacity:0;pointer-events:none;}
+.gal-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:7px;}
+.gal-dot{width:7px;height:7px;border-radius:50%;background:#c8bfa8;opacity:.35;transition:all .2s;cursor:pointer;}
+.gal-dot.active{opacity:1;background:#2a2a28;transform:scale(1.35);}
 </style>
 </head>
 <body>
@@ -278,9 +300,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
         <!-- Iniciales en el cuerpo -->
         <div class="env-initials">
           <svg width="110" height="56" viewBox="0 0 110 56" fill="none">
-            <text x="24" y="46" font-family="'Cormorant Garamond',serif" font-style="italic" font-size="44" fill="#c8a870" text-anchor="middle">A</text>
-            <line x1="55" y1="8" x2="55" y2="50" stroke="#c8a870" stroke-width="1" opacity=".5"/>
-            <text x="86" y="46" font-family="'Cormorant Garamond',serif" font-style="italic" font-size="44" fill="#c8a870" text-anchor="middle">C</text>
+            <text x="55" y="44" font-family="'Corinthia',cursive" font-size="40" fill="#c8a870" text-anchor="middle">A&amp;C</text>
           </svg>
         </div>
         <!-- Fecha -->
@@ -346,16 +366,17 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
     <p class="section-title" style="text-align:center;margin-bottom:10px;font-size:clamp(20px,5vw,26px);">Un poco de nosotros</p>
     <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:#8a7858;text-align:center;padding:0 28px;margin-bottom:18px;line-height:1.7;">&ldquo;Algunos dicen que es una locura,<br>pero yo no puedo evitar enamorarme de vos&rdquo;</p>
 
+    <div style="padding:0 58px;position:relative;">
     <div class="galeria-wrap">
       <button class="gal-btn gal-prev" onclick="galMove(-1)">&#8249;</button>
       <div class="galeria-track-wrap">
         <div class="galeria-track" id="gal-track">
-        <div class="gal-slide"><img src="https://res.cloudinary.com/djzavfpmj/image/upload/f_auto,q_auto/A4_j8bxbv" alt="" loading="lazy"/></div>
-        <div class="gal-slide"><img src="https://res.cloudinary.com/djzavfpmj/image/upload/f_auto,q_auto/A0_xa3nuu" alt="" loading="lazy"/></div>
-        <div class="gal-slide"><img src="https://res.cloudinary.com/djzavfpmj/image/upload/f_auto,q_auto/A2_gti5t6" alt="" loading="lazy"/></div>
-        <div class="gal-slide"><img src="https://res.cloudinary.com/djzavfpmj/image/upload/f_auto,q_auto/A3_msaglt" alt="" loading="lazy"/></div>
-        <div class="gal-slide"><img src="https://res.cloudinary.com/djzavfpmj/image/upload/f_auto,q_auto/A1_fu2cio" alt="" loading="lazy"/></div>
-        <div class="gal-slide"><img src="https://res.cloudinary.com/djzavfpmj/image/upload/f_auto,q_auto/A7_k0e3jc" alt="" loading="lazy"/></div>
+        <div class="gal-slide"><img src="https://res.cloudinary.com/djzavfpmj/image/upload/f_auto,q_auto,c_fill,g_auto,ar_3:2/A4_j8bxbv" alt="" loading="lazy"/></div>
+        <div class="gal-slide"><img src="https://res.cloudinary.com/djzavfpmj/image/upload/f_auto,q_auto,c_fill,g_faces,ar_3:2,y_-0.15/A0_xa3nuu" alt="" loading="lazy"/></div>
+        <div class="gal-slide"><img src="https://res.cloudinary.com/djzavfpmj/image/upload/f_auto,q_auto,c_fill,g_faces,ar_3:2,y_-0.15/A2_gti5t6" alt="" loading="lazy"/></div>
+        <div class="gal-slide"><img src="https://res.cloudinary.com/djzavfpmj/image/upload/f_auto,q_auto,c_fill,g_faces,ar_3:2,y_-0.15/A3_msaglt" alt="" loading="lazy"/></div>
+        <div class="gal-slide"><img src="https://res.cloudinary.com/djzavfpmj/image/upload/f_auto,q_auto,c_fill,g_faces,ar_3:2,y_-0.15/A1_fu2cio" alt="" loading="lazy"/></div>
+        <div class="gal-slide"><img src="https://res.cloudinary.com/djzavfpmj/image/upload/f_auto,q_auto,c_fill,g_auto,ar_3:2/A7_k0e3jc" alt="" loading="lazy"/></div>
         </div>
       </div>
       <button class="gal-btn gal-next" onclick="galMove(1)">&#8250;</button>
@@ -367,6 +388,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
       <span class="gal-dot" onclick="galMoveTo(4)"></span>
       <span class="gal-dot" onclick="galMoveTo(5)"></span>
       </div>
+    </div>
     </div>
     <div class="scroll-hint" onclick="document.getElementById('eventos-section').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;position:absolute;bottom:10px;left:50%;transform:translateX(-50%);">
       <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
@@ -385,7 +407,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
       <div class="event-icon">⛪</div>
       <div class="event-info">
         <div class="event-title">Ceremonia</div>
-        <div class="event-date">14 de noviembre &middot; 20:00 hs</div>
+        <div class="event-date">14 de noviembre &middot; 20:30 hs</div>
         <div class="event-place">Parroquia Santuario de Fátima</div>
       </div>
       <div class="event-arrow">📍 Ir a Maps</div>
@@ -394,7 +416,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
       <div class="event-icon">🥂</div>
       <div class="event-info">
         <div class="event-title">Fiesta</div>
-        <div class="event-date">14 de noviembre &middot; 20:50 hs</div>
+        <div class="event-date">14 de noviembre &middot; 21:00 hs</div>
         <div class="event-place">Palmar del Lago</div>
       </div>
       <div class="event-arrow">📍 Ir a Maps</div>
@@ -477,8 +499,8 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
   <div class="timeline-h">
     <div class="timeline-h-inner">
       <div class="timeline-h-line"></div>
-      <div class="tl-step"><div class="tl-icon">⛪</div><div class="tl-dot main"></div><div class="tl-time">20:00</div><div class="tl-title">Ceremonia</div><div class="tl-place">Santuario Fátima</div></div>
-      <div class="tl-step"><div class="tl-icon">🥂</div><div class="tl-dot main"></div><div class="tl-time">20:50</div><div class="tl-title">Recepción</div><div class="tl-place">Palmar del Lago</div></div>
+      <div class="tl-step"><div class="tl-icon">⛪</div><div class="tl-dot main"></div><div class="tl-time">20:30</div><div class="tl-title">Ceremonia</div><div class="tl-place">Santuario Fátima</div></div>
+      <div class="tl-step"><div class="tl-icon">🥂</div><div class="tl-dot main"></div><div class="tl-time">21:00</div><div class="tl-title">Recepción</div><div class="tl-place">Palmar del Lago</div></div>
       <div class="tl-step"><div class="tl-icon">🍽️</div><div class="tl-dot"></div><div class="tl-time">22:00</div><div class="tl-title">Cena</div><div class="tl-place">Palmar del Lago</div></div>
       <div class="tl-step"><div class="tl-icon">🎶</div><div class="tl-dot"></div><div class="tl-time">00:30</div><div class="tl-title">Fiesta</div><div class="tl-place">Palmar del Lago</div></div>
       <div class="tl-step"><div class="tl-icon">🌅</div><div class="tl-dot"></div><div class="tl-time">4:00</div><div class="tl-title">Fin</div><div class="tl-place">Palmar del Lago</div></div>
@@ -505,16 +527,16 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
     <p class="section-title" id="rsvp-title">¿Vas a estar?</p>
     <p style="text-align:center;font-size:17px;color:#9a9488;margin:8px 0 16px;">Confirmá antes del 1 de noviembre de 2026</p>
     <div class="loading-wrap" id="rsvp-loading">Cargando...</div>
+    <div class="rsvp-confirmed" id="rsvp-confirmed" style="margin-bottom:16px;">
+      <p class="rsvp-confirmed-title">¡Gracias, los esperamos!</p>
+      <div class="rsvp-guest-list" id="rsvp-guest-list"></div>
+      <button class="rsvp-edit-btn" id="rsvp-edit-btn" onclick="editRsvp()">Modificar confirmación</button>
+    </div>
     <div class="rsvp-form" id="rsvp-form" style="display:none;">
       <div id="companions-list"></div>
       <button class="add-companion-btn" onclick="addPerson()">+ Agregar persona</button>
       <div class="fb-status" id="rsvp-status"></div>
       <button class="rsvp-btn" id="rsvp-btn" onclick="submitRsvp()">Confirmar asistencia</button>
-    </div>
-    <div class="rsvp-confirmed" id="rsvp-confirmed">
-      <p class="rsvp-confirmed-title">¡Gracias, los esperamos!</p>
-      <div class="rsvp-guest-list" id="rsvp-guest-list"></div>
-      <button class="rsvp-edit-btn" onclick="editRsvp()">Modificar confirmación</button>
     </div>
   </div>
 
@@ -531,15 +553,18 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
       <div style="display:flex;flex-direction:column;gap:12px;font-family:'Jost',sans-serif;font-size:16px;color:#4a4843;line-height:1.6;">
         <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
           <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">🗓️ Hasta junio 2026</p>
-          <p style="color:#7a7870;font-size:15px;">Precios vigentes actualmente.</p>
+          <p style="color:#7a7870;font-size:15px;">Los valores se mantienen como están actualmente.</p>
         </div>
         <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
           <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">📅 Julio · Agosto · Septiembre</p>
-          <p style="color:#7a7870;font-size:15px;">Los precios se ajustarán aprox. un <strong>+15%</strong>. El nuevo valor se verá reflejado automáticamente en esta tarjeta.</p>
+          <p style="color:#7a7870;font-size:15px;">A partir de estos meses puede haber un ajuste aproximado del <strong>15%</strong>, definido por el servicio de catering. En caso de aplicarse, se verá reflejado automáticamente en esta misma tarjeta.</p>
         </div>
         <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
           <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">📅 Octubre · Noviembre</p>
-          <p style="color:#7a7870;font-size:15px;">Un nuevo ajuste de aprox. <strong>+15%</strong> sobre el precio anterior. También se actualizará en la tarjeta.</p>
+          <p style="color:#7a7870;font-size:15px;">Para estos meses podría haber un nuevo ajuste similar al anterior, también establecido por el catering.</p>
+        </div>
+        <div style="background:#f0ece4;border-radius:6px;padding:13px 15px;border-left:3px solid #c8a870;">
+          <p style="color:#7a6a50;font-size:15px;font-style:italic;line-height:1.7;">Si lo desean, pueden ir abonando las tarjetas con anticipación. Cada pago deja cubierta la tarjeta de una persona.</p>
         </div>
       </div>
     </div>
@@ -547,36 +572,74 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 
   <div class="qr-box">
     <div class="precio-box">
-      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px;">
         <p class="precio-title" style="margin-bottom:0;">Precios vigentes catering</p>
-        <button onclick="document.getElementById('precio-modal').style.display='flex'" style="background:none;border:.5px solid #d8d4cc;border-radius:4px;cursor:pointer;font-size:12px;padding:2px 7px;color:#9a9488;font-family:'Jost',sans-serif;letter-spacing:.05em;white-space:nowrap;">ℹ️ (click aquí)</button>
+        <button onclick="document.getElementById('precio-modal').style.display='flex'" style="background:none;border:none;cursor:pointer;padding:0;line-height:1;font-size:13px;font-family:'Jost',sans-serif;color:#9a9488;letter-spacing:.04em;display:inline-flex;align-items:center;gap:5px;"><span style="display:inline-block;animation:pulseBtn 1.6s ease-in-out infinite;background:#c8a870;color:#fff;border-radius:20px;padding:3px 10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;box-shadow:0 0 0 0 rgba(200,168,112,.5);">Ver info</span></button>
+<style>@keyframes pulseBtn{0%,100%{box-shadow:0 0 0 0 rgba(200,168,112,.55);transform:scale(1);}50%{box-shadow:0 0 0 7px rgba(200,168,112,0);transform:scale(1.04);}}</style>
       </div>
-      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena adulto</span><span class="precio-valor">$98.000</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena niño</span><span class="precio-valor">$55.000</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis</span><span class="precio-valor">$45.000</span></div>
+      <p style="text-align:center;font-family:'Jost',sans-serif;font-size:12px;color:#b0aa9e;letter-spacing:.06em;margin-bottom:10px;">🥂 Recepción &nbsp;·&nbsp; 🍽️ Cena &nbsp;·&nbsp; 🍰 Postre</p>
+      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena adulto</span><span class="precio-valor">$96.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena joven <small style="font-size:13px;color:#9a9488;">(12 a 17 años)</small></span><span class="precio-valor">$68.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena niño <small style="font-size:13px;color:#9a9488;">(2 a 11 años)</small></span><span class="precio-valor">$48.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis adulto <small style="font-size:13px;color:#9a9488;">(desde 00:00 hs)</small></span><span class="precio-valor">$48.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis <small style="font-size:13px;color:#9a9488;">(hasta 17 años)</small></span><span class="precio-valor">$32.000</span></div>
     </div>
-    <p class="qr-alias">ale.y.cande</p>
+    <p class="qr-alias" id="qr-alias-text">BODA.ALEYCANDE</p>
     <p class="qr-cbu">CBU: 0000003100012345678901</p>
-    <div class="qr-img-wrap">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=alias:ale.y.cande&color=2a2a28&bgcolor=ffffff" alt="QR"/>
-      <span class="qr-caption">Escaneá para transferir</span>
+    <div style="display:flex;flex-direction:column;gap:10px;margin:14px 0 4px;">
+      <button class="copy-btn" id="copy-alias-btn" onclick="copyAlias()" style="margin:0;">Copiar alias</button>
     </div>
-    <button class="copy-btn" onclick="copyAlias()">Copiar alias</button>
     <p class="total-pagar" id="total-pagar"></p>
   </div>
 
   <!-- S9: REGALO -->
   <div class="divider"></div>
   <div style="margin:0 24px;">
-    <div style="border:.5px solid #d8d4cc;border-radius:4px;padding:28px 24px;text-align:center;background:#faf9f7;position:relative;overflow:hidden;">
-      <!-- Decoración sutil de fondo -->
-      <div style="position:absolute;top:-18px;right:-18px;font-size:80px;opacity:.06;pointer-events:none;">💍</div>
-      <div style="position:absolute;bottom:-18px;left:-18px;font-size:80px;opacity:.06;pointer-events:none;">🌸</div>
-      <!-- Contenido -->
-      <div style="font-size:32px;margin-bottom:14px;">🤍</div>
-      <p class="section-label" style="margin-bottom:8px;">Una nota con amor</p>
-      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:23px;color:#2a2a28;line-height:1.5;margin-bottom:14px;">El mejor regalo sos vos</p>
-      <p style="font-family:'Jost',sans-serif;font-size:16px;color:#7a7870;line-height:1.8;max-width:320px;margin:0 auto;">Tu presencia en este día es lo que más nos importa. No te preocupes por ningún otro gesto — compartir este momento con nosotros ya es todo. ✨</p>
+    <div style="border:.5px solid #d8d4cc;border-radius:4px;padding:32px 28px;text-align:center;background:#f7f4ef;position:relative;overflow:hidden;">
+      <!-- Esquinas decorativas estilo image -->
+      <!-- Top-left -->
+      <svg style="position:absolute;top:10px;left:10px;opacity:.55;" width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M2 20 L2 2 L20 2" stroke="#9a9488" stroke-width="1.2" fill="none"/><path d="M6 20 L6 6 L20 6" stroke="#9a9488" stroke-width=".7" fill="none"/></svg>
+      <!-- Top-right -->
+      <svg style="position:absolute;top:10px;right:10px;opacity:.55;" width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M20 20 L20 2 L2 2" stroke="#9a9488" stroke-width="1.2" fill="none"/><path d="M16 20 L16 6 L2 6" stroke="#9a9488" stroke-width=".7" fill="none"/></svg>
+      <!-- Bottom-left -->
+      <svg style="position:absolute;bottom:10px;left:10px;opacity:.55;" width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M2 2 L2 20 L20 20" stroke="#9a9488" stroke-width="1.2" fill="none"/><path d="M6 2 L6 16 L20 16" stroke="#9a9488" stroke-width=".7" fill="none"/></svg>
+      <!-- Bottom-right -->
+      <svg style="position:absolute;bottom:10px;right:10px;opacity:.55;" width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M20 2 L20 20 L2 20" stroke="#9a9488" stroke-width="1.2" fill="none"/><path d="M16 2 L16 16 L2 16" stroke="#9a9488" stroke-width=".7" fill="none"/></svg>
+      <!-- Ilustración lineal minimalista — esquina inferior izquierda -->
+      <svg style="position:absolute;bottom:0;left:0;opacity:.22;pointer-events:none;" width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Tallo principal -->
+        <path d="M18 88 Q22 68 30 52 Q38 36 42 20" stroke="#9a7a50" stroke-width="1" fill="none" stroke-linecap="round"/>
+        <!-- Tallo secundario izquierdo -->
+        <path d="M30 52 Q20 46 12 40" stroke="#9a7a50" stroke-width=".8" fill="none" stroke-linecap="round"/>
+        <!-- Tallo secundario derecho -->
+        <path d="M36 38 Q46 32 52 24" stroke="#9a7a50" stroke-width=".8" fill="none" stroke-linecap="round"/>
+        <!-- Flor superior — pétalos simples -->
+        <path d="M42 20 Q44 12 42 6 Q40 12 42 20Z" stroke="#9a7a50" stroke-width=".8" fill="none"/>
+        <path d="M42 20 Q50 16 54 10 Q46 14 42 20Z" stroke="#9a7a50" stroke-width=".8" fill="none"/>
+        <path d="M42 20 Q34 16 30 10 Q38 14 42 20Z" stroke="#9a7a50" stroke-width=".8" fill="none"/>
+        <circle cx="42" cy="20" r="2" stroke="#9a7a50" stroke-width=".8" fill="none"/>
+        <!-- Flor izquierda pequeña -->
+        <path d="M12 40 Q12 34 12 29 Q10 34 12 40Z" stroke="#9a7a50" stroke-width=".7" fill="none"/>
+        <path d="M12 40 Q18 37 21 32 Q15 36 12 40Z" stroke="#9a7a50" stroke-width=".7" fill="none"/>
+        <path d="M12 40 Q6 37 3 32 Q9 36 12 40Z" stroke="#9a7a50" stroke-width=".7" fill="none"/>
+        <circle cx="12" cy="40" r="1.5" stroke="#9a7a50" stroke-width=".7" fill="none"/>
+        <!-- Flor derecha pequeña -->
+        <path d="M52 24 Q52 18 52 13 Q50 18 52 24Z" stroke="#9a7a50" stroke-width=".7" fill="none"/>
+        <path d="M52 24 Q58 21 61 16 Q55 20 52 24Z" stroke="#9a7a50" stroke-width=".7" fill="none"/>
+        <path d="M52 24 Q46 21 43 16 Q49 20 52 24Z" stroke="#9a7a50" stroke-width=".7" fill="none"/>
+        <circle cx="52" cy="24" r="1.5" stroke="#9a7a50" stroke-width=".7" fill="none"/>
+        <!-- Hojitas -->
+        <path d="M26 58 Q18 54 16 48 Q24 53 26 58Z" stroke="#9a7a50" stroke-width=".7" fill="none"/>
+        <path d="M34 44 Q42 40 44 34 Q36 39 34 44Z" stroke="#9a7a50" stroke-width=".7" fill="none"/>
+      </svg>
+      <!-- Contenido nota con amor -->
+      <!-- Corazón outline -->
+      <svg width="44" height="40" viewBox="0 0 44 40" fill="none" style="margin-bottom:14px;" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 36 C22 36 4 24 4 13 C4 7.5 8.5 3 14 3 C17.5 3 20.5 4.8 22 7.5 C23.5 4.8 26.5 3 30 3 C35.5 3 40 7.5 40 13 C40 24 22 36 22 36Z" stroke="#9a9488" stroke-width="1.2" fill="none"/>
+      </svg>
+      <p class="section-label" style="margin-bottom:10px;">Una nota con amor</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:#5a3e1b;line-height:1.5;margin-bottom:16px;">El mejor regalo sos vos</p>
+      <p style="font-family:'Jost',sans-serif;font-size:16px;color:#7a7870;line-height:1.9;max-width:300px;margin:0 auto;">Tu presencia en este día es lo que más nos importa. No te preocupes por ningún otro gesto — compartir este momento con nosotros ya es todo. ✨</p>
     </div>
   </div>
 
@@ -596,6 +659,8 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
   </div>
 
 
+<div class="pay-toast" id="pay-toast"></div>
+
 </div>
 
 <script>
@@ -603,11 +668,18 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 let galIdx=0;
 const GAL_TOTAL=6;
 function galMoveTo(n){ galIdx=n; galUpdate(); }
-function galMove(dir){ galIdx=(galIdx+dir+GAL_TOTAL)%GAL_TOTAL; galUpdate(); }
+function galMove(dir){
+  const ni=galIdx+dir;
+  if(ni<0||ni>=GAL_TOTAL) return;
+  galIdx=ni; galUpdate();
+}
 function galUpdate(){
   document.getElementById('gal-track').style.transform=`translateX(-${galIdx*100}%)`;
   document.querySelectorAll('.gal-dot').forEach((d,i)=>d.className='gal-dot'+(i===galIdx?' active':''));
-  // Autoplay video when reached
+  const pb=document.querySelector('.gal-prev');
+  const nb=document.querySelector('.gal-next');
+  if(pb) pb.classList.toggle('hidden', galIdx===0);
+  if(nb) nb.classList.toggle('hidden', galIdx===GAL_TOTAL-1);
   document.querySelectorAll('.gal-video video').forEach((v,i)=>{
     if(i===galIdx-5) v.play();
     else v.pause();
@@ -723,8 +795,56 @@ function tick(){
   document.getElementById('cd-s').textContent=String(Math.floor((diff%60000)/1000)).padStart(2,'0');
 }
 tick();setInterval(tick,1000);
+galUpdate();
 
-window.copyAlias=()=>{navigator.clipboard.writeText('ale.y.cande').then(()=>{const b=document.querySelector('.copy-btn');b.textContent='Copiado ✓';setTimeout(()=>{b.textContent='Copiar alias';},2000);});};
+window.copyAlias=()=>{
+  if(!window.rsvpConfirmed){showPayToast('💌 Antes de realizar un pago o copiar el alias,\nconfirmá tu asistencia');return;}
+  const b=document.getElementById('copy-alias-btn');
+  const alias='BODA.ALEYCANDE';
+  const done=()=>{
+    b.textContent='✓ Copiado';
+    b.style.background='#c8a870';
+    b.style.color='#fff';
+    b.style.borderColor='#c8a870';
+    setTimeout(()=>{
+      b.textContent='Copiar alias';
+      b.style.background='';
+      b.style.color='';
+      b.style.borderColor='';
+    },2200);
+  };
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(alias).then(done).catch(()=>{
+      const el=document.createElement('textarea');
+      el.value=alias;el.style.position='fixed';el.style.opacity='0';
+      document.body.appendChild(el);el.focus();el.select();
+      document.execCommand('copy');document.body.removeChild(el);done();
+    });
+  } else {
+    const el=document.createElement('textarea');
+    el.value=alias;el.style.position='fixed';el.style.opacity='0';
+    document.body.appendChild(el);el.focus();el.select();
+    document.execCommand('copy');document.body.removeChild(el);done();
+  }
+};
+
+window.rsvpConfirmed=false;
+
+function showPayToast(msg){
+  const t=document.getElementById('pay-toast');
+  t.innerHTML=msg.replace(/\n/g,'<br>');
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer=setTimeout(()=>t.classList.remove('show'),3400);
+}
+
+function updatePayButtons(){
+  const locked=!window.rsvpConfirmed;
+  const copyBtn=document.getElementById('copy-alias-btn');
+  const aliasEl=document.getElementById('qr-alias-text');
+  if(copyBtn){copyBtn.classList.toggle('pay-locked',locked);}
+  if(aliasEl){aliasEl.classList.toggle('confirmed',!locked);}
+}
 </script>
 
 <script type="module">
@@ -740,7 +860,7 @@ function getInvitadoId(){
 const INVITADO_ID = getInvitadoId();
 
 function getDeviceId(){let id=localStorage.getItem('boda_device_id');if(!id){id='inv_'+Math.random().toString(36).substr(2,9)+'_'+Date.now();localStorage.setItem('boda_device_id',id);}return id;}
-const DID=INVITADO_ID || getDeviceId(),PA=98000,PN=55000,PB=45000;
+const DID=INVITADO_ID || getDeviceId(),PA=96000,PADOL=68000,PN=48000,PBA=48000,PBN=32000;
 function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 // CARGAR NOMBRE INVITADO desde Firebase
@@ -777,37 +897,74 @@ function renderSongs(){
 document.getElementById('song-input').addEventListener('keydown',e=>{if(e.key==='Enter')window.addSong();});
 
 // RSVP
+// RSVP
 const rCol=collection(db,'confirmaciones'),gMap={};
-let editMode=false,persons=[];
+let editMode=false,addMode=false,persons=[];
+const pendingEditIds=new Set();
 const myG=()=>Object.values(gMap).filter(d=>d.invitadoId===sScope);
-onSnapshot(rCol,snap=>{snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete gMap[ch.doc.id];else{const d={id:ch.doc.id,...ch.doc.data()};if(d.invitadoId===sScope)gMap[ch.doc.id]=d;}});document.getElementById('rsvp-loading').style.display='none';const m=myG();if(m.length&&!editMode)showConf();else if(!editMode)showForm();updateTotal();});
+onSnapshot(rCol,snap=>{snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete gMap[ch.doc.id];else{const d={id:ch.doc.id,...ch.doc.data()};if(d.invitadoId===sScope)gMap[ch.doc.id]=d;}});document.getElementById('rsvp-loading').style.display='none';const m=myG();window.rsvpConfirmed=m.length>0;if(typeof updatePayButtons==='function')updatePayButtons();if(m.length)showConf();else if(!editMode&&!addMode)showForm();updateTotal();});
 function updT(n){document.getElementById('rsvp-title').textContent=n>=2?'¿Van a estar?':'¿Vas a estar?';}
 
 const dietaLabels={'celiaco':'🌾 Celíaco','vegetariano':'🥗 Vegetariano','':'Sin restricción'};
 const eventLabels={'cena':'🍽️ Cena','brindis':'🥂 Brindis','':'Sin selección'};
 
 function showConf(){
-  document.getElementById('rsvp-form').style.display='none';
   document.getElementById('rsvp-confirmed').style.display='block';
   const m=myG();updT(m.length);
   document.getElementById('rsvp-guest-list').innerHTML=m.map((d,i)=>`
-    <div class="rsvp-guest-item">
+    <div class="rsvp-guest-item${pendingEditIds.has(d.id)?' guest-editing':''}">
       <span class="guest-num">${i+1}</span>
       <div style="flex:1;">
         <div class="guest-name">${esc(d.nombre)}</div>
         <div style="font-size:13px;color:#9a9488;margin-top:2px;display:flex;gap:8px;flex-wrap:wrap;">
-          <span>${d.tipo==='nino'?'👦 Niño':'👤 Adulto'}</span>
+          <span>${d.tipo==='nino'?'👦 Niño':d.tipo==='joven'?'🧑 Joven':'👤 Adulto'}</span>
           ${d.evento?`<span>${eventLabels[d.evento]||d.evento}</span>`:''}
           ${d.dieta?`<span>${dietaLabels[d.dieta]||d.dieta}</span>`:''}
         </div>
       </div>
+      ${!pendingEditIds.has(d.id)?`<button class="guest-edit" onclick="editGuest('${d.id}')">✏️ Editar</button>`:'<span style="font-size:12px;color:#b0aa9e;padding:0 4px;">editando...</span>'}
       <button class="guest-del" onclick="delG('${d.id}')">×</button>
     </div>`).join('');
+  const editBtn=document.getElementById('rsvp-edit-btn');
+  if(editBtn) editBtn.style.display=addMode?'none':'block';
+  if(!addMode) document.getElementById('rsvp-form').style.display='none';
 }
 
 function showForm(){document.getElementById('rsvp-confirmed').style.display='none';document.getElementById('rsvp-form').style.display='flex';if(!persons.length)addPerson();renderP();}
-window.editRsvp=()=>{editMode=true;persons=myG().map(d=>({id:Date.now()+Math.random(),tipo:d.tipo,nombre:d.nombre,dieta:d.dieta||'',evento:d.evento||'cena'}));showForm();};
-window.delG=async id=>{await deleteDoc(doc(db,'confirmaciones',id));if(!myG().length){editMode=false;persons=[];showForm();}};
+
+window.editRsvp=()=>{
+  addMode=true;editMode=true;
+  persons=[];pendingEditIds.clear();
+  addPerson();
+  document.getElementById('rsvp-confirmed').style.display='block';
+  document.getElementById('rsvp-form').style.display='flex';
+  const editBtn=document.getElementById('rsvp-edit-btn');
+  if(editBtn) editBtn.style.display='none';
+  renderP();showConf();
+};
+
+window.editGuest=id=>{
+  const g=gMap[id];if(!g||pendingEditIds.has(id))return;
+  // Si no estamos en modo edición, activarlo primero
+  if(!addMode){
+    addMode=true;editMode=true;persons=[];pendingEditIds.clear();
+    document.getElementById('rsvp-form').style.display='flex';
+    document.getElementById('rsvp-edit-btn').style.display='none';
+  }
+  pendingEditIds.add(id);
+  saveN();
+  persons.push({id:Date.now(),tipo:g.tipo||'adulto',nombre:g.nombre||'',dieta:g.dieta||'',evento:g.evento||'cena',_fbId:id});
+  renderP();showConf();
+  // Scroll suave al formulario
+  document.getElementById('rsvp-form').scrollIntoView({behavior:'smooth',block:'nearest'});
+};
+
+window.delG=async id=>{
+  pendingEditIds.delete(id);
+  persons=persons.filter(p=>p._fbId!==id);
+  await deleteDoc(doc(db,'confirmaciones',id));
+  if(!myG().length){editMode=false;addMode=false;persons=[];pendingEditIds.clear();showForm();}
+};
 window.addPerson=()=>{saveN();persons.push({id:Date.now(),tipo:'adulto',nombre:'',dieta:'',evento:'cena'});renderP();};
 window.removePerson=id=>{saveN();persons=persons.filter(p=>p.id!==id);renderP();};
 window.setDieta=(id,dieta)=>{saveN();const p=persons.find(p=>p.id===id);if(p){p.dieta=dieta;}renderP();};
@@ -827,6 +984,7 @@ function renderP(){
         <input class="rsvp-input" type="text" placeholder="Nombre completo" id="comp-${p.id}" value="${esc(p.nombre||'')}"/>
         <div class="type-toggle">
           <button class="type-btn btn-adulto ${p.tipo==='adulto'?'active':''}" onclick="setTipo(${p.id},'adulto')">Adulto</button>
+          <button class="type-btn btn-joven ${p.tipo==='joven'?'active':''}" onclick="setTipo(${p.id},'joven')">Joven</button>
           <button class="type-btn btn-nino ${p.tipo==='nino'?'active':''}" onclick="setTipo(${p.id},'nino')">Niño</button>
         </div>
         ${persons.length>1?`<button class="remove-companion" onclick="removePerson(${p.id})">×</button>`:''}
@@ -844,7 +1002,6 @@ function renderP(){
           ${pill('Sin restricción', p.dieta==='', `setDieta(${p.id},'')`)}
           ${pill('🌾 Celíaco', p.dieta==='celiaco', `setDieta(${p.id},'celiaco')`)}
           ${pill('🥗 Vegetariano', p.dieta==='vegetariano', `setDieta(${p.id},'vegetariano')`)}
-
         </div>
       </div>
     </div>`).join('');
@@ -861,23 +1018,36 @@ window.submitRsvp=async()=>{
   if(!ts.length){addPerson();return;}
   const btn=document.getElementById('rsvp-btn'),st=document.getElementById('rsvp-status');
   btn.disabled=true;st.textContent='Guardando...';
-  for(const g of myG())await deleteDoc(doc(db,'confirmaciones',g.id));
+  if(!addMode){
+    for(const g of myG())await deleteDoc(doc(db,'confirmaciones',g.id));
+  } else {
+    for(const id of pendingEditIds)await deleteDoc(doc(db,'confirmaciones',id));
+  }
   for(const p of ts)await addDoc(rCol,{...p,dispositivo:DID,invitadoId:INVITADO_ID||DID,ts:serverTimestamp()});
-  btn.disabled=false;st.textContent='';editMode=false;
+  btn.disabled=false;st.textContent='';
+  editMode=false;addMode=false;persons=[];pendingEditIds.clear();
+  window.rsvpConfirmed=true;
+  if(typeof updatePayButtons==='function')updatePayButtons();
+  document.getElementById('rsvp-form').style.display='none';
+  showConf();
 };
 
 function updateTotal(){
   const m=myG();
-  const cenaAdultos=m.filter(d=>d.tipo!=='nino'&&d.evento!=='brindis').length;
+  const cenaAdultos=m.filter(d=>d.tipo==='adulto'&&d.evento!=='brindis').length;
+  const cenaAdol=m.filter(d=>d.tipo==='joven'&&d.evento!=='brindis').length;
   const cenaNinos=m.filter(d=>d.tipo==='nino'&&d.evento!=='brindis').length;
-  const brindis=m.filter(d=>d.evento==='brindis').length;
+  const brindisAdulto=m.filter(d=>d.tipo==='adulto'&&d.evento==='brindis').length;
+  const brindisJoven=m.filter(d=>(d.tipo==='joven'||d.tipo==='nino')&&d.evento==='brindis').length;
   const el=document.getElementById('total-pagar');
   if(!m.length){el.textContent='';return;}
-  const t=cenaAdultos*PA + cenaNinos*PN + brindis*PB;
+  const t=cenaAdultos*PA + cenaAdol*PADOL + cenaNinos*PN + brindisAdulto*PBA + brindisJoven*PBN;
   const parts=[];
   if(cenaAdultos)parts.push(`${cenaAdultos} cena adulto${cenaAdultos>1?'s':''}`);
+  if(cenaAdol)parts.push(`${cenaAdol} cena joven${cenaAdol>1?'s':''}`);
   if(cenaNinos)parts.push(`${cenaNinos} cena niño${cenaNinos>1?'s':''}`);
-  if(brindis)parts.push(`${brindis} brindis`);
+  if(brindisAdulto)parts.push(`${brindisAdulto} brindis adulto${brindisAdulto>1?'s':''}`);
+  if(brindisJoven)parts.push(`${brindisJoven} brindis joven${brindisJoven>1?'es':''}`);
   el.textContent='💳 Total estimado: $'+t.toLocaleString('es-AR')+' ('+parts.join(' + ')+')';
 }
 
