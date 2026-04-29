@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Admin — Boda Ale & Cande</title>
+<title>Admin — Boda Ale &amp; Cande</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{-webkit-text-size-adjust:100%;}
 body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1a1a1a;}
+
+/* ── LOGIN ── */
 #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#1a1a2e,#16213e);}
 .login-box{background:#fff;border-radius:12px;padding:40px;width:320px;box-shadow:0 20px 60px rgba(0,0,0,.3);text-align:center;}
 .login-box h1{font-size:22px;margin-bottom:6px;}
@@ -16,38 +18,47 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
 .login-box input:focus{border-color:#6c63ff;}
 .login-box button{width:100%;padding:12px;background:#6c63ff;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;}
 .login-error{color:#e53935;font-size:13px;margin-top:8px;}
+
+/* ── APP ── */
 #app{display:none;min-height:100vh;}
 .header{background:#1a1a2e;color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
 .header h1{font-size:18px;font-weight:600;}
 .header span{font-size:12px;opacity:.6;}
-.tabs{display:flex;background:#fff;border-bottom:1px solid #e8e8e8;padding:0 16px;overflow-x:auto;position:sticky;top:53px;z-index:99;}
-.tab{padding:14px 18px;font-size:13px;font-weight:500;color:#888;cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;}
+.tabs{display:flex;background:#fff;border-bottom:1px solid #e8e8e8;padding:0 8px;overflow-x:auto;position:sticky;top:53px;z-index:99;}
+.tab{padding:13px 14px;font-size:12px;font-weight:500;color:#888;cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;flex-shrink:0;}
 .tab.active{color:#6c63ff;border-color:#6c63ff;}
 .container{padding:16px;}
+
+/* ── STATS ── */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px;}
 .stat-card{background:#fff;border-radius:10px;padding:16px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .stat-num{font-size:28px;font-weight:700;color:#6c63ff;}
-.stat-label{font-size:11px;color:#888;margin-top:4px;}
-.section-card{background:#fff;border-radius:10px;padding:20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
-.section-card h2{font-size:15px;font-weight:600;margin-bottom:12px;}
-.import-info{font-size:13px;color:#666;margin-bottom:14px;line-height:1.6;}
-.file-upload{border:2px dashed #d0d0d0;border-radius:8px;padding:24px;text-align:center;cursor:pointer;transition:border-color .2s;}
-.file-upload:hover,.file-upload.drag{border-color:#6c63ff;background:#f8f6ff;}
-.file-upload input{display:none;}
-.file-upload p{font-size:13px;color:#888;margin-top:6px;}
-.btn{padding:10px 20px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s;}
-.btn-primary{background:#6c63ff;color:#fff;}
-.btn-primary:hover{background:#5a52d5;}
-.btn-primary:disabled{opacity:.5;cursor:not-allowed;}
-.btn-danger{background:#fee;color:#e53935;border:1px solid #fcc;}
-.btn-sm{padding:5px 10px;font-size:12px;border-radius:6px;}
+.stat-label{font-size:11px;color:#888;margin-top:4px;line-height:1.3;}
+.stat-card.green .stat-num{color:#2e7d32;}
+.stat-card.blue  .stat-num{color:#1565c0;}
+.stat-card.amber .stat-num{color:#e65100;}
+.stat-card.rose  .stat-num{color:#ad1457;}
+
+/* ── RECAUDACION ── */
+.rec-box{background:#fff;border-radius:10px;padding:20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.rec-box h3{font-size:14px;font-weight:600;color:#555;margin-bottom:12px;text-transform:uppercase;letter-spacing:.04em;}
+.rec-table{width:100%;border-collapse:collapse;font-size:13px;}
+.rec-table th{background:#f8f8f8;padding:8px 10px;text-align:left;font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid #e8e8e8;}
+.rec-table td{padding:8px 10px;border-bottom:1px solid #f5f5f5;}
+.rec-table tr:last-child td{border-bottom:none;font-weight:700;font-size:14px;background:#f8f8f8;}
+.rec-table .num{text-align:right;font-variant-numeric:tabular-nums;}
+.rec-total-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1.5px solid #e8e8e8;margin-top:4px;}
+.rec-total-row .lbl{font-size:13px;color:#555;}
+.rec-total-row .val{font-size:15px;font-weight:700;}
+.val.green{color:#2e7d32;}
+.val.red{color:#c62828;}
+.val.blue{color:#1565c0;}
+
+/* ── TABLE ── */
 .table-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
 .table-header h2{font-size:15px;font-weight:600;}
 .search-bar{padding:8px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:13px;outline:none;width:200px;}
 .search-bar:focus{border-color:#6c63ff;}
-.filter-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
-.filter-btn{padding:6px 12px;border:1px solid #e0e0e0;border-radius:20px;background:#fff;font-size:12px;cursor:pointer;color:#666;}
-.filter-btn.active{background:#6c63ff;color:#fff;border-color:#6c63ff;}
 .inv-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .inv-table th{background:#f8f8f8;padding:10px 12px;text-align:left;font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid #e8e8e8;white-space:nowrap;}
 .inv-table td{padding:10px 12px;border-bottom:1px solid #f5f5f5;vertical-align:top;font-size:13px;}
@@ -58,39 +69,90 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
 .badge-pending{background:#fff8e1;color:#f57f17;}
 .badge-cena{background:#e3f2fd;color:#1565c0;}
 .badge-brindis{background:#f3e5f5;color:#6a1b9a;}
-.pago-toggle{display:flex;align-items:center;gap:6px;cursor:pointer;}
-.pago-toggle input{accent-color:#6c63ff;width:16px;height:16px;cursor:pointer;}
 .copy-link{background:none;border:none;cursor:pointer;color:#6c63ff;font-size:11px;padding:2px 4px;text-decoration:underline;}
-.persona-item{display:flex;gap:6px;align-items:center;font-size:12px;color:#555;margin-bottom:3px;flex-wrap:wrap;}
+.empty{text-align:center;padding:40px;color:#aaa;}
+.loading{text-align:center;padding:40px;color:#aaa;font-size:13px;}
+.prow{display:flex;align-items:center;min-height:28px;padding:2px 0;border-bottom:1px dashed #f0f0f0;font-size:12px;}
+.prow:last-child{border-bottom:none;}
+
+/* ── PAGO POR PERSONA ── */
+.pago-btn{border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:.15s;}
+.pago-btn.pagado{background:#e8f5e9;color:#2e7d32;}
+.pago-btn.pendiente{background:#fce4ec;color:#c62828;}
+.pago-summary{margin-top:6px;padding-top:6px;border-top:1px solid #e8e8e8;font-size:11px;color:#888;display:flex;justify-content:space-between;}
+.pago-summary .pv{color:#2e7d32;font-weight:600;}
+.precio-cell{font-size:12px;color:#555;white-space:nowrap;}
+
+/* ── BUTTONS ── */
+.btn{padding:10px 20px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s;}
+.btn-primary{background:#6c63ff;color:#fff;}
+.btn-primary:hover{background:#5a52d5;}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;}
+.btn-danger{background:#fee;color:#e53935;border:1px solid #fcc;}
+.btn-warn{background:#fff8e1;color:#e65100;border:1px solid #ffe082;}
+.btn-sm{padding:5px 10px;font-size:12px;border-radius:6px;}
+.actions-cell{display:flex;gap:5px;align-items:center;}
+
+/* ── CANCIONES ── */
 .song-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
 .song-card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .song-card-name{font-weight:600;font-size:13px;margin-bottom:8px;color:#333;border-bottom:1px solid #f5f5f5;padding-bottom:8px;}
 .song-item{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px;}
-.empty{text-align:center;padding:40px;color:#aaa;}
-.loading{text-align:center;padding:40px;color:#aaa;font-size:13px;}
+
+/* ── IMPORTAR ── */
+.section-card{background:#fff;border-radius:10px;padding:20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.section-card h2{font-size:15px;font-weight:600;margin-bottom:12px;}
+.import-info{font-size:13px;color:#666;margin-bottom:14px;line-height:1.6;}
+.file-upload{border:2px dashed #d0d0d0;border-radius:8px;padding:24px;text-align:center;cursor:pointer;transition:.2s;}
+.file-upload:hover,.file-upload.drag{border-color:#6c63ff;background:#f8f6ff;}
+.file-upload input{display:none;}
+.file-upload p{font-size:13px;color:#888;margin-top:6px;}
 .preview-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px;}
 .preview-table th{background:#f5f5f5;padding:8px 10px;text-align:left;font-weight:600;border-bottom:1px solid #e8e8e8;}
 .preview-table td{padding:7px 10px;border-bottom:1px solid #f5f5f5;}
 .status-msg{margin-top:10px;font-size:13px;padding:10px 14px;border-radius:6px;}
 .status-ok{background:#e8f5e9;color:#2e7d32;}
 .status-err{background:#fee;color:#c62828;}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;}
+
+/* ── MODALS ── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:center;justify-content:center;padding:16px;}
 .modal-bg.open{display:flex;}
-.modal{background:#fff;border-radius:12px;padding:24px;width:min(440px,95vw);}
-.modal h2{font-size:16px;font-weight:600;margin-bottom:16px;}
-.modal-close{float:right;background:none;border:none;font-size:20px;cursor:pointer;color:#888;}
+.modal{background:#fff;border-radius:14px;padding:24px;width:min(480px,100%);max-height:90vh;overflow-y:auto;}
+.modal h2{font-size:17px;font-weight:700;margin-bottom:4px;}
+.modal-sub{font-size:13px;color:#888;margin-bottom:18px;}
+.modal-close{float:right;background:none;border:none;font-size:22px;cursor:pointer;color:#aaa;line-height:1;margin-top:-2px;}
 .form-row{margin-bottom:14px;}
 .form-row label{display:block;font-size:12px;font-weight:600;color:#888;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em;}
 .form-row input{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;}
 .form-row input:focus{border-color:#6c63ff;}
-@media(max-width:600px){
-  .inv-table th:nth-child(4),.inv-table td:nth-child(4),
-  .inv-table th:nth-child(5),.inv-table td:nth-child(5){display:none;}
-}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap;}
+.modal-error{font-size:13px;color:#e53935;margin-top:8px;min-height:18px;}
+
+/* ── AUTH MODAL ── */
+.auth-desc{font-size:13px;color:#555;margin-bottom:16px;padding:10px 14px;background:#f8f8f8;border-radius:8px;line-height:1.5;}
+
+/* ── EDIT PERSONAS FORM (like the card) ── */
+.persona-block{border:.5px solid #e0e0e0;border-radius:10px;padding:14px;margin-bottom:12px;background:#fafafa;position:relative;}
+.persona-block-num{font-size:11px;font-weight:700;color:#6c63ff;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+.persona-name-input{width:100%;padding:9px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;margin-bottom:10px;background:#fff;}
+.persona-name-input:focus{border-color:#6c63ff;}
+.pill-group{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.pill-lbl{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+.pill{padding:6px 12px;border-radius:20px;border:1.5px solid #e0e0e0;background:#fff;font-size:12px;color:#555;cursor:pointer;font-family:system-ui,sans-serif;font-weight:500;transition:.15s;}
+.pill.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e;}
+.pill-cena.active{background:#1565c0;border-color:#1565c0;}
+.pill-brindis.active{background:#6a1b9a;border-color:#6a1b9a;}
+.del-persona-btn{position:absolute;top:10px;right:10px;background:none;border:1px solid #fcc;border-radius:6px;color:#e53935;font-size:18px;line-height:1;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.del-persona-btn:hover{background:#fee;}
+.add-persona-btn{width:100%;padding:10px;border:1.5px dashed #d0d0d0;border-radius:10px;background:transparent;color:#888;font-size:13px;cursor:pointer;font-family:system-ui,sans-serif;}
+.add-persona-btn:hover{border-color:#6c63ff;color:#6c63ff;}
+
+/* ── PAGARON ── */
 </style>
 </head>
 <body>
 
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <h1>&#128141; Panel Boda</h1>
@@ -101,6 +163,7 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
   </div>
 </div>
 
+<!-- APP -->
 <div id="app">
   <div class="header">
     <h1>&#128141; Panel &mdash; Ale &amp; Cande</h1>
@@ -108,43 +171,60 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
   </div>
   <div class="tabs">
     <div class="tab active" onclick="showTab('resumen')">&#128202; Resumen</div>
-    <div class="tab" onclick="showTab('invitados')">&#128101; Invitados</div>
+    <div class="tab" onclick="showTab('principal')">&#127968; Principal</div>
+    <div class="tab" onclick="showTab('confirmados')">&#10003; Confirmados</div>
+    <div class="tab" onclick="showTab('pendientes')">&#8987; Sin respuesta</div>
+    <div class="tab" onclick="showTab('cena')">&#127869; Cena</div>
+    <div class="tab" onclick="showTab('brindis')">&#129346; Brindis</div>
+    <div class="tab" onclick="showTab('pagaron')">&#128176; Pagaron</div>
     <div class="tab" onclick="showTab('canciones')">&#127925; Canciones</div>
-    <div class="tab" onclick="showTab('importar')">&#128229; Importar Excel</div>
+    <div class="tab" onclick="showTab('importar')">&#128229; Importar</div>
   </div>
 
   <!-- RESUMEN -->
   <div id="tab-resumen" class="container">
     <div class="stats">
-      <div class="stat-card"><div class="stat-num" id="st-total">0</div><div class="stat-label">Tarjetas</div></div>
-      <div class="stat-card"><div class="stat-num" id="st-conf">0</div><div class="stat-label">Confirmadas</div></div>
-      <div class="stat-card"><div class="stat-num" id="st-pend">0</div><div class="stat-label">Sin respuesta</div></div>
-      <div class="stat-card"><div class="stat-num" id="st-personas">0</div><div class="stat-label">Personas</div></div>
-      <div class="stat-card"><div class="stat-num" id="st-cena">0</div><div class="stat-label">&#127869;&#65039; Cena</div></div>
-      <div class="stat-card"><div class="stat-num" id="st-brindis">0</div><div class="stat-label">&#129346; Brindis</div></div>
-      <div class="stat-card"><div class="stat-num" id="st-celiaco">0</div><div class="stat-label">&#127806; Cel&iacute;acos</div></div>
-      <div class="stat-card"><div class="stat-num" id="st-veggie">0</div><div class="stat-label">&#129367; Vegetarianos</div></div>
-      <div class="stat-card"><div class="stat-num" id="st-pagado">0</div><div class="stat-label">&#128176; Pagaron</div></div>
-      <div class="stat-card"><div class="stat-num" id="st-canciones">0</div><div class="stat-label">&#127925; Canciones</div></div>
+      <div class="stat-card">        <div class="stat-num" id="st-tarjetas">0</div><div class="stat-label">Tarjetas</div></div>
+      <div class="stat-card green">  <div class="stat-num" id="st-personas">0</div><div class="stat-label">Personas confirmadas</div></div>
+      <div class="stat-card amber">  <div class="stat-num" id="st-pend">0</div>   <div class="stat-label">Tarjetas sin respuesta</div></div>
+      <div class="stat-card rose">   <div class="stat-num" id="st-pagas">0</div>  <div class="stat-label">Personas pagas</div></div>
+      <div class="stat-card blue">   <div class="stat-num" id="st-cena">0</div>   <div class="stat-label">&#127869; Personas a la Cena</div></div>
+      <div class="stat-card">        <div class="stat-num" id="st-brindis">0</div><div class="stat-label">&#129346; Personas al Brindis</div></div>
+      <div class="stat-card">        <div class="stat-num" id="st-celiaco">0</div><div class="stat-label">&#127806; Cel&iacute;acos</div></div>
+      <div class="stat-card">        <div class="stat-num" id="st-veggie">0</div> <div class="stat-label">&#129367; Vegetarianos</div></div>
+    </div>
+
+    <!-- DESGLOSE RECAUDACION -->
+    <div class="rec-box">
+      <h3>&#128181; Desglose de recaudaci&oacute;n</h3>
+      <table class="rec-table">
+        <thead>
+          <tr>
+            <th>Categor&iacute;a</th>
+            <th class="num">Personas</th>
+            <th class="num">Precio unit.</th>
+            <th class="num">Subtotal</th>
+            <th class="num">Pagado</th>
+          </tr>
+        </thead>
+        <tbody id="rec-tbody">
+          <tr><td colspan="5" class="loading" style="padding:16px;text-align:center;font-size:12px;">Cargando...</td></tr>
+        </tbody>
+      </table>
+      <div class="rec-total-row"><span class="lbl">Total esperado (todos los confirmados)</span><span class="val blue" id="rec-esperado">$0</span></div>
+      <div class="rec-total-row"><span class="lbl">&#10003; Total recibido</span><span class="val green" id="rec-recibido">$0</span></div>
+      <div class="rec-total-row"><span class="lbl">&#128308; Pendiente de cobro</span><span class="val red" id="rec-pendiente">$0</span></div>
     </div>
   </div>
 
-  <!-- INVITADOS -->
-  <div id="tab-invitados" class="container" style="display:none;">
+  <!-- PRINCIPAL -->
+  <div id="tab-principal" class="container" style="display:none;">
     <div class="table-header">
-      <h2>Lista de invitados</h2>
+      <h2>&#127968; Todos los invitados</h2>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-        <input class="search-bar" placeholder="Buscar..." oninput="filterTable(this.value)"/>
+        <input class="search-bar" id="search-principal" placeholder="Buscar..." oninput="renderPrincipal()"/>
         <button class="btn btn-sm btn-primary" onclick="showAddModal()">+ Agregar</button>
       </div>
-    </div>
-    <div class="filter-btns">
-      <button class="filter-btn active" onclick="setFilter('todos',this)">Todos</button>
-      <button class="filter-btn" onclick="setFilter('confirmados',this)">&#10003; Confirmados</button>
-      <button class="filter-btn" onclick="setFilter('pendientes',this)">&#8987; Sin respuesta</button>
-      <button class="filter-btn" onclick="setFilter('cena',this)">Cena</button>
-      <button class="filter-btn" onclick="setFilter('brindis',this)">Brindis</button>
-      <button class="filter-btn" onclick="setFilter('nopagaron',this)">No pagaron</button>
     </div>
     <div style="overflow-x:auto;">
       <table class="inv-table">
@@ -155,12 +235,71 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
             <th>Personas</th>
             <th>Evento</th>
             <th>Dieta</th>
-            <th>Pag&oacute;</th>
+            <th>Precio</th>
+            <th>Pago</th>
             <th>Link</th>
-            <th></th>
+            <th>Acciones</th>
           </tr>
         </thead>
-        <tbody id="inv-tbody"><tr><td colspan="8" class="loading">Cargando...</td></tr></tbody>
+        <tbody id="tbody-principal"><tr><td colspan="9" class="loading">Cargando...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CONFIRMADOS -->
+  <div id="tab-confirmados" class="container" style="display:none;">
+    <h2 style="margin-bottom:12px;">&#10003; Confirmados</h2>
+    <div style="overflow-x:auto;">
+      <table class="inv-table">
+        <thead><tr><th>Destinatario</th><th>Estado</th><th>Personas</th><th>Evento</th><th>Dieta</th></tr></thead>
+        <tbody id="tbody-confirmados"><tr><td colspan="5" class="loading">Cargando...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SIN RESPUESTA -->
+  <div id="tab-pendientes" class="container" style="display:none;">
+    <h2 style="margin-bottom:12px;">&#8987; Sin respuesta</h2>
+    <div style="overflow-x:auto;">
+      <table class="inv-table">
+        <thead><tr><th>Destinatario</th><th>Estado</th></tr></thead>
+        <tbody id="tbody-pendientes"><tr><td colspan="2" class="loading">Cargando...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CENA -->
+  <div id="tab-cena" class="container" style="display:none;">
+    <h2 style="margin-bottom:12px;">&#127869; Personas a la Cena</h2>
+    <div style="overflow-x:auto;">
+      <table class="inv-table">
+        <thead><tr><th>Destinatario</th><th>Personas</th><th>Dieta</th></tr></thead>
+        <tbody id="tbody-cena"><tr><td colspan="3" class="loading">Cargando...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BRINDIS -->
+  <div id="tab-brindis" class="container" style="display:none;">
+    <h2 style="margin-bottom:12px;">&#129346; Personas al Brindis</h2>
+    <div style="overflow-x:auto;">
+      <table class="inv-table">
+        <thead><tr><th>Destinatario</th><th>Personas</th><th>Dieta</th></tr></thead>
+        <tbody id="tbody-brindis"><tr><td colspan="3" class="loading">Cargando...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PAGARON -->
+  <div id="tab-pagaron" class="container" style="display:none;">
+    <div class="table-header">
+      <h2>&#128176; Pagaron</h2>
+      <span id="pagaron-count" style="font-size:13px;color:#888;"></span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="inv-table">
+        <thead><tr><th>Tarjeta</th><th>Persona</th><th>Tipo</th><th>Evento</th><th>Precio</th></tr></thead>
+        <tbody id="tbody-pagaron"><tr><td colspan="5" class="loading">Cargando...</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -168,7 +307,7 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
   <!-- CANCIONES -->
   <div id="tab-canciones" class="container" style="display:none;">
     <div class="table-header">
-      <h2>Canciones pedidas</h2>
+      <h2>&#127925; Canciones pedidas</h2>
       <span id="songs-count" style="font-size:13px;color:#888;"></span>
     </div>
     <div id="songs-container" class="song-cards"><div class="loading">Cargando...</div></div>
@@ -179,10 +318,8 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
     <div class="section-card">
       <h2>&#128229; Importar invitados desde Excel</h2>
       <div class="import-info">
-        El archivo debe tener una columna llamada <strong>destinatario</strong> con el nombre de cada invitado tal como aparecer&aacute; en el sobre.<br><br>
-        Ejemplo de formato:<br>
-        <code style="background:#f5f5f5;padding:6px 10px;border-radius:4px;font-size:12px;display:block;margin-top:6px;">destinatario<br>Juan y Mar&iacute;a<br>Federico y Flia<br>T&iacute;a Rosa</code><br>
-        El ID y link se generan autom&aacute;ticamente.
+        Columna requerida: <strong>destinatario</strong><br>
+        <code style="background:#f5f5f5;padding:4px 8px;border-radius:4px;font-size:12px;display:inline-block;margin-top:4px;">destinatario<br>Juan y Mar&iacute;a<br>T&iacute;a Rosa</code>
       </div>
       <div class="file-upload" id="drop-zone" onclick="document.getElementById('excel-file').click()"
         ondragover="event.preventDefault();this.classList.add('drag')"
@@ -190,13 +327,13 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
         ondrop="handleDrop(event)">
         <input type="file" id="excel-file" accept=".xlsx,.xls,.csv" onchange="handleFile(this.files[0])"/>
         <div style="font-size:36px;">&#128194;</div>
-        <p><strong>Hac&eacute; click o arrastr&aacute; tu archivo ac&aacute;</strong></p>
-        <p>Acepta .xlsx, .xls o .csv</p>
+        <p><strong>Click o arrastr&aacute; tu archivo</strong></p>
+        <p>.xlsx · .xls · .csv</p>
       </div>
       <div id="import-preview" style="display:none;margin-top:16px;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
           <strong id="preview-count"></strong>
-          <button class="btn btn-primary" id="import-btn" onclick="importInvitados()">&#8679; Importar a Firebase</button>
+          <button class="btn btn-primary" id="import-btn" onclick="importInvitados()">&#8679; Importar</button>
         </div>
         <div style="overflow-x:auto;max-height:300px;overflow-y:auto;">
           <table class="preview-table">
@@ -210,148 +347,228 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
   </div>
 </div>
 
-<!-- MODAL -->
-<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">&#215;</button>
+<!-- ── MODAL: AGREGAR INVITADO ── -->
+<div class="modal-bg" id="modal-add" onclick="if(event.target===this)closeAddModal()">
+  <div class="modal" style="max-width:380px;">
+    <button class="modal-close" onclick="closeAddModal()">&#215;</button>
     <h2>Agregar invitado</h2>
+    <p class="modal-sub">El nombre aparecer&aacute; en el sobre de la tarjeta</p>
     <div class="form-row">
-      <label>Destinatario (aparece en el sobre)</label>
-      <input type="text" id="modal-dest" placeholder="Ej: Juan y Mar&iacute;a"/>
+      <label>Destinatario</label>
+      <input type="text" id="add-dest" placeholder="Ej: Juan y Mar&iacute;a" onkeydown="if(event.key==='Enter')saveNewInvitado()"/>
     </div>
-    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;">
-      <button class="btn" style="background:#f5f5f5;" onclick="closeModal()">Cancelar</button>
-      <button class="btn btn-primary" id="modal-save-btn" onclick="saveInvitado()">Guardar</button>
+    <div class="modal-footer">
+      <button class="btn" style="background:#f5f5f5;" onclick="closeAddModal()">Cancelar</button>
+      <button class="btn btn-primary" id="add-save-btn" onclick="saveNewInvitado()">Guardar</button>
     </div>
-    <div id="modal-error" style="font-size:13px;color:#e53935;margin-top:8px;"></div>
+    <div id="add-error" class="modal-error"></div>
+  </div>
+</div>
+
+<!-- ── MODAL: AUTH ── -->
+<div class="modal-bg" id="modal-auth" onclick="if(event.target===this)closeAuthModal()">
+  <div class="modal" style="max-width:360px;">
+    <button class="modal-close" onclick="closeAuthModal()">&#215;</button>
+    <h2 id="auth-title">Confirmar</h2>
+    <div class="auth-desc" id="auth-desc"></div>
+    <div class="form-row">
+      <label>Contrase&ntilde;a</label>
+      <input type="password" id="auth-pwd" placeholder="Ingres&aacute; tu contrase&ntilde;a" onkeydown="if(event.key==='Enter')confirmAuth()"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" style="background:#f5f5f5;" onclick="closeAuthModal()">Cancelar</button>
+      <button class="btn btn-primary" id="auth-ok-btn" onclick="confirmAuth()">Confirmar</button>
+    </div>
+    <div id="auth-error" class="modal-error"></div>
+  </div>
+</div>
+
+<!-- ── MODAL: EDITAR TARJETA ── -->
+<div class="modal-bg" id="modal-edit" onclick="if(event.target===this)closeEditModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeEditModal()">&#215;</button>
+    <h2 id="edit-modal-title">Editar invitado</h2>
+    <p class="modal-sub" id="edit-modal-sub"></p>
+
+    <!-- Nombre destinatario -->
+    <div class="form-row">
+      <label>Nombre en el sobre</label>
+      <input type="text" id="edit-dest-input" placeholder="Nombre del destinatario"/>
+    </div>
+
+    <!-- Lista de personas confirmadas -->
+    <div id="edit-personas-container"></div>
+    <button class="add-persona-btn" onclick="addEditPersona()">+ Agregar persona</button>
+
+    <div class="modal-footer" style="justify-content:space-between;">
+      <button class="btn btn-danger btn-sm" onclick="deleteInvFromEdit()">&#128465; Eliminar tarjeta completa</button>
+      <div style="display:flex;gap:8px;">
+        <button class="btn" style="background:#f5f5f5;" onclick="closeEditModal()">Cancelar</button>
+        <button class="btn btn-primary" id="edit-save-btn" onclick="saveEditModal()">Guardar cambios</button>
+      </div>
+    </div>
+    <div id="edit-error" class="modal-error"></div>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-const PASS = 'bodaac2026';
+const PASS='bodaac2026';
+const TARJETA_URL='https://andres96-r.github.io/boda-aleycande/';
+const TABS=['resumen','principal','confirmados','pendientes','cena','brindis','pagaron','canciones','importar'];
+
 function doLogin(){
   if(document.getElementById('pwd-input').value===PASS){
     document.getElementById('login-screen').style.display='none';
     document.getElementById('app').style.display='block';
     initApp();
-  } else {
-    document.getElementById('login-err').textContent='Contrasena incorrecta';
-  }
+  } else { document.getElementById('login-err').textContent='Contraseña incorrecta'; }
 }
 document.getElementById('pwd-input').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 
 function showTab(t){
-  ['resumen','invitados','canciones','importar'].forEach(id=>{
-    document.getElementById('tab-'+id).style.display=id===t?'block':'none';
-  });
-  document.querySelectorAll('.tab').forEach((el,i)=>{
-    el.classList.toggle('active',['resumen','invitados','canciones','importar'][i]===t);
-  });
+  TABS.forEach(id=>{const el=document.getElementById('tab-'+id);if(el)el.style.display=id===t?'block':'none';});
+  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',TABS[i]===t));
   if(t==='canciones') renderSongsTab();
+  if(t==='pagaron') renderPagaronTab();
+  if(t==='confirmados') renderFilterTab('tbody-confirmados','confirmados',5);
+  if(t==='pendientes') renderFilterTab('tbody-pendientes','pendientes',2);
+  if(t==='cena') renderFilterTab('tbody-cena','cena',3);
+  if(t==='brindis') renderFilterTab('tbody-brindis','brindis',3);
 }
 
-function genId(dest){
-  return dest.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-    .replace(/[^a-zA-Z0-9\s]/g,'').trim().replace(/\s+/g,'-').toLowerCase();
-}
-// ══════════════════════════════════════════════════
-// CONFIGURACION — cambiá esta URL si la tarjeta
-// está en otro sitio de Netlify
-const TARJETA_URL = 'https://andres96-r.github.io/boda-aleycande/';
-// ══════════════════════════════════════════════════
-function makeLink(id){ return TARJETA_URL + '?id=' + encodeURIComponent(id); }
+function makeLink(id){return TARJETA_URL+'?id='+encodeURIComponent(id);}
+function copyText(t){navigator.clipboard.writeText(t).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);});}
+function esc(t){return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function genId(d){return d.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9\s]/g,'').trim().replace(/\s+/g,'-').toLowerCase();}
+function fmtPeso(n){return '$'+Number(n).toLocaleString('es-AR');}
 
-function copyText(text){
-  navigator.clipboard.writeText(text).catch(()=>{
-    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+// ── AUTH MODAL ──
+let _authCb=null;
+function requireAuth(title,desc,isDanger,cb){
+  document.getElementById('auth-title').textContent=title;
+  document.getElementById('auth-desc').textContent=desc;
+  document.getElementById('auth-pwd').value='';
+  document.getElementById('auth-error').textContent='';
+  document.getElementById('auth-ok-btn').style.background=isDanger?'#e53935':'#6c63ff';
+  _authCb=cb;
+  document.getElementById('modal-auth').classList.add('open');
+  setTimeout(()=>document.getElementById('auth-pwd').focus(),120);
+}
+function closeAuthModal(){document.getElementById('modal-auth').classList.remove('open');_authCb=null;}
+function confirmAuth(){
+  if(document.getElementById('auth-pwd').value!==PASS){document.getElementById('auth-error').textContent='Contraseña incorrecta';return;}
+  closeAuthModal();
+  if(_authCb)_authCb();
+}
+
+// ── ADD MODAL ──
+function showAddModal(){
+  document.getElementById('add-dest').value='';
+  document.getElementById('add-error').textContent='';
+  document.getElementById('modal-add').classList.add('open');
+  setTimeout(()=>document.getElementById('add-dest').focus(),120);
+}
+function closeAddModal(){document.getElementById('modal-add').classList.remove('open');}
+
+// ── EDIT MODAL STATE ──
+window._editInvId=null;
+window._editPersonas=[];
+
+function showEditModal(id){
+  requireAuth('Editar tarjeta','Ingresá tu clave para editar esta tarjeta.',false,()=>{
+    window._editInvId=id;
+    const inv=window.invitadosData[id];
+    document.getElementById('edit-modal-title').textContent='Editar: '+esc(inv?.destinatario||id);
+    document.getElementById('edit-modal-sub').textContent='Podés cambiar el nombre del sobre, editar personas o agregar/eliminar personas.';
+    document.getElementById('edit-dest-input').value=inv?.destinatario||'';
+    document.getElementById('edit-error').textContent='';
+
+    // Cargar personas confirmadas actuales
+    window._editPersonas=Object.values(window.confirmacionesData)
+      .filter(c=>c.invitadoId===id)
+      .map(c=>({_fbId:c.id,nombre:c.nombre||'',tipo:c.tipo||'adulto',dieta:c.dieta||'',evento:c.evento||'cena',pagado:c.pagado||false}));
+
+    renderEditPersonas();
+    document.getElementById('modal-edit').classList.add('open');
   });
 }
+function closeEditModal(){document.getElementById('modal-edit').classList.remove('open');window._editInvId=null;window._editPersonas=[];}
 
-let currentFilter='todos', searchVal='';
-function setFilter(f,el){
-  currentFilter=f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  renderTable();
+function renderEditPersonas(){
+  const c=document.getElementById('edit-personas-container');
+  if(!window._editPersonas.length){c.innerHTML='<p style="text-align:center;color:#aaa;font-size:13px;padding:10px 0;">Sin personas confirmadas — podés agregar una abajo.</p>';return;}
+  c.innerHTML=window._editPersonas.map((p,i)=>`
+    <div class="persona-block">
+      <div class="persona-block-num">Persona ${i+1}${p.pagado?' &#10003; Pagó':''}</div>
+      <button class="del-persona-btn" onclick="removeEditPersona(${i})" title="Quitar persona">&#215;</button>
+      <input class="persona-name-input" placeholder="Nombre completo" value="${esc(p.nombre)}" oninput="window._editPersonas[${i}].nombre=this.value" />
+      <div class="pill-lbl">Tipo</div>
+      <div class="pill-group">
+        <button class="pill ${p.tipo==='adulto'?'active':''}" onclick="setEditTipo(${i},'adulto')">&#128100; Adulto</button>
+        <button class="pill ${p.tipo==='joven'?'active':''}"  onclick="setEditTipo(${i},'joven')">&#129485; Joven (12-17)</button>
+        <button class="pill ${p.tipo==='nino'?'active':''}"   onclick="setEditTipo(${i},'nino')">&#128102; Ni&ntilde;o (2-11)</button>
+      </div>
+      <div class="pill-lbl">Asiste a</div>
+      <div class="pill-group">
+        <button class="pill pill-cena ${p.evento==='cena'?'active':''}"       onclick="setEditEvento(${i},'cena')">&#127869; Cena</button>
+        <button class="pill pill-brindis ${p.evento==='brindis'?'active':''}" onclick="setEditEvento(${i},'brindis')">&#129346; Brindis</button>
+      </div>
+      <div class="pill-lbl">Dieta</div>
+      <div class="pill-group">
+        <button class="pill ${p.dieta===''?'active':''}"            onclick="setEditDieta(${i},'')">Sin restricci&oacute;n</button>
+        <button class="pill ${p.dieta==='celiaco'?'active':''}"     onclick="setEditDieta(${i},'celiaco')">&#127806; Cel&iacute;aco</button>
+        <button class="pill ${p.dieta==='vegetariano'?'active':''}" onclick="setEditDieta(${i},'vegetariano')">&#129367; Vegetariano</button>
+      </div>
+    </div>`).join('');
 }
-function filterTable(v){ searchVal=v.toLowerCase(); renderTable(); }
+function setEditTipo(i,v){window._editPersonas[i].tipo=v;renderEditPersonas();}
+function setEditEvento(i,v){window._editPersonas[i].evento=v;renderEditPersonas();}
+function setEditDieta(i,v){window._editPersonas[i].dieta=v;renderEditPersonas();}
+function removeEditPersona(i){window._editPersonas.splice(i,1);renderEditPersonas();}
+function addEditPersona(){window._editPersonas.push({_fbId:null,nombre:'',tipo:'adulto',dieta:'',evento:'cena',pagado:false});renderEditPersonas();setTimeout(()=>{const inputs=document.querySelectorAll('.persona-name-input');if(inputs.length)inputs[inputs.length-1].focus();},80);}
 
-// EXCEL
+window.renderEditPersonas=renderEditPersonas;
+window.setEditTipo=setEditTipo;
+window.setEditEvento=setEditEvento;
+window.setEditDieta=setEditDieta;
+window.removeEditPersona=removeEditPersona;
+window.addEditPersona=addEditPersona;
+window.showEditModal=showEditModal;
+window.closeEditModal=closeEditModal;
+
+// ── EXCEL ──
 let previewData=[];
-function handleDrop(e){
-  e.preventDefault();
-  document.getElementById('drop-zone').classList.remove('drag');
-  if(e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
-}
+function handleDrop(e){e.preventDefault();document.getElementById('drop-zone').classList.remove('drag');if(e.dataTransfer.files[0])handleFile(e.dataTransfer.files[0]);}
 function handleFile(file){
   if(!file)return;
-  const reader=new FileReader();
-  reader.onload=function(e){
+  const r=new FileReader();
+  r.onload=e=>{
     const data=new Uint8Array(e.target.result);
-    // Try XLSX first
-    if(typeof XLSX!=='undefined'){
-      try{
-        const wb=XLSX.read(data,{type:'array'});
-        const ws=wb.Sheets[wb.SheetNames[0]];
-        const rows=XLSX.utils.sheet_to_json(ws,{defval:''});
-        processRows(rows);
-      } catch(err){ showStatus('Error: '+err.message,true); }
-    } else {
-      // CSV fallback
-      const text=new TextDecoder().decode(data);
-      const lines=text.trim().split('\n').map(l=>l.trim());
-      const header=lines[0].split(',').map(h=>h.trim().replace(/"/g,'').toLowerCase());
-      const rows=lines.slice(1).map(line=>{
-        const vals=line.split(',').map(v=>v.trim().replace(/"/g,''));
-        const obj={};header.forEach((h,i)=>{obj[h]=vals[i]||'';});return obj;
-      });
-      processRows(rows);
-    }
+    if(typeof XLSX!=='undefined'){try{const wb=XLSX.read(data,{type:'array'});processRows(XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:''}));}catch(err){showStatus('Error: '+err.message,true);}return;}
+    const text=new TextDecoder().decode(data);const lines=text.trim().split('\n').map(l=>l.trim());
+    const hdr=lines[0].split(',').map(h=>h.trim().replace(/"/g,'').toLowerCase());
+    processRows(lines.slice(1).map(ln=>{const v=ln.split(',').map(x=>x.trim().replace(/"/g,''));const o={};hdr.forEach((h,i)=>{o[h]=v[i]||'';});return o;}));
   };
-  reader.readAsArrayBuffer(file);
+  r.readAsArrayBuffer(file);
 }
 function processRows(rows){
-  previewData=rows.map(r=>{
-    const dest=(r.destinatario||r.Destinatario||r.nombre||r.Nombre||'').trim();
-    return dest?{destinatario:dest,id:genId(dest)}:null;
-  }).filter(Boolean);
-  if(!previewData.length){ showStatus('No se encontraron destinatarios. La columna debe llamarse "destinatario".',true); return; }
+  previewData=rows.map(r=>{const d=(r.destinatario||r.Destinatario||r.nombre||r.Nombre||'').trim();return d?{destinatario:d,id:genId(d)}:null;}).filter(Boolean);
+  if(!previewData.length){showStatus('No se encontraron destinatarios.',true);return;}
   document.getElementById('import-status').style.display='none';
   document.getElementById('import-preview').style.display='block';
-  document.getElementById('preview-count').textContent=previewData.length+' invitados encontrados';
-  document.getElementById('preview-tbody').innerHTML=previewData.map((r,i)=>`
-    <tr>
-      <td>${i+1}</td>
-      <td>${esc(r.destinatario)}</td>
-      <td style="font-family:monospace;color:#888;">${esc(r.id)}</td>
-      <td><span style="font-family:monospace;font-size:10px;color:#6c63ff;">${makeLink(r.id)}</span></td>
-    </tr>`).join('');
+  document.getElementById('preview-count').textContent=previewData.length+' invitados';
+  document.getElementById('preview-tbody').innerHTML=previewData.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.destinatario)}</td><td style="font-family:monospace;font-size:11px;color:#888;">${esc(r.id)}</td><td><span style="font-family:monospace;font-size:10px;color:#6c63ff;">${makeLink(r.id)}</span></td></tr>`).join('');
 }
-function showStatus(msg,isErr){
-  const el=document.getElementById('import-status');
-  el.style.display='block';
-  el.className='status-msg '+(isErr?'status-err':'status-ok');
-  el.textContent=msg;
-}
-
-// MODAL
-function showAddModal(){
-  document.getElementById('modal-dest').value='';
-  document.getElementById('modal-error').textContent='';
-  document.getElementById('modal-bg').classList.add('open');
-  setTimeout(()=>document.getElementById('modal-dest').focus(),100);
-}
-function closeModal(){ document.getElementById('modal-bg').classList.remove('open'); }
-
-function esc(t){ return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function showStatus(msg,isErr){const el=document.getElementById('import-status');el.style.display='block';el.className='status-msg '+(isErr?'status-err':'status-ok');el.textContent=msg;}
 </script>
 
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import{getFirestore,collection,doc,setDoc,updateDoc,deleteDoc,onSnapshot,writeBatch,serverTimestamp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import{getFirestore,collection,doc,setDoc,updateDoc,deleteDoc,addDoc,onSnapshot,writeBatch,serverTimestamp}
+  from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-const FB_CONFIG={
+const FB={
   apiKey:"AIzaSyB4kzCf-bP_Pugektvai9Yhq5BCdyIubbg",
   authDomain:"boda-aleycande.firebaseapp.com",
   projectId:"boda-aleycande",
@@ -361,150 +578,290 @@ const FB_CONFIG={
 };
 
 let db;
-let invitadosData={}, confirmacionesData={}, cancionesData={};
+window.invitadosData={};
+window.confirmacionesData={};
+let cancionesData={};
+
+// Precios
+const PA=96000,PADOL=68000,PN=48000,PBA=48000,PBN=32000;
+function precio(p){
+  if(p.evento==='brindis') return p.tipo==='adulto'?PBA:PBN;
+  if(p.tipo==='joven') return PADOL;
+  if(p.tipo==='nino') return PN;
+  return PA;
+}
+const CATS=[
+  {label:'&#127869; Cena — Adulto',   filter:p=>p.evento!=='brindis'&&p.tipo==='adulto', pu:PA},
+  {label:'&#127869; Cena — Joven',    filter:p=>p.evento!=='brindis'&&p.tipo==='joven',  pu:PADOL},
+  {label:'&#127869; Cena — Ni&ntilde;o',     filter:p=>p.evento!=='brindis'&&p.tipo==='nino',   pu:PN},
+  {label:'&#129346; Brindis — Adulto',filter:p=>p.evento==='brindis'&&p.tipo==='adulto', pu:PBA},
+  {label:'&#129346; Brindis — Joven/Ni&ntilde;o',filter:p=>p.evento==='brindis'&&(p.tipo==='joven'||p.tipo==='nino'),pu:PBN},
+];
+
+const dEmoji={"celiaco":"&#127806;","vegetariano":"&#129367;"};
+const dLabel={"celiaco":"Cel&iacute;aco","vegetariano":"Vegetariano"};
+const tipoLabel={"adulto":"Adulto","joven":"Joven","nino":"Ni&ntilde;o"};
 
 window.initApp=function(){
-  const app=initializeApp(FB_CONFIG);
+  const app=initializeApp(FB);
   db=getFirestore(app);
-
   onSnapshot(collection(db,'invitados'),snap=>{
-    snap.docChanges().forEach(ch=>{
-      if(ch.type==='removed') delete invitadosData[ch.doc.id];
-      else invitadosData[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};
-    });
-    renderTable(); updateStats();
+    snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete window.invitadosData[ch.doc.id];else window.invitadosData[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};});
+    refreshAll();
   });
-
   onSnapshot(collection(db,'confirmaciones'),snap=>{
-    snap.docChanges().forEach(ch=>{
-      if(ch.type==='removed') delete confirmacionesData[ch.doc.id];
-      else confirmacionesData[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};
-    });
-    renderTable(); updateStats();
+    snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete window.confirmacionesData[ch.doc.id];else window.confirmacionesData[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};});
+    refreshAll();
   });
-
   onSnapshot(collection(db,'canciones_master'),snap=>{
-    snap.docChanges().forEach(ch=>{
-      if(ch.type==='removed') delete cancionesData[ch.doc.id];
-      else cancionesData[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};
-    });
+    snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete cancionesData[ch.doc.id];else cancionesData[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};});
     updateStats(); renderSongsTab();
   });
 };
 
-window.renderTable=function(){
-  const tbody=document.getElementById('inv-tbody');
-  let invs=Object.values(invitadosData);
-  if(searchVal) invs=invs.filter(i=>i.destinatario.toLowerCase().includes(searchVal));
-  const getP=id=>Object.values(confirmacionesData).filter(a=>a.invitadoId===id);
-  if(currentFilter==='confirmados') invs=invs.filter(i=>getP(i.id).length>0);
-  if(currentFilter==='pendientes')  invs=invs.filter(i=>getP(i.id).length===0);
-  if(currentFilter==='cena')        invs=invs.filter(i=>getP(i.id).some(p=>p.evento==='cena'));
-  if(currentFilter==='brindis')     invs=invs.filter(i=>getP(i.id).some(p=>p.evento==='brindis'));
-  if(currentFilter==='nopagaron')   invs=invs.filter(i=>!i.pagado);
-  invs.sort((a,b)=>a.destinatario.localeCompare(b.destinatario,'es'));
-  if(!invs.length){tbody.innerHTML='<tr><td colspan="8" class="empty">Sin resultados</td></tr>';return;}
-  const emojis={"celiaco":"&#127806;","vegetariano":"&#129367;"};
-  tbody.innerHTML=invs.map(inv=>{
-    const personas=getP(inv.id);
-    const conf=personas.length>0;
-    const eventoSet=[...new Set(personas.map(p=>p.evento).filter(Boolean))];
-    const dietaSet=[...new Set(personas.map(p=>p.dieta).filter(Boolean))];
-    const personasHtml=conf?personas.map(p=>`<div class="persona-item"><span>${esc(p.nombre||"—")}</span><span class="badge ${p.evento==="cena"?"badge-cena":"badge-brindis"}" style="font-size:10px;">${p.evento==="cena"?"Cena":"Brindis"}</span>${p.dieta?`<span style="font-size:11px;">${emojis[p.dieta]||""}</span>`:""}</div>`).join(''):'—';
-    return `<tr>
-      <td><div style="font-weight:500;">${esc(inv.destinatario)}</div><div style="font-size:10px;color:#aaa;margin-top:2px;">${esc(inv.id)}</div></td>
-      <td>${conf?`<span class="badge badge-ok">&#10003; Confirm&oacute; (${personas.length})</span>`:'<span class="badge badge-pending">&#8987; Sin respuesta</span>'}</td>
-      <td><div>${personasHtml}</div></td>
-      <td>${eventoSet.map(e=>`<span class="badge ${e==="cena"?"badge-cena":"badge-brindis"}">${e==="cena"?"Cena":"Brindis"}</span>`).join(' ')||'—'}</td>
-      <td>${dietaSet.map(d=>emojis[d]||d).join(' ')||'—'}</td>
-      <td><label class="pago-toggle"><input type="checkbox" ${inv.pagado?'checked':''} onchange="togglePago('${inv.id}',this.checked)"/><span style="font-size:12px;">${inv.pagado?'&#10003; Pag&oacute;':'&#10005;'}</span></label></td>
-      <td><button class="copy-link" onclick="copyLinkBtn('${inv.id}',this)">&#128203; Copiar</button></td>
-      <td><button class="btn btn-danger btn-sm" onclick="deleteInv('${inv.id}')">&#128465;</button></td>
-    </tr>`;
-  }).join('');
-};
+function getP(id){return Object.values(window.confirmacionesData).filter(c=>c.invitadoId===id);}
 
+function refreshAll(){
+  updateStats();
+  renderPrincipal();
+  const idx=[...document.querySelectorAll('.tab')].findIndex(el=>el.classList.contains('active'));
+  const t=['resumen','principal','confirmados','pendientes','cena','brindis','pagaron','canciones','importar'][idx];
+  if(t==='confirmados') renderFilterTab('tbody-confirmados','confirmados',5);
+  if(t==='pendientes')  renderFilterTab('tbody-pendientes','pendientes',2);
+  if(t==='cena')        renderFilterTab('tbody-cena','cena',3);
+  if(t==='brindis')     renderFilterTab('tbody-brindis','brindis',3);
+  if(t==='pagaron')     renderPagaronTab();
+}
+
+// ── STATS + RECAUDACION ──
 window.updateStats=function(){
-  const invs=Object.values(invitadosData);
-  const asis=Object.values(confirmacionesData);
-  const songs=Object.values(cancionesData);
-  const getP=id=>asis.filter(a=>a.invitadoId===id);
+  const invs=Object.values(window.invitadosData);
+  const asis=Object.values(window.confirmacionesData);
   const conf=invs.filter(i=>getP(i.id).length>0);
-  document.getElementById('st-total').textContent=invs.length;
-  document.getElementById('st-conf').textContent=conf.length;
-  document.getElementById('st-pend').textContent=invs.length-conf.length;
+
+  document.getElementById('st-tarjetas').textContent=invs.length;
   document.getElementById('st-personas').textContent=asis.length;
+  document.getElementById('st-pend').textContent=invs.length-conf.length;
+  document.getElementById('st-pagas').textContent=asis.filter(a=>a.pagado).length;
   document.getElementById('st-cena').textContent=asis.filter(a=>a.evento==='cena').length;
   document.getElementById('st-brindis').textContent=asis.filter(a=>a.evento==='brindis').length;
   document.getElementById('st-celiaco').textContent=asis.filter(a=>a.dieta==='celiaco').length;
   document.getElementById('st-veggie').textContent=asis.filter(a=>a.dieta==='vegetariano').length;
-  document.getElementById('st-pagado').textContent=invs.filter(i=>i.pagado).length;
-  document.getElementById('st-canciones').textContent=songs.length;
+
+  // Desglose
+  const tbody=document.getElementById('rec-tbody');
+  let totalEsp=0,totalPag=0;
+  const rows=CATS.map(cat=>{
+    const ps=asis.filter(cat.filter);
+    const n=ps.length;
+    const sub=n*cat.pu;
+    const pag=ps.filter(p=>p.pagado).reduce((s,p)=>s+precio(p),0);
+    totalEsp+=sub; totalPag+=pag;
+    if(!n) return '';
+    return `<tr>
+      <td>${cat.label}</td>
+      <td class="num">${n}</td>
+      <td class="num">${fmtPeso(cat.pu)}</td>
+      <td class="num">${fmtPeso(sub)}</td>
+      <td class="num" style="color:#2e7d32;font-weight:600;">${fmtPeso(pag)}</td>
+    </tr>`;
+  }).filter(Boolean);
+  rows.push(`<tr><td><strong>TOTAL</strong></td><td class="num"><strong>${asis.length}</strong></td><td></td><td class="num"><strong>${fmtPeso(totalEsp)}</strong></td><td class="num" style="color:#2e7d32;"><strong>${fmtPeso(totalPag)}</strong></td></tr>`);
+  tbody.innerHTML=rows.join('')||'<tr><td colspan="5" style="text-align:center;color:#aaa;padding:12px;">Sin confirmaciones aún</td></tr>';
+
+  document.getElementById('rec-esperado').textContent=fmtPeso(totalEsp);
+  document.getElementById('rec-recibido').textContent=fmtPeso(totalPag);
+  document.getElementById('rec-pendiente').textContent=fmtPeso(totalEsp-totalPag);
 };
 
+// ── PRINCIPAL ──
+window.renderPrincipal=function(){
+  const tbody=document.getElementById('tbody-principal');
+  if(!tbody) return;
+  const sv=(document.getElementById('search-principal')?.value||'').toLowerCase();
+  let invs=Object.values(window.invitadosData);
+  if(sv) invs=invs.filter(i=>i.destinatario.toLowerCase().includes(sv));
+  invs.sort((a,b)=>a.destinatario.localeCompare(b.destinatario,'es'));
+  if(!invs.length){tbody.innerHTML='<tr><td colspan="9" class="empty">Sin resultados</td></tr>';return;}
+
+  tbody.innerHTML=invs.map(inv=>{
+    const ps=getP(inv.id);
+    const conf=ps.length>0;
+    const PR='prow';
+    const persHtml=conf?ps.map(p=>`<div class="${PR}">${esc(p.nombre||'—')}</div>`).join(''):'—';
+    const evHtml=conf?ps.map(p=>`<div class="${PR}">${p.evento?`<span class="badge ${p.evento==='cena'?'badge-cena':'badge-brindis'}" style="font-size:10px;">${p.evento==='cena'?'Cena':'Brindis'}</span>`:'—'}</div>`).join(''):'—';
+    const dietHtml=conf?ps.map(p=>`<div class="${PR}">${p.dieta?`${dEmoji[p.dieta]||''} ${dLabel[p.dieta]||p.dieta}`:'<span style="color:#ccc;">—</span>'}</div>`).join(''):'—';
+    const precHtml=conf?ps.map(p=>`<div class="${PR} precio-cell">${fmtPeso(precio(p))}</div>`).join(''):'—';
+    const totalM=ps.reduce((s,p)=>s+precio(p),0);
+    const pagadoM=ps.filter(p=>p.pagado).reduce((s,p)=>s+precio(p),0);
+    const pagoHtml=conf?`
+      ${ps.map(p=>`<div class="${PR}"><button class="pago-btn ${p.pagado?'pagado':'pendiente'}" onclick="togglePago('${p.id}',${!p.pagado})">${p.pagado?'&#10003; Pag&oacute;':'&#10005; Pendiente'}</button></div>`).join('')}
+      <div class="pago-summary"><span>Abonado:</span><span class="pv">${fmtPeso(pagadoM)} / ${fmtPeso(totalM)}</span></div>`:'—';
+
+    return `<tr>
+      <td><div style="font-weight:500;">${esc(inv.destinatario)}</div><div style="font-size:10px;color:#aaa;margin-top:2px;">${esc(inv.id)}</div></td>
+      <td>${conf?`<span class="badge badge-ok">&#10003; (${ps.length})</span>`:'<span class="badge badge-pending">&#8987;</span>'}</td>
+      <td>${persHtml}</td><td>${evHtml}</td><td>${dietHtml}</td>
+      <td style="white-space:nowrap;">${precHtml}</td>
+      <td>${pagoHtml}</td>
+      <td><button class="copy-link" onclick="copyLinkBtn('${inv.id}',this)">&#128203; Link</button></td>
+      <td><div class="actions-cell">
+        <button class="btn btn-warn btn-sm" onclick="showEditModal('${inv.id}')">&#9998; Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="askDeleteInv('${inv.id}')">&#128465;</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+};
+
+// ── FILTER TABS ──
+window.renderFilterTab=function(tbodyId,filter,cols){
+  const tbody=document.getElementById(tbodyId);
+  if(!tbody)return;
+  let invs=Object.values(window.invitadosData);
+  if(filter==='confirmados') invs=invs.filter(i=>getP(i.id).length>0);
+  if(filter==='pendientes')  invs=invs.filter(i=>getP(i.id).length===0);
+  if(filter==='cena')        invs=invs.filter(i=>getP(i.id).some(p=>p.evento==='cena'));
+  if(filter==='brindis')     invs=invs.filter(i=>getP(i.id).some(p=>p.evento==='brindis'));
+  invs.sort((a,b)=>a.destinatario.localeCompare(b.destinatario,'es'));
+  if(!invs.length){tbody.innerHTML=`<tr><td colspan="${cols}" class="empty">Sin resultados</td></tr>`;return;}
+  if(filter==='pendientes'){
+    tbody.innerHTML=invs.map(inv=>`<tr><td><div style="font-weight:500;">${esc(inv.destinatario)}</div></td><td><span class="badge badge-pending">&#8987; Sin respuesta</span></td></tr>`).join('');
+    return;
+  }
+  tbody.innerHTML=invs.map(inv=>{
+    const ps=getP(inv.id).filter(p=>filter==='cena'?p.evento==='cena':filter==='brindis'?p.evento==='brindis':true);
+    const conf=ps.length>0;
+    const persHtml=conf?ps.map(p=>`<div class="prow">${esc(p.nombre||'—')}</div>`).join(''):'—';
+    const dietHtml=conf?ps.map(p=>`<div class="prow">${p.dieta?`${dEmoji[p.dieta]||''} ${dLabel[p.dieta]||p.dieta}`:'<span style="color:#ccc;">—</span>'}</div>`).join(''):'—';
+    if(filter==='cena'||filter==='brindis'){
+      return `<tr><td><div style="font-weight:500;">${esc(inv.destinatario)}</div></td><td>${persHtml}</td><td>${dietHtml}</td></tr>`;
+    }
+    const evHtml=ps.map(p=>`<div class="prow">${p.evento?`<span class="badge ${p.evento==='cena'?'badge-cena':'badge-brindis'}" style="font-size:10px;">${p.evento==='cena'?'Cena':'Brindis'}</span>`:'—'}</div>`).join('');
+    return `<tr><td><div style="font-weight:500;">${esc(inv.destinatario)}</div></td><td><span class="badge badge-ok">&#10003; (${ps.length})</span></td><td>${persHtml}</td><td>${evHtml}</td><td>${dietHtml}</td></tr>`;
+  }).join('');
+};
+
+// ── PAGARON ──
+window.renderPagaronTab=function(){
+  const tbody=document.getElementById('tbody-pagaron');if(!tbody)return;
+  const pgs=Object.values(window.confirmacionesData).filter(p=>p.pagado);
+  document.getElementById('pagaron-count').textContent=pgs.length+' personas';
+  if(!pgs.length){tbody.innerHTML='<tr><td colspan="5" class="empty">Nadie pag&oacute; a&uacute;n</td></tr>';return;}
+  pgs.sort((a,b)=>(window.invitadosData[a.invitadoId]?.destinatario||'').localeCompare(window.invitadosData[b.invitadoId]?.destinatario||'','es'));
+  tbody.innerHTML=pgs.map(p=>`<tr>
+    <td style="font-weight:500;">${esc(window.invitadosData[p.invitadoId]?.destinatario||p.invitadoId)}</td>
+    <td>${esc(p.nombre||'—')}</td>
+    <td>${tipoLabel[p.tipo]||p.tipo||'—'}</td>
+    <td>${p.evento?`<span class="badge ${p.evento==='cena'?'badge-cena':'badge-brindis'}" style="font-size:11px;">${p.evento==='cena'?'Cena':'Brindis'}</span>`:'—'}</td>
+    <td style="font-weight:600;color:#2e7d32;">${fmtPeso(precio(p))}</td>
+  </tr>`).join('');
+};
+
+// ── CANCIONES ──
 window.renderSongsTab=function(){
   const songs=Object.values(cancionesData);
-  const container=document.getElementById('songs-container');
+  const c=document.getElementById('songs-container');
   document.getElementById('songs-count').textContent=songs.length+' canciones';
-  if(!songs.length){container.innerHTML='<div class="empty">&#127925; Todav&iacute;a no hay canciones</div>';return;}
-  const groups={};
-  songs.forEach(s=>{
-    const key=s.invitadoId||'sin-id';
-    if(!groups[key]) groups[key]={nombre:invitadosData[key]?.destinatario||key,songs:[]};
-    groups[key].songs.push(s);
-  });
+  if(!songs.length){c.innerHTML='<div class="empty">&#127925; Sin canciones a&uacute;n</div>';return;}
+  const g={};
+  songs.forEach(s=>{const k=s.invitadoId||'sin-id';if(!g[k])g[k]={n:window.invitadosData[k]?.destinatario||k,s:[]};g[k].s.push(s);});
   const emj=['&#127925;','&#127926;','&#127908;','&#127881;'];
-  container.innerHTML=Object.entries(groups).map(([id,g])=>`
-    <div class="song-card">
-      <div class="song-card-name">&#128100; ${esc(g.nombre)}</div>
-      ${g.songs.map((s,i)=>`<div class="song-item"><span>${emj[i%4]}</span><span>${esc(s.texto||'')}</span></div>`).join('')}
-    </div>`).join('');
+  c.innerHTML=Object.entries(g).map(([,v])=>`<div class="song-card"><div class="song-card-name">&#128100; ${esc(v.n)}</div>${v.s.map((s,i)=>`<div class="song-item"><span>${emj[i%4]}</span><span>${esc(s.texto||'')}</span></div>`).join('')}</div>`).join('');
 };
 
-window.togglePago=async function(id,val){
-  await updateDoc(doc(db,'invitados',id),{pagado:val});
-};
+// ── FIREBASE ACTIONS ──
+window.togglePago=async(confId,val)=>{await updateDoc(doc(db,'confirmaciones',confId),{pagado:val});};
 
-window.copyLinkBtn=function(id,btn){
+window.copyLinkBtn=(id,btn)=>{
   copyText(makeLink(id));
-  const orig=btn.textContent;
-  btn.textContent='&#10003; Copiado';
-  setTimeout(()=>{btn.textContent=orig;},2000);
+  const o=btn.textContent;btn.textContent='&#10003; Copiado';
+  setTimeout(()=>{btn.textContent=o;},2000);
 };
 
-window.deleteInv=async function(id){
-  if(!confirm('Borrar invitado "'+id+'"?')) return;
-  await deleteDoc(doc(db,'invitados',id));
+async function deleteInvCompletely(id){
+  const batch=writeBatch(db);
+  batch.delete(doc(db,'invitados',id));
+  Object.values(window.confirmacionesData).filter(c=>c.invitadoId===id).forEach(c=>batch.delete(doc(db,'confirmaciones',c.id)));
+  await batch.commit();
+}
+window.deleteInvCompletely=deleteInvCompletely;
+
+window.askDeleteInv=(id)=>{
+  const inv=window.invitadosData[id];
+  requireAuth('Eliminar tarjeta',`Vas a eliminar a "${inv?.destinatario||id}" y todas sus confirmaciones. No se puede deshacer.`,true,()=>deleteInvCompletely(id));
 };
 
-window.saveInvitado=async function(){
-  const dest=document.getElementById('modal-dest').value.trim();
-  if(!dest){document.getElementById('modal-error').textContent='Ingres&aacute; el nombre';return;}
-  const id=genId(dest);
-  const btn=document.getElementById('modal-save-btn');
-  btn.disabled=true;
+window.deleteInvFromEdit=()=>{
+  const id=window._editInvId;
+  closeEditModal();
+  requireAuth('Eliminar tarjeta completa',`Vas a eliminar esta tarjeta y TODAS las confirmaciones asociadas. No se puede deshacer.`,true,()=>deleteInvCompletely(id));
+};
+
+window.saveNewInvitado=async()=>{
+  const dest=document.getElementById('add-dest').value.trim();
+  if(!dest){document.getElementById('add-error').textContent='Ingresá el nombre';return;}
+  const btn=document.getElementById('add-save-btn');btn.disabled=true;
   try{
-    await setDoc(doc(db,'invitados',id),{destinatario:dest,pagado:false,creado:serverTimestamp()},{merge:true});
-    closeModal();
-  } catch(e){document.getElementById('modal-error').textContent='Error: '+e.message;}
+    const id=genId(dest);
+    await setDoc(doc(db,'invitados',id),{destinatario:dest,creado:serverTimestamp()},{merge:true});
+    closeAddModal();
+  }catch(e){document.getElementById('add-error').textContent='Error: '+e.message;}
   btn.disabled=false;
 };
 
-window.importInvitados=async function(){
+// Guardar cambios del modal editar
+window.saveEditModal=async()=>{
+  const btn=document.getElementById('edit-save-btn');
+  btn.disabled=true;
+  document.getElementById('edit-error').textContent='';
+  try{
+    const newDest=document.getElementById('edit-dest-input').value.trim();
+    if(!newDest){document.getElementById('edit-error').textContent='Ingresá el nombre del destinatario';btn.disabled=false;return;}
+
+    const batch=writeBatch(db);
+
+    // 1. Actualizar destinatario en invitados
+    batch.update(doc(db,'invitados',window._editInvId),{destinatario:newDest});
+
+    // 2. Eliminar TODAS las confirmaciones actuales del invitado
+    Object.values(window.confirmacionesData)
+      .filter(c=>c.invitadoId===window._editInvId)
+      .forEach(c=>batch.delete(doc(db,'confirmaciones',c.id)));
+
+    await batch.commit();
+
+    // 3. Re-crear confirmaciones con los datos editados (preservando pagado)
+    for(const p of window._editPersonas){
+      if(!p.nombre.trim()) continue;
+      const ref=doc(collection(db,'confirmaciones'));
+      await setDoc(ref,{
+        nombre:p.nombre.trim(),
+        tipo:p.tipo||'adulto',
+        dieta:p.dieta||'',
+        evento:p.evento||'cena',
+        pagado:p.pagado||false,
+        invitadoId:window._editInvId,
+        dispositivo:'admin',
+        ts:serverTimestamp()
+      });
+    }
+
+    closeEditModal();
+  }catch(e){document.getElementById('edit-error').textContent='Error: '+e.message;}
+  btn.disabled=false;
+};
+
+window.importInvitados=async()=>{
   if(!previewData.length)return;
-  const btn=document.getElementById('import-btn');
-  btn.disabled=true; btn.textContent='Importando...';
+  const btn=document.getElementById('import-btn');btn.disabled=true;btn.textContent='Importando...';
   try{
     const batch=writeBatch(db);
-    previewData.forEach(r=>{
-      batch.set(doc(db,'invitados',r.id),{destinatario:r.destinatario,pagado:false,creado:serverTimestamp()},{merge:true});
-    });
+    previewData.forEach(r=>batch.set(doc(db,'invitados',r.id),{destinatario:r.destinatario,creado:serverTimestamp()},{merge:true}));
     await batch.commit();
-    showStatus('&#10003; '+previewData.length+' invitados importados correctamente.',false);
-    previewData=[];
-    document.getElementById('import-preview').style.display='none';
-  } catch(e){showStatus('Error: '+e.message,true);}
-  btn.disabled=false; btn.textContent='&#8679; Importar a Firebase';
+    showStatus('&#10003; '+previewData.length+' invitados importados.',false);
+    previewData=[];document.getElementById('import-preview').style.display='none';
+  }catch(e){showStatus('Error: '+e.message,true);}
+  btn.disabled=false;btn.textContent='&#8679; Importar';
 };
 </script>
 </body>
