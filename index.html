@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
 <title>Ale & Cande — 14.11.2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Great+Vibes&family=Pinyon+Script&family=Corinthia&display=swap" rel="stylesheet"/>
@@ -167,6 +170,46 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 .rsvp-edit-btn{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:10px;border:.5px solid #d8d4cc;border-radius:2px;background:transparent;color:#9a9488;cursor:pointer;width:100%;margin-top:10px;}
 .fb-status{font-size:14px;text-align:center;color:#9a9488;min-height:18px;}
 .loading-wrap{text-align:center;padding:16px;font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:#9a9488;}
+
+/* ── BOTON INFO PAGO ── */
+.pago-info-btn{
+  display:none;width:100%;margin-top:10px;
+  background:linear-gradient(135deg,#c8a870,#b8904a);
+  border:none;border-radius:4px;
+  padding:12px 16px;
+  color:#fff;
+  font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;
+  display:none;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 0 0 0 rgba(200,168,112,.6);
+  animation:pagoInfoPulse 2s ease infinite;
+}
+@keyframes pagoInfoPulse{
+  0%{box-shadow:0 0 0 0 rgba(200,168,112,.6);}
+  60%{box-shadow:0 0 0 10px rgba(200,168,112,0);}
+  100%{box-shadow:0 0 0 0 rgba(200,168,112,0);}
+}
+.pago-info-btn.visible{display:flex;}
+.pago-info-icon{font-size:18px;animation:spin 3s linear infinite;}
+@keyframes spin{0%,80%,100%{transform:rotate(0deg);}90%{transform:rotate(15deg);}95%{transform:rotate(-10deg);}}
+
+/* ── MODAL INFO PAGO ── */
+.pago-modal-bg{
+  display:none;position:fixed;inset:0;
+  background:rgba(20,18,14,.65);
+  z-index:800;align-items:center;justify-content:center;padding:24px;
+}
+.pago-modal-bg.open{display:flex;}
+.pago-modal{
+  background:#faf9f7;border-radius:10px;
+  padding:28px 24px;max-width:360px;width:100%;
+  text-align:center;
+  box-shadow:0 16px 48px rgba(0,0,0,.25);
+}
+.pago-modal-icon{font-size:44px;margin-bottom:14px;display:block;}
+.pago-modal-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:#2a2a28;margin-bottom:12px;}
+.pago-modal-body{font-family:'Jost',sans-serif;font-size:14px;color:#7a7870;line-height:1.7;margin-bottom:20px;}
+.pago-modal-close{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:10px 24px;border:.5px solid #d8d4cc;border-radius:2px;background:transparent;color:#9a9488;cursor:pointer;}
 
 /* ── QR ── */
 .qr-box{margin:0 24px;border:.5px solid #d8d4cc;border-radius:2px;padding:20px 22px;text-align:center;}
@@ -531,6 +574,20 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
       <p class="rsvp-confirmed-title">¡Gracias, los esperamos!</p>
       <div class="rsvp-guest-list" id="rsvp-guest-list"></div>
       <button class="rsvp-edit-btn" id="rsvp-edit-btn" onclick="editRsvp()">Modificar confirmación</button>
+      <button class="pago-info-btn" id="pago-info-btn" onclick="openPagoModal()">
+        <span class="pago-info-icon">💳</span>
+        Información sobre tu pago
+      </button>
+    </div>
+
+    <!-- MODAL INFO PAGO -->
+    <div class="pago-modal-bg" id="pago-modal-bg" onclick="if(event.target===this)closePagoModal()">
+      <div class="pago-modal">
+        <span class="pago-modal-icon">💌</span>
+        <p class="pago-modal-title">Tu tarjeta ya tiene un pago registrado</p>
+        <p class="pago-modal-body">Para informar algún cambio en tu asistencia o la de tu grupo, por favor comunicate con los novios directamente. Ellos podrán gestionar cualquier modificación.</p>
+        <button class="pago-modal-close" onclick="closePagoModal()">Entendido</button>
+      </div>
     </div>
     <div class="rsvp-form" id="rsvp-form" style="display:none;">
       <div id="companions-list"></div>
@@ -916,6 +973,11 @@ const eventLabels={'cena':'🍽️ Cena','brindis':'🥂 Brindis','':'Sin selecc
 function showConf(){
   document.getElementById('rsvp-confirmed').style.display='block';
   const m=myG();updT(m.length);
+
+  // Verificar si hay algún pago registrado
+  const hayPago=m.some(d=>d.pagado);
+  const todosPagados=m.length>0&&m.every(d=>d.pagado);
+
   document.getElementById('rsvp-guest-list').innerHTML=m.map((d,i)=>`
     <div class="rsvp-guest-item${pendingEditIds.has(d.id)?' guest-editing':''}">
       <span class="guest-num">${i+1}</span>
@@ -930,17 +992,38 @@ function showConf(){
           ${d.dieta?`<span>${dietaLabels[d.dieta]||d.dieta}</span>`:''}
         </div>
       </div>
-      ${!pendingEditIds.has(d.id)?`<button class="guest-edit" onclick="editGuest('${d.id}')">✏️ Editar</button>`:'<span style="font-size:12px;color:#b0aa9e;padding:0 4px;">editando...</span>'}
-      <button class="guest-del" onclick="delG('${d.id}')">×</button>
+      ${d.pagado
+        ? '' // persona paga: sin botones de editar ni eliminar
+        : (!pendingEditIds.has(d.id)
+            ? `<button class="guest-edit" onclick="editGuest('${d.id}')">✏️ Editar</button>`
+            : '<span style="font-size:12px;color:#b0aa9e;padding:0 4px;">editando...</span>'
+          )
+      }
+      ${d.pagado ? '' : `<button class="guest-del" onclick="delG('${d.id}')">×</button>`}
     </div>`).join('');
+
   const editBtn=document.getElementById('rsvp-edit-btn');
-  if(editBtn) editBtn.style.display=addMode?'none':'block';
+  const infoBtn=document.getElementById('pago-info-btn');
+
+  if(hayPago){
+    // Si hay algún pago: ocultar "Modificar confirmación", mostrar botón info
+    if(editBtn) editBtn.style.display='none';
+    if(infoBtn) infoBtn.classList.add('visible');
+  } else {
+    if(editBtn) editBtn.style.display=addMode?'none':'block';
+    if(infoBtn) infoBtn.classList.remove('visible');
+  }
   if(!addMode) document.getElementById('rsvp-form').style.display='none';
 }
 
 function showForm(){document.getElementById('rsvp-confirmed').style.display='none';document.getElementById('rsvp-form').style.display='flex';if(!persons.length)addPerson();renderP();}
 
+window.openPagoModal=()=>document.getElementById('pago-modal-bg').classList.add('open');
+window.closePagoModal=()=>document.getElementById('pago-modal-bg').classList.remove('open');
+
 window.editRsvp=()=>{
+  // Bloquear si hay algún pago registrado
+  if(myG().some(d=>d.pagado)){window.openPagoModal();return;}
   addMode=true;editMode=true;
   persons=[];pendingEditIds.clear();
   addPerson();
@@ -953,7 +1036,8 @@ window.editRsvp=()=>{
 
 window.editGuest=id=>{
   const g=gMap[id];if(!g||pendingEditIds.has(id))return;
-  // Si no estamos en modo edición, activarlo primero
+  // Bloquear si esta persona tiene pago registrado
+  if(g.pagado){window.openPagoModal();return;}
   if(!addMode){
     addMode=true;editMode=true;persons=[];pendingEditIds.clear();
     document.getElementById('rsvp-form').style.display='flex';
@@ -963,11 +1047,12 @@ window.editGuest=id=>{
   saveN();
   persons.push({id:Date.now(),tipo:g.tipo||'adulto',nombre:g.nombre||'',dieta:g.dieta||'',evento:g.evento||'cena',_fbId:id});
   renderP();showConf();
-  // Scroll suave al formulario
   document.getElementById('rsvp-form').scrollIntoView({behavior:'smooth',block:'nearest'});
 };
 
 window.delG=async id=>{
+  // Bloquear si esta persona tiene pago registrado
+  if(gMap[id]?.pagado){window.openPagoModal();return;}
   pendingEditIds.delete(id);
   persons=persons.filter(p=>p._fbId!==id);
   await deleteDoc(doc(db,'confirmaciones',id));
@@ -1059,6 +1144,21 @@ function updateTotal(){
   el.textContent='💳 Total estimado: $'+t.toLocaleString('es-AR')+' ('+parts.join(' + ')+')';
 }
 
+// SERVICE WORKER — siempre carga la versión más reciente
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/boda-aleycande/sw.js', {scope:'/boda-aleycande/'})
+    .then(reg => {
+      // Forzar chequeo de actualización en cada visita
+      reg.update();
+      // Si hay una nueva versión instalada, recargar automáticamente
+      reg.addEventListener('updatefound', () => {
+        const nuevo = reg.installing;
+        nuevo.addEventListener('statechange', () => {
+          if(nuevo.state === 'activated') location.reload();
+        });
+      });
+    });
+}
 </script>
 </body>
 </html>
