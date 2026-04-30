@@ -173,25 +173,22 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 
 /* ── BOTON INFO PAGO ── */
 .pago-info-btn{
-  display:none;width:100%;margin-top:10px;
-  background:linear-gradient(135deg,#c8a870,#b8904a);
-  border:none;border-radius:4px;
-  padding:12px 16px;
-  color:#fff;
-  font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+  display:none;width:auto;margin-top:8px;
+  background:transparent;
+  border:.5px solid #c8a870;border-radius:20px;
+  padding:5px 12px;
+  color:#c8a870;
+  font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
   cursor:pointer;
-  display:none;align-items:center;justify-content:center;gap:8px;
-  box-shadow:0 0 0 0 rgba(200,168,112,.6);
-  animation:pagoInfoPulse 2s ease infinite;
+  align-items:center;justify-content:center;gap:5px;
+  animation:pagoInfoPulse 2.4s ease infinite;
 }
 @keyframes pagoInfoPulse{
-  0%{box-shadow:0 0 0 0 rgba(200,168,112,.6);}
-  60%{box-shadow:0 0 0 10px rgba(200,168,112,0);}
-  100%{box-shadow:0 0 0 0 rgba(200,168,112,0);}
+  0%,100%{opacity:.55;}
+  50%{opacity:1;}
 }
 .pago-info-btn.visible{display:flex;}
-.pago-info-icon{font-size:18px;animation:spin 3s linear infinite;}
-@keyframes spin{0%,80%,100%{transform:rotate(0deg);}90%{transform:rotate(15deg);}95%{transform:rotate(-10deg);}}
+.pago-info-icon{font-size:13px;}
 
 /* ── MODAL INFO PAGO ── */
 .pago-modal-bg{
@@ -584,8 +581,8 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
     <div class="pago-modal-bg" id="pago-modal-bg" onclick="if(event.target===this)closePagoModal()">
       <div class="pago-modal">
         <span class="pago-modal-icon">💌</span>
-        <p class="pago-modal-title">Tu tarjeta ya tiene un pago registrado</p>
-        <p class="pago-modal-body">Para informar algún cambio en tu asistencia o la de tu grupo, por favor comunicate con los novios directamente. Ellos podrán gestionar cualquier modificación.</p>
+        <p class="pago-modal-title">¡Gracias por ser parte de este d&iacute;a tan especial!</p>
+        <p class="pago-modal-body">Nos alegra mucho que seas parte de este d&iacute;a tan especial 💛 Si necess&iacute;s hacer alg&uacute;n cambio en tu asistencia, pod&eacute;s comunicarte con nosotros cuando quieras.</p>
         <button class="pago-modal-close" onclick="closePagoModal()">Entendido</button>
       </div>
     </div>
@@ -1005,14 +1002,16 @@ function showConf(){
   const editBtn=document.getElementById('rsvp-edit-btn');
   const infoBtn=document.getElementById('pago-info-btn');
 
-  if(hayPago){
-    // Si hay algún pago: ocultar "Modificar confirmación", mostrar botón info
-    if(editBtn) editBtn.style.display='none';
-    if(infoBtn) infoBtn.classList.add('visible');
-  } else {
-    if(editBtn) editBtn.style.display=addMode?'none':'block';
-    if(infoBtn) infoBtn.classList.remove('visible');
+  // Mostrar info button si hay algún pago
+  if(infoBtn) infoBtn.classList.toggle('visible', hayPago);
+
+  // El botón "Modificar" siempre visible (salvo que ya esté en modo edición)
+  // Si hay pago, cambia el texto a "Agregar persona" para que quede claro qué puede hacer
+  if(editBtn){
+    editBtn.style.display = addMode ? 'none' : 'block';
+    editBtn.textContent = hayPago ? '+ Agregar persona' : 'Modificar confirmación';
   }
+
   if(!addMode) document.getElementById('rsvp-form').style.display='none';
 }
 
@@ -1022,9 +1021,11 @@ window.openPagoModal=()=>document.getElementById('pago-modal-bg').classList.add(
 window.closePagoModal=()=>document.getElementById('pago-modal-bg').classList.remove('open');
 
 window.editRsvp=()=>{
-  // Bloquear si hay algún pago registrado
-  if(myG().some(d=>d.pagado)){window.openPagoModal();return;}
-  addMode=true;editMode=true;
+  // Si hay pagos: solo modo agregar (no editar los existentes)
+  // Las personas pagas ya aparecen bloqueadas en la lista
+  addMode=true;
+  // Solo activar editMode si NO hay pagos (para no borrar las confirmaciones pagas al guardar)
+  editMode=!myG().some(d=>d.pagado);
   persons=[];pendingEditIds.clear();
   addPerson();
   document.getElementById('rsvp-confirmed').style.display='block';
