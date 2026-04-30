@@ -185,8 +185,8 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
     </div>
     <div style="overflow-x:auto;">
       <table class="inv-table">
-        <thead><tr><th>Destinatario</th><th>Estado</th><th>Personas</th><th>Evento</th><th>Dieta</th><th>Precio</th><th>Pago</th><th>Link</th><th>Acciones</th></tr></thead>
-        <tbody id="tb-principal"><tr><td colspan="9" class="loading">Cargando...</td></tr></tbody>
+        <thead><tr><th>Destinatario</th><th>Estado</th><th>Personas</th><th>Evento</th><th>Dieta</th><th>Precio</th><th>Pago</th><th>&#128065; &Uacute;lt. visita</th><th>Link</th><th>Acciones</th></tr></thead>
+        <tbody id="tb-principal"><tr><td colspan="10" class="loading">Cargando...</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -438,13 +438,32 @@ function rStats(){
 }
 
 // ─── PRINCIPAL ────────────────────────────────────────────
+// Formatea el timestamp de ultimaVisita de forma legible
+function fmtVisita(ts){
+  if(!ts) return '—';
+  // Firestore puede devolver Timestamp con .toDate() o {seconds, nanoseconds}
+  let d;
+  try { d = ts.toDate ? ts.toDate() : new Date(ts.seconds*1000); }
+  catch(e){ return '—'; }
+  if(isNaN(d)) return '—';
+  const ahora=new Date(), hoy=new Date(ahora.getFullYear(),ahora.getMonth(),ahora.getDate());
+  const ayer=new Date(hoy-86400000);
+  const hora=d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+  if(d>=hoy)   return `<span style="color:#2e7d32;font-weight:600;">Hoy ${hora}</span>`;
+  if(d>=ayer)  return `<span style="color:#e65100;">Ayer ${hora}</span>`;
+  const dias=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const diff=Math.floor((ahora-d)/86400000);
+  if(diff<7)   return `${dias[d.getDay()]} ${hora}`;
+  return `${d.getDate().toString().padStart(2,'0')}/${(d.getMonth()+1).toString().padStart(2,'0')} ${hora}`;
+}
+
 function rPrincipal(){
   const tb=$('tb-principal'); if(!tb)return;
   const sv=($('search-p')?.value||'').toLowerCase();
   let invs=Object.values(INV);
   if(sv)invs=invs.filter(i=>i.destinatario.toLowerCase().includes(sv));
   invs.sort((a,b)=>a.destinatario.localeCompare(b.destinatario,'es'));
-  if(!invs.length){tb.innerHTML='<tr><td colspan="9" class="empty">Sin resultados</td></tr>';return;}
+  if(!invs.length){tb.innerHTML='<tr><td colspan="10" class="empty">Sin resultados</td></tr>';return;}
   tb.innerHTML=invs.map(inv=>{
     const ps=getPers(inv.id), conf=ps.length>0;
     const PR='prow';
@@ -460,6 +479,7 @@ function rPrincipal(){
       <td>${nH}</td><td>${eH}</td><td>${dH}</td>
       <td style="white-space:nowrap;">${prH}</td>
       <td>${pgH}</td>
+      <td style="font-size:12px;white-space:nowrap;">${fmtVisita(inv.ultimaVisita)}</td>
       <td><button class="copy-link" onclick="cpLink('${inv.id}',this)">&#128203; Copiar</button></td>
       <td><div style="display:flex;gap:5px;">
         <button class="btn btn-warn btn-sm" onclick="openEdit('${inv.id}')">&#9998; Editar</button>
