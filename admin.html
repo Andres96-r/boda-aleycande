@@ -185,7 +185,7 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
     </div>
     <div style="overflow-x:auto;">
       <table class="inv-table">
-        <thead><tr><th>Destinatario</th><th>Estado</th><th>Personas</th><th>Evento</th><th>Dieta</th><th>Precio</th><th>Pago</th><th>&#128065; &Uacute;lt. visita</th><th>Link</th><th>Acciones</th></tr></thead>
+        <thead><tr><th>Destinatario</th><th>Estado</th><th>Personas</th><th>Evento</th><th>Dieta</th><th>Precio</th><th>Pago</th><th>Link</th><th>&#128065; &Uacute;lt. visita</th><th>Acciones</th></tr></thead>
         <tbody id="tb-principal"><tr><td colspan="10" class="loading">Cargando...</td></tr></tbody>
       </table>
     </div>
@@ -479,8 +479,8 @@ function rPrincipal(){
       <td>${nH}</td><td>${eH}</td><td>${dH}</td>
       <td style="white-space:nowrap;">${prH}</td>
       <td>${pgH}</td>
-      <td style="font-size:12px;white-space:nowrap;">${fmtVisita(inv.ultimaVisita)}</td>
       <td><button class="copy-link" onclick="cpLink('${inv.id}',this)">&#128203; Copiar</button></td>
+      <td style="font-size:12px;white-space:nowrap;">${fmtVisita(inv.ultimaVisita)}</td>
       <td><div style="display:flex;gap:5px;">
         <button class="btn btn-warn btn-sm" onclick="openEdit('${inv.id}')">&#9998; Editar</button>
         <button class="btn btn-danger btn-sm" onclick="askDel('${inv.id}')">&#128465;</button>
