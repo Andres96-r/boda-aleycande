@@ -835,9 +835,22 @@ function openEnvelope(){
 let playing=false;
 function toggleMusic(){
   const audio=document.getElementById('bg-music');
-  if(playing){audio.pause();document.getElementById('icon-sound').style.display='none';document.getElementById('icon-mute').style.display='block';}
-  else{audio.play().catch(()=>{});document.getElementById('icon-sound').style.display='block';document.getElementById('icon-mute').style.display='none';}
-  playing=!playing;
+  if(playing){
+    audio.pause();
+    document.getElementById('icon-sound').style.display='none';
+    document.getElementById('icon-mute').style.display='block';
+    playing=false;
+  } else {
+    audio.play().then(()=>{
+      playing=true;
+      document.getElementById('icon-sound').style.display='block';
+      document.getElementById('icon-mute').style.display='none';
+    }).catch(()=>{
+      // autoplay bloqueado por el navegador — el usuario deberá tocar el botón
+      playing=false;
+    });
+    return;
+  }
 }
 
 // COUNTDOWN
