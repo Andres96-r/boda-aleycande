@@ -1,7 +1,5 @@
-// sw.js — Autodestructor: desinstala el service worker de todos los browsers
+// sw.js v2.0 — Autodestructor silencioso (sin recargar la página)
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', () => {
-  self.registration.unregister()
-    .then(() => self.clients.matchAll())
-    .then(clients => clients.forEach(c => c.navigate(c.url)));
+  self.registration.unregister();
 });

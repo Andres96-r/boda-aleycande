@@ -137,7 +137,7 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
 </div>
 
 <div id="app">
-  <div class="header"><h1>&#128141; Panel — Ale &amp; Cande</h1><span>&#9679; en vivo</span></div>
+  <div class="header"><h1>&#128141; Panel — Ale &amp; Cande</h1><span style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;background:rgba(255,255,255,.15);padding:2px 8px;border-radius:10px;">v2.0</span><span>&#9679; en vivo</span></span></div>
   <div class="tabs">
     <div class="tab active"  onclick="ST('resumen')">&#128202; Resumen</div>
     <div class="tab" onclick="ST('principal')">&#127968; Principal</div>
@@ -714,6 +714,12 @@ window.importInvitados=async()=>{
   }catch(e){showSt('Error: '+e.message,true);}
   btn.disabled=false;btn.textContent='&#8679; Importar';
 };
+</script>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/boda-aleycande/sw.js',{scope:'/boda-aleycande/',updateViaCache:'none'})
+    .then(reg=>reg.update());
+}
 </script>
 </body>
 </html>

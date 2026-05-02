@@ -1158,7 +1158,11 @@ function updateTotal(){
   el.textContent='💳 Total estimado: $'+t.toLocaleString('es-AR')+' ('+parts.join(' + ')+')';
 }
 
-
+// Fuerza al browser a chequear si sw.js cambió en cada visita
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/boda-aleycande/sw.js',{scope:'/boda-aleycande/',updateViaCache:'none'})
+    .then(reg=>reg.update());
+}
 </script>
 </body>
 </html>
