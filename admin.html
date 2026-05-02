@@ -715,5 +715,17 @@ window.importInvitados=async()=>{
   btn.disabled=false;btn.textContent='&#8679; Importar';
 };
 </script>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/boda-aleycande/sw.js',{scope:'/boda-aleycande/',updateViaCache:'none'})
+    .then(reg=>{
+      reg.update();
+      reg.addEventListener('updatefound',()=>{
+        const n=reg.installing;
+        n.addEventListener('statechange',()=>{ if(n.state==='activated') location.reload(); });
+      });
+    });
+}
+</script>
 </body>
 </html>

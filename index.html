@@ -1160,7 +1160,10 @@ function updateTotal(){
 
 // SERVICE WORKER — siempre carga la versión más reciente
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/boda-aleycande/sw.js', {scope:'/boda-aleycande/'})
+  navigator.serviceWorker.register('/boda-aleycande/sw.js', {
+  scope: '/boda-aleycande/',
+  updateViaCache: 'none'   // ← fuerza buscar sw.js fresco siempre
+})
     .then(reg => {
       // Forzar chequeo de actualización en cada visita
       reg.update();
