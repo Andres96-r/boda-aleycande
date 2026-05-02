@@ -1158,24 +1158,7 @@ function updateTotal(){
   el.textContent='💳 Total estimado: $'+t.toLocaleString('es-AR')+' ('+parts.join(' + ')+')';
 }
 
-// SERVICE WORKER — siempre carga la versión más reciente
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/boda-aleycande/sw.js', {
-  scope: '/boda-aleycande/',
-  updateViaCache: 'none'   // ← fuerza buscar sw.js fresco siempre
-})
-    .then(reg => {
-      // Forzar chequeo de actualización en cada visita
-      reg.update();
-      // Si hay una nueva versión instalada, recargar automáticamente
-      reg.addEventListener('updatefound', () => {
-        const nuevo = reg.installing;
-        nuevo.addEventListener('statechange', () => {
-          if(nuevo.state === 'activated') location.reload();
-        });
-      });
-    });
-}
+
 </script>
 </body>
 </html>
