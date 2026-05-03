@@ -41,8 +41,8 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 .env-overlay.fade-out{opacity:0;pointer-events:none;}
 .env-wrap{display:flex;flex-direction:column;align-items:center;gap:20px;animation:envAppear 1.2s cubic-bezier(.22,1,.36,1) both;}
 @keyframes envAppear{from{opacity:0;transform:translateY(28px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);}}
-.env-3d{perspective:900px;cursor:pointer;width:300px;height:210px;}
-.env-body{position:relative;width:300px;height:210px;transition:transform .15s ease;}
+.env-3d{perspective:900px;cursor:pointer;width:360px;height:252px;}
+.env-body{position:relative;width:360px;height:252px;transition:transform .15s ease;}
 .env-3d:hover .env-body{transform:scale(1.02) translateY(-3px);}
 .env-rect{position:absolute;inset:0;background:linear-gradient(170deg,#fdfaf4 0%,#f5f0e6 100%);border-radius:3px;box-shadow:0 2px 4px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.10),0 20px 48px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.8);border:1px solid #e0d8c8;overflow:hidden;}
 .env-rect::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom-right,transparent 49.5%,#e8e0d0 49.5%,#e8e0d0 50%,transparent 50%),linear-gradient(to bottom-left,transparent 49.5%,#e8e0d0 49.5%,#e8e0d0 50%,transparent 50%);opacity:.5;}
@@ -51,13 +51,13 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 /* Fecha en el sobre */
 .env-fecha{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;font-weight:700;color:#c8a870;white-space:nowrap;z-index:2;}
 /* Solapa — sin sello, solo triángulo limpio */
-.env-flap-wrap{position:absolute;top:0;left:0;right:0;height:105px;overflow:visible;z-index:10;}
+.env-flap-wrap{position:absolute;top:0;left:0;right:0;height:126px;overflow:visible;z-index:10;}
 .env-flap-inner{width:100%;height:100%;transform-origin:top center;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.4,0,.2,1);backface-visibility:hidden;}
 .env-flap-svg{position:absolute;top:0;left:0;width:100%;height:100%;}
 /* Texto invitados */
-.env-invite{font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:400;font-size:clamp(16px,4.5vw,20px);color:#8a7050;text-align:center;line-height:1.6;}
+.env-invite{font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:400;font-size:clamp(18px,5vw,23px);color:#8a7050;text-align:center;line-height:1.6;}
 .env-sub{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#b0a080;margin-top:2px;text-align:center;}
-.env-names{font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:400;font-size:clamp(20px,6.5vw,28px);color:#6a5030;text-align:center;line-height:1.4;}
+.env-names{font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:400;font-size:clamp(24px,7.5vw,34px);color:#6a5030;text-align:center;line-height:1.4;}
 .env-para{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#8a7858;text-align:center;margin-bottom:2px;}
 .env-hint{font-family:'Cormorant Garamond',serif;font-size:clamp(15px,4vw,18px);font-style:normal;font-weight:400;color:#6a5030;text-align:center;animation:pulse 2.4s ease infinite;}
 @keyframes pulse{0%,100%{opacity:.35;}50%{opacity:.9;}}
@@ -68,17 +68,17 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 /* ── HERO ── */
 .hero{position:relative;height:100vh;height:100dvh;display:flex;align-items:center;justify-content:center;overflow:hidden;scroll-snap-align:start;}
 .hero-bg{position:absolute;inset:0;}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:left 20%;filter:blur(2px) brightness(.72);}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:left 20%;filter:blur(0.5px) brightness(.72);}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(15,12,10,.05) 0%,rgba(15,12,10,.35) 50%,rgba(15,12,10,.75) 100%);}
 .hero-content{position:relative;text-align:center;color:#f5f3ef;padding:0 28px;max-width:100%;}
 .hero-label{font-size:14px;letter-spacing:.26em;text-transform:uppercase;color:#c8bfa8;margin-bottom:12px;}
-.hero-names{font-family:'Playfair Display',serif;font-size:clamp(50px,13vw,76px);font-style:italic;font-weight:400;line-height:1.1;color:#f5f3ef;}
-.hero-amp{font-size:clamp(38px,10.5vw,58px);color:#c8bfa8;display:block;line-height:1.2;}
-.hero-date{margin-top:16px;font-size:clamp(14px,3.8vw,17px);letter-spacing:.28em;color:#c8bfa8;}
+.hero-names{font-family:'Playfair Display',serif;font-size:clamp(56px,14.5vw,84px);font-style:italic;font-weight:400;line-height:1.1;color:#f5f3ef;}
+.hero-amp{font-size:clamp(44px,12vw,66px);color:#c8bfa8;display:block;line-height:1.2;}
+.hero-date{margin-top:22px;font-size:clamp(15px,4.2vw,19px);letter-spacing:.28em;color:#c8bfa8;}
 .hero-msg{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(17px,4.5vw,22px);color:#c8bfa8;margin-top:16px;line-height:1.7;}
 .music-btn{position:absolute;top:20px;right:20px;width:46px;height:46px;border-radius:50%;background:rgba(250,249,247,.13);border:.5px solid rgba(200,191,168,.45);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;}
 .music-btn svg{width:22px;height:22px;}
-.hero-cd{display:flex;justify-content:center;gap:8px;margin-top:20px;}
+.hero-cd{display:flex;justify-content:center;gap:8px;margin-top:26px;}
 .hcd-block{text-align:center;}
 .hcd-box{background:rgba(255,255,255,.11);border:.5px solid rgba(200,191,168,.4);border-radius:8px;padding:8px 10px;min-width:52px;}
 .hcd-num{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,7.5vw,44px);font-weight:300;color:#f5f3ef;line-height:1;display:block;}
@@ -101,7 +101,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 .event-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(15px,4vw,18px);color:#2a2a28;margin-bottom:2px;}
 .event-date{font-size:12px;letter-spacing:.06em;color:#9a9488;margin-bottom:3px;text-transform:uppercase;}
 .event-place{font-size:clamp(12px,3.5vw,14px);color:#7a7870;}
-.event-arrow{font-size:14px;color:#9a9488;flex-shrink:0;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.event-arrow{font-size:16px;color:#9a9488;flex-shrink:0;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:2px;}
 
 /* ── DRESS CODE ── */
 .dresscode-wrap{padding:0 24px;}
@@ -223,7 +223,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 .qr-img-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:10px;}
 .qr-img-wrap img{width:96px;height:96px;border:.5px solid #d8d4cc;border-radius:2px;padding:5px;background:#fff;}
 .qr-caption{font-size:14px;color:#9a9488;letter-spacing:.09em;}
-.copy-btn{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.15em;text-transform:uppercase;padding:8px 16px;border:.5px solid #d8d4cc;border-radius:2px;background:transparent;color:#4a4843;cursor:pointer;margin-bottom:4px;}
+.copy-btn{font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:6px 13px;border:.5px solid #d8d4cc;border-radius:2px;background:transparent;color:#4a4843;cursor:pointer;margin-bottom:4px;}
 .total-pagar{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:#c8722a;margin-top:10px;line-height:1.5;}
 .footer{text-align:center;padding:20px 24px 12px;}
 
@@ -270,6 +270,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 .fab-confirm:active{transform:scale(.97);}
 .fab-confirm svg{width:16px;height:16px;stroke:#f5f3ef;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
 .fab-confirm.hidden{opacity:0;pointer-events:none;transition:opacity .4s ease;}
+@keyframes fabPulse{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,.25),0 0 0 0 rgba(42,42,40,.5);}60%{box-shadow:0 4px 20px rgba(0,0,0,.25),0 0 0 10px rgba(42,42,40,0);}}
 
 /* ── FOTO FIRMA ── */
 .footer-photo{
@@ -339,8 +340,8 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
         <div class="env-rect"></div>
         <!-- Iniciales en el cuerpo -->
         <div class="env-initials">
-          <svg width="110" height="56" viewBox="0 0 110 56" fill="none">
-            <text x="55" y="44" font-family="'Cormorant Garamond',serif" font-style="normal" font-weight="400" font-size="36" fill="#c8a870" text-anchor="middle">A&amp;C</text>
+          <svg width="130" height="66" viewBox="0 0 130 66" fill="none">
+            <text x="65" y="52" font-family="'Cormorant Garamond',serif" font-style="normal" font-weight="400" font-size="44" fill="#c8a870" text-anchor="middle">A&amp;C</text>
           </svg>
         </div>
         <!-- Fecha -->
@@ -348,16 +349,15 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
         <!-- Solapa — sin sello -->
         <div class="env-flap-wrap">
           <div class="env-flap-inner" id="env-flap-inner">
-            <svg class="env-flap-svg" viewBox="0 0 300 105" fill="none" preserveAspectRatio="none">
+            <svg class="env-flap-svg" viewBox="0 0 360 126" fill="none" preserveAspectRatio="none">
               <defs><linearGradient id="fg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fdfaf4"/><stop offset="100%" stop-color="#ede8de"/></linearGradient></defs>
-              <path d="M0 0 L150 105 L300 0 Z" fill="url(#fg)" stroke="#ddd5c0" stroke-width="1"/>
+              <path d="M0 0 L180 126 L360 0 Z" fill="url(#fg)" stroke="#ddd5c0" stroke-width="1"/>
             </svg>
           </div>
         </div>
       </div>
     </div>
-    <div class="env-invite">Te invitamos a nuestra boda</div>
-    <p class="env-para">Para:</p>
+    <div class="env-invite" id="env-invite-text">Nos casamos... Y queremos que estés</div>
     <div class="env-names" id="env-guest-name">Tu invitaci&oacute;n</div>
     <p class="env-hint">Tocá para abrir</p>
   </div>
@@ -386,7 +386,6 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
         <div class="hcd-block"><div class="hcd-box"><span class="hcd-num" id="cd-m">--</span></div><span class="hcd-lbl">Min</span></div>
         <div class="hcd-block"><div class="hcd-box"><span class="hcd-num" id="cd-s">--</span></div><span class="hcd-lbl">Seg</span></div>
       </div>
-      <p class="hero-msg">&ldquo;Queremos que formes parte de nosotros&rdquo;</p>
     </div>
     <button class="music-btn" onclick="toggleMusic()">
       <svg id="icon-sound" viewBox="0 0 24 24" fill="none" stroke="#c8bfa8" stroke-width="1.5" stroke-linecap="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
@@ -403,8 +402,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
   <!-- S1: GALERÍA -->
   <div id="galeria-section" style="position:relative;padding:32px 0 52px;">
     <p class="section-label" style="text-align:center;margin-bottom:6px;">Nuestros momentos</p>
-    <p class="section-title" style="text-align:center;margin-bottom:10px;font-size:clamp(20px,5vw,26px);">Un poco de nosotros</p>
-    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:#8a7858;text-align:center;padding:0 28px;margin-bottom:18px;line-height:1.7;">&ldquo;Algunos dicen que es una locura,<br>pero yo no puedo evitar enamorarme de vos&rdquo;</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:#8a7858;text-align:center;padding:0 28px;margin-bottom:18px;line-height:1.55;">&ldquo;Entre lo simple y lo cotidiano, fuimos construyendo esto que hoy somos. Y acá estamos, eligiéndonos para siempre&rdquo;</p>
 
     <div style="padding:0 58px;position:relative;">
     <div class="galeria-wrap">
@@ -430,10 +428,29 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
       </div>
     </div>
     </div>
-    <div class="scroll-hint" onclick="document.getElementById('eventos-section').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;position:absolute;bottom:10px;left:50%;transform:translateX(-50%);">
-      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-      <span>Ver más</span>
-    </div>
+  </div>
+
+  <!-- SECCIÓN: NUESTRA HISTORIA -->
+  <div class="divider"></div>
+  <div style="padding:0 28px;text-align:center;">
+    <!-- Línea decorativa superior -->
+    <svg width="200" height="22" viewBox="0 0 200 22" fill="none" style="display:block;margin:0 auto 18px;opacity:.45;">
+      <path d="M10 11 Q50 2 100 11 Q150 20 190 11" stroke="#c8a870" stroke-width="1" stroke-linecap="round" fill="none"/>
+      <circle cx="10" cy="11" r="2" fill="#c8a870"/>
+      <circle cx="190" cy="11" r="2" fill="#c8a870"/>
+      <circle cx="100" cy="11" r="1.5" fill="#c8a870" opacity=".6"/>
+    </svg>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(17px,4.5vw,21px);font-weight:600;color:#5a4a35;line-height:1.85;max-width:400px;margin:0 auto;">
+      Estamos dando un paso muy importante en nuestra historia, y queremos celebrarlo con las personas que más queremos.<br/><br/>
+      Este espacio lo pensamos para compartir con vos cada detalle de ese día tan especial.
+    </p>
+    <!-- Línea decorativa inferior -->
+    <svg width="200" height="22" viewBox="0 0 200 22" fill="none" style="display:block;margin:18px auto 0;opacity:.45;">
+      <path d="M10 11 Q50 20 100 11 Q150 2 190 11" stroke="#c8a870" stroke-width="1" stroke-linecap="round" fill="none"/>
+      <circle cx="10" cy="11" r="2" fill="#c8a870"/>
+      <circle cx="190" cy="11" r="2" fill="#c8a870"/>
+      <circle cx="100" cy="11" r="1.5" fill="#c8a870" opacity=".6"/>
+    </svg>
   </div>
 
   <!-- S2: EVENTOS -->
@@ -526,7 +543,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
     <div style="margin-top:14px;">
       <div class="dresscode-box">
         <div class="section-label" style="margin-bottom:5px;">Dress Code</div>
-        <div class="dresscode-val">Elegante Sport</div>
+        <div class="dresscode-val">Elegante Sport / Elegante</div>
       </div>
     </div>
   </div>
@@ -564,11 +581,11 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
   <div class="divider"></div>
   <div class="rsvp-inner">
     <p class="section-label" style="margin-bottom:4px;">Confirmación de asistencia</p>
-    <p class="section-title" id="rsvp-title">¿Vas a estar?</p>
+    <p class="section-title" id="rsvp-title">¿Nos acompañás?</p>
     <p style="text-align:center;font-size:17px;color:#9a9488;margin:8px 0 16px;">Confirmá antes del 1 de noviembre de 2026</p>
     <div class="loading-wrap" id="rsvp-loading">Cargando...</div>
     <div class="rsvp-confirmed" id="rsvp-confirmed" style="margin-bottom:16px;">
-      <p class="rsvp-confirmed-title">¡Gracias, los esperamos!</p>
+      <p class="rsvp-confirmed-title">¡Nos vemos ese día! 😊</p>
       <div class="rsvp-guest-list" id="rsvp-guest-list"></div>
       <button class="rsvp-edit-btn" id="rsvp-edit-btn" onclick="editRsvp()">Modificar confirmación</button>
       <button class="pago-info-btn" id="pago-info-btn" onclick="openPagoModal()">
@@ -594,56 +611,19 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
     </div>
   </div>
 
-  <!-- S7: QR / PAGO -->
+  <!-- S7: INVITACIÓN CUBIERTA -->
   <div class="divider"></div>
-  <p class="section-label">Tarjeta de comida</p>
-  <p class="section-title" style="margin-bottom:14px;">Pago de tarjeta</p>
-
-  <!-- MODAL PRECIOS -->
-  <div id="precio-modal" style="display:none;position:fixed;inset:0;background:rgba(20,18,14,.72);z-index:900;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.style.display='none'">
-    <div style="background:#faf9f7;border-radius:10px;max-width:380px;width:100%;padding:26px 22px;position:relative;box-shadow:0 16px 48px rgba(0,0,0,.3);">
-      <button onclick="document.getElementById('precio-modal').style.display='none'" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:25px;cursor:pointer;color:#9a9488;line-height:1;">×</button>
-      <p style="font-family:'Cormorant Garamond',serif;font-size:23px;font-style:italic;color:#2a2a28;margin-bottom:18px;text-align:center;">💳 Información de precios</p>
-      <div style="display:flex;flex-direction:column;gap:12px;font-family:'Jost',sans-serif;font-size:16px;color:#4a4843;line-height:1.6;">
-        <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
-          <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">🗓️ Hasta junio 2026</p>
-          <p style="color:#7a7870;font-size:15px;">Los valores se mantienen como están actualmente.</p>
-        </div>
-        <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
-          <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">📅 Julio · Agosto · Septiembre</p>
-          <p style="color:#7a7870;font-size:15px;">A partir de estos meses puede haber un ajuste aproximado del <strong>15%</strong>, definido por el servicio de catering. En caso de aplicarse, se verá reflejado automáticamente en esta misma tarjeta.</p>
-        </div>
-        <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
-          <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">📅 Octubre · Noviembre</p>
-          <p style="color:#7a7870;font-size:15px;">Para estos meses podría haber un nuevo ajuste similar al anterior, también establecido por el catering.</p>
-        </div>
-        <div style="background:#f0ece4;border-radius:6px;padding:13px 15px;border-left:3px solid #c8a870;">
-          <p style="color:#7a6a50;font-size:15px;font-style:italic;line-height:1.7;">Si lo desean, pueden ir abonando las tarjetas con anticipación. Cada pago deja cubierta la tarjeta de una persona.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <p class="section-label">Tarjeta</p>
+  <p class="section-title" style="margin-bottom:14px;">Tarjeta por persona</p>
 
   <div class="qr-box">
-    <div class="precio-box">
-      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px;">
-        <p class="precio-title" style="margin-bottom:0;">Precios vigentes catering</p>
-        <button onclick="document.getElementById('precio-modal').style.display='flex'" style="background:none;border:none;cursor:pointer;padding:0;line-height:1;font-size:13px;font-family:'Jost',sans-serif;color:#9a9488;letter-spacing:.04em;display:inline-flex;align-items:center;gap:5px;"><span style="display:inline-block;animation:pulseBtn 1.6s ease-in-out infinite;background:#c8a870;color:#fff;border-radius:20px;padding:3px 10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;box-shadow:0 0 0 0 rgba(200,168,112,.5);">Ver info</span></button>
-<style>@keyframes pulseBtn{0%,100%{box-shadow:0 0 0 0 rgba(200,168,112,.55);transform:scale(1);}50%{box-shadow:0 0 0 7px rgba(200,168,112,0);transform:scale(1.04);}}</style>
-      </div>
-      <p style="text-align:center;font-family:'Jost',sans-serif;font-size:12px;color:#b0aa9e;letter-spacing:.06em;margin-bottom:10px;">🥂 Recepción &nbsp;·&nbsp; 🍽️ Cena &nbsp;·&nbsp; 🍰 Mucho dulce</p>
-      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena adulto</span><span class="precio-valor">$96.000</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena joven <small style="font-size:13px;color:#9a9488;">(12 a 17 años)</small></span><span class="precio-valor">$68.000</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena niño <small style="font-size:13px;color:#9a9488;">(2 a 11 años)</small></span><span class="precio-valor">$48.000</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis adulto <small style="font-size:13px;color:#9a9488;">(desde 00:00 hs)</small></span><span class="precio-valor">$48.000</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis <small style="font-size:13px;color:#9a9488;">(hasta 17 años)</small></span><span class="precio-valor">$32.000</span></div>
-    </div>
-    <p class="qr-alias" id="qr-alias-text">BODA.ALEYCANDE</p>
-    <p class="qr-cbu">CBU: 0000003100012345678901</p>
-    <div style="display:flex;flex-direction:column;gap:10px;margin:14px 0 4px;">
-      <button class="copy-btn" id="copy-alias-btn" onclick="copyAlias()" style="margin:0;">Copiar alias</button>
-    </div>
-    <p class="total-pagar" id="total-pagar"></p>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(17px,4.5vw,20px);color:#5a4a35;line-height:1.8;text-align:center;margin-bottom:16px;">
+      Hay personas con las que queremos compartir este día de una manera especial, y por eso, en algunos casos la invitación está cubierta por nosotros 🤍
+    </p>
+    <div style="width:36px;height:.5px;background:#d8d4cc;margin:0 auto 16px;"></div>
+    <p style="font-family:'Jost',sans-serif;font-size:15px;color:#7a7060;line-height:1.75;text-align:center;">
+      En tu caso no hace falta realizar ningún aporte...<br/>Simplemente venir a disfrutarlo ✨
+    </p>
   </div>
 
   <!-- S9: REGALO -->
@@ -764,13 +744,13 @@ function openEnvelope(){
     wrap.style.opacity='0';
     setTimeout(()=>{
       const ov=document.getElementById('env-overlay');
-      ov.style.transition='opacity 2.2s ease';
+      ov.style.transition='opacity 1s ease';
       ov.style.opacity='0';
-      // Auto-play música 1 segundo después de que aparece la portada
+      // Auto-play música cuando aparece la portada
       setTimeout(()=>{
         if(!playing) toggleMusic();
-      },1000);
-      setTimeout(()=>{ov.style.display='none';},2200);
+      },600);
+      setTimeout(()=>{ov.style.display='none';},1000);
     },600);
   },700);
 }
@@ -781,8 +761,13 @@ function openEnvelope(){
   const hero = document.querySelector('.hero');
   function updateFab(){
     const heroBottom = hero.getBoundingClientRect().bottom;
-    if(heroBottom < 60) fab.classList.remove('hidden');
-    else fab.classList.add('hidden');
+    if(heroBottom < 60){
+      fab.classList.remove('hidden');
+      fab.style.animation='fabPulse 2s ease-in-out infinite';
+    } else {
+      fab.classList.add('hidden');
+      fab.style.animation='';
+    }
   }
   window.addEventListener('scroll', updateFab, {passive:true});
   updateFab();
@@ -797,10 +782,8 @@ function openEnvelope(){
   function scrollToNext(){
     if(scrolling) return;
     scrolling = true;
-    const target = hero.nextElementSibling; // .divider after hero
-    // Buscar el primer elemento después del hero con contenido visible
-    const nextSection = document.querySelector('.card .divider');
-    const y = nextSection ? nextSection.getBoundingClientRect().top + window.scrollY : window.innerHeight;
+    const gal = document.getElementById('galeria-section');
+    const y = gal ? gal.getBoundingClientRect().top + window.scrollY : window.innerHeight;
     window.scrollTo({ top: y, behavior: 'smooth' });
     setTimeout(()=>{ scrolling = false; }, 1200);
   }
@@ -916,7 +899,7 @@ function updatePayButtons(){
 
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import{getFirestore,collection,doc,deleteDoc,getDoc,updateDoc,onSnapshot,addDoc,serverTimestamp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import{getFirestore,collection,doc,deleteDoc,getDoc,updateDoc,onSnapshot,addDoc,serverTimestamp,query,where}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 const app=initializeApp({apiKey:"AIzaSyB4kzCf-bP_Pugektvai9Yhq5BCdyIubbg",authDomain:"boda-aleycande.firebaseapp.com",projectId:"boda-aleycande",storageBucket:"boda-aleycande.firebasestorage.app",messagingSenderId:"576590448403",appId:"1:576590448403:web:a577eba607016bbfbd7ce6"});
 const db=getFirestore(app);
 // Leer ID de invitado desde URL ?id=
@@ -937,13 +920,17 @@ async function loadInvitadoNombre(){
     if(el) el.textContent = 'Tu invitación';
     return;
   }
-  // Mostrar el ID decodificado mientras carga
-  if(el) el.textContent = decodeURIComponent(INVITADO_ID).replace(/-/g,' ');
   try {
     const snap = await getDoc(doc(db,'invitados',INVITADO_ID));
     if(snap.exists()){
       const nombre = snap.data().destinatario || INVITADO_ID;
       if(el) el.textContent = nombre;
+      // Singular / plural según si hay " y " en el nombre
+      const esPlural = /\s[yY&]\s/.test(nombre) || nombre.includes(' Y ') || nombre.includes(' y ');
+      const invEl = document.getElementById('env-invite-text');
+      if(invEl) invEl.textContent = esPlural
+        ? 'Nos casamos... Y queremos que estén'
+        : 'Nos casamos... Y queremos que estés';
     }
   } catch(e){ console.warn('No se pudo cargar invitado',e); }
 }
@@ -957,7 +944,7 @@ if(INVITADO_ID){
 // CANCIONES
 const sScope=INVITADO_ID||DID;
 const sCol=collection(db,'canciones_master'),sMap={};
-onSnapshot(sCol,snap=>{snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete sMap[ch.doc.id];else{const d={id:ch.doc.id,...ch.doc.data()};if(d.invitadoId===sScope)sMap[ch.doc.id]=d;}});renderSongs();});
+onSnapshot(query(sCol,where('invitadoId','==',sScope)),snap=>{snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete sMap[ch.doc.id];else{const d={id:ch.doc.id,...ch.doc.data()};sMap[ch.doc.id]=d;}});renderSongs();});
 window.addSong=async()=>{const inp=document.getElementById('song-input'),v=inp.value.trim();if(!v)return;inp.value='';await addDoc(sCol,{texto:v,dispositivo:DID,invitadoId:INVITADO_ID||DID,ts:serverTimestamp()});};
 window.removeSong=async id=>{await deleteDoc(doc(db,'canciones_master',id));};
 const emojis=['🎵','🎶','🎤','🎉'];
@@ -974,8 +961,8 @@ const rCol=collection(db,'confirmaciones'),gMap={};
 let editMode=false,addMode=false,persons=[];
 const pendingEditIds=new Set();
 const myG=()=>Object.values(gMap).filter(d=>d.invitadoId===sScope);
-onSnapshot(rCol,snap=>{snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete gMap[ch.doc.id];else{const d={id:ch.doc.id,...ch.doc.data()};if(d.invitadoId===sScope)gMap[ch.doc.id]=d;}});document.getElementById('rsvp-loading').style.display='none';const m=myG();window.rsvpConfirmed=m.length>0;if(typeof updatePayButtons==='function')updatePayButtons();if(m.length)showConf();else if(!editMode&&!addMode)showForm();updateTotal();});
-function updT(n){document.getElementById('rsvp-title').textContent=n>=2?'¿Van a estar?':'¿Vas a estar?';}
+onSnapshot(query(rCol,where('invitadoId','==',sScope)),snap=>{snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete gMap[ch.doc.id];else{const d={id:ch.doc.id,...ch.doc.data()};gMap[ch.doc.id]=d;}});document.getElementById('rsvp-loading').style.display='none';const m=myG();window.rsvpConfirmed=m.length>0;if(typeof updatePayButtons==='function')updatePayButtons();if(m.length)showConf();else if(!editMode&&!addMode)showForm();updateTotal();});
+function updT(n){document.getElementById('rsvp-title').textContent=n>=2?'¿Nos acompañan?':'¿Nos acompañás?';}
 
 const dietaLabels={'celiaco':'🌾 Celíaco','vegetariano':'🥗 Vegetariano','':'Sin restricción'};
 const eventLabels={'cena':'🍽️ Cena','brindis':'🥂 Brindis','':'Sin selección'};
@@ -1160,9 +1147,11 @@ function updateTotal(){
 
 // Fuerza al browser a chequear si sw.js cambió en cada visita
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/boda-aleycande/sw.js',{scope:'/boda-aleycande/',updateViaCache:'none'})
+  navigator.serviceWorker.register('/sw.js',{scope:'/',updateViaCache:'none'})
     .then(reg=>reg.update());
 }
+// Evita que el celular muestre versión vieja desde bfcache
+window.addEventListener('pageshow',e=>{if(e.persisted)location.reload();});
 </script>
 </body>
 </html>
