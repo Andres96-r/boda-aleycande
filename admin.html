@@ -137,7 +137,7 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
 </div>
 
 <div id="app">
-  <div class="header"><h1>&#128141; Panel — Ale &amp; Cande</h1><span style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;background:rgba(255,255,255,.15);padding:2px 8px;border-radius:10px;">v2.1</span><span>&#9679; en vivo</span></span></div>
+  <div class="header"><h1>&#128141; Panel — Ale &amp; Cande</h1><span style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;background:rgba(255,255,255,.15);padding:2px 8px;border-radius:10px;">v2.2</span><span>&#9679; en vivo</span></span></div>
   <div class="tabs">
     <div class="tab active"  onclick="ST('resumen')">&#128202; Resumen</div>
     <div class="tab" onclick="ST('principal')">&#127968; Principal</div>
@@ -181,12 +181,14 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
         <input class="search-bar" id="search-p" placeholder="Buscar..." oninput="rPrincipal()"/>
         <button class="btn btn-sm btn-primary" onclick="openAddModal()">+ Agregar</button>
+        <button class="btn btn-sm" style="background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;" onclick="exportLinks()">&#128229; Exportar links</button>
+        <button class="btn btn-sm btn-danger" onclick="askDeleteAll()">&#128465; Eliminar todo</button>
       </div>
     </div>
     <div style="overflow-x:auto;">
       <table class="inv-table">
-        <thead><tr><th>Destinatario</th><th>Estado</th><th>Personas</th><th>Evento</th><th>Dieta</th><th>Precio</th><th>Pago</th><th>Link</th><th>&#128065; &Uacute;lt. visita</th><th>Acciones</th></tr></thead>
-        <tbody id="tb-principal"><tr><td colspan="10" class="loading">Cargando...</td></tr></tbody>
+        <thead><tr><th>Destinatario</th><th>Tarjeta</th><th>Estado</th><th>Personas</th><th>Evento</th><th>Dieta</th><th>Precio</th><th>Pago</th><th>Link</th><th>&#128065; &Uacute;lt. visita</th><th>Acciones</th></tr></thead>
+        <tbody id="tb-principal"><tr><td colspan="11" class="loading">Cargando...</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -233,13 +235,15 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
 
   <div id="tab-canciones" class="container" style="display:none;">
     <div class="table-header"><h2>&#127925; Canciones</h2><span id="songs-count" style="font-size:13px;color:#888;"></span></div>
+    <p style="font-size:12px;color:#aaa;margin-bottom:12px;">Hacé click en ✕ para eliminar una canción (requiere contraseña)</p>
     <div id="songs-container" class="song-cards"><div class="loading">Cargando...</div></div>
   </div>
 
   <div id="tab-importar" class="container" style="display:none;">
     <div class="import-card">
       <h2 style="margin-bottom:12px;">&#128229; Importar desde Excel</h2>
-      <p style="font-size:13px;color:#666;margin-bottom:14px;">Columna requerida: <strong>destinatario</strong></p>
+      <p style="font-size:13px;color:#666;margin-bottom:6px;">Columnas requeridas: <strong>destinatario</strong> · <strong>tipo_tarjeta</strong> (General / Especial_1)</p>
+      <p style="font-size:12px;color:#aaa;margin-bottom:14px;">Si no se especifica tipo_tarjeta, se asigna <strong>General</strong> por defecto.</p>
       <div class="file-upload" id="drop-zone" onclick="document.getElementById('excel-file').click()"
         ondragover="event.preventDefault();this.classList.add('drag')"
         ondragleave="this.classList.remove('drag')"
@@ -254,7 +258,7 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
           <button class="btn btn-primary" id="import-btn" onclick="importInvitados()">&#8679; Importar</button>
         </div>
         <div style="overflow-x:auto;max-height:280px;overflow-y:auto;">
-          <table class="preview-table"><thead><tr><th>#</th><th>Destinatario</th><th>ID</th></tr></thead><tbody id="preview-tbody"></tbody></table>
+          <table class="preview-table"><thead><tr><th>#</th><th>Destinatario</th><th>Tipo tarjeta</th><th>ID</th></tr></thead><tbody id="preview-tbody"></tbody></table>
         </div>
       </div>
       <div id="import-status" style="display:none;"></div>
@@ -282,6 +286,13 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
     <div class="modal-hdr"><h2>Agregar invitado</h2><button class="modal-close" onclick="closeAdd()">&#215;</button></div>
     <p class="modal-sub">El nombre aparece en el sobre de la tarjeta</p>
     <div class="form-row"><label>Destinatario</label><input type="text" id="add-dest" placeholder="Ej: Juan y María" onkeydown="if(event.key==='Enter')saveAdd()"/></div>
+    <div class="form-row">
+      <label>Tipo de tarjeta</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button id="add-tipo-general" class="pill on" onclick="setAddTipo('General')">&#127968; General</button>
+        <button id="add-tipo-especial" class="pill" onclick="setAddTipo('Especial_1')">&#11088; Especial_1</button>
+      </div>
+    </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeAdd()">Cancelar</button>
       <button class="btn btn-primary" id="add-ok" onclick="saveAdd()">Guardar</button>
@@ -324,12 +335,14 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import{getFirestore,collection,doc,setDoc,updateDoc,deleteDoc,addDoc,onSnapshot,writeBatch,serverTimestamp}
+import{getFirestore,collection,doc,setDoc,updateDoc,deleteDoc,addDoc,onSnapshot,writeBatch,serverTimestamp,enableIndexedDbPersistence}
   from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 // ─── CONFIG ───────────────────────────────────────────────
 const PASS='bodaac2026';
-const TARJETA_URL='https://andres96-r.github.io/boda-aleycande/';
+const PASS_BORRAR='borrarbodaac2026';
+const TARJETA_URL='https://boda-aleycande.lat/';
+const TARJETA_URL_ESPECIAL='https://boda-aleycande.lat/index2.html';
 const FB={apiKey:"AIzaSyB4kzCf-bP_Pugektvai9Yhq5BCdyIubbg",authDomain:"boda-aleycande.firebaseapp.com",projectId:"boda-aleycande",storageBucket:"boda-aleycande.firebasestorage.app",messagingSenderId:"576590448403",appId:"1:576590448403:web:a577eba607016bbfbd7ce6"};
 const TABS=['resumen','principal','confirmados','pendientes','cena','brindis','pagaron','canciones','importar'];
 // Precios
@@ -348,12 +361,12 @@ const TL={"adulto":"Adulto","joven":"Joven","nino":"Ni&ntilde;o"};
 // ─── STATE ────────────────────────────────────────────────
 let db;
 const INV={}, CONF={}, SONGS={};
-let _authCb=null, _editId=null, _editPs=[];
+let _authCb=null, _authPass=PASS, _editId=null, _editPs=[], _addTipo='General';
 
 // ─── HELPERS ──────────────────────────────────────────────
 const esc=t=>String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const $=id=>document.getElementById(id);
-const mk=id=>TARJETA_URL+'?id='+encodeURIComponent(id);
+const mk=id=>{const inv=INV[id];const base=inv?.tipoTarjeta==='Especial_1'?TARJETA_URL_ESPECIAL:TARJETA_URL;return base+'?id='+encodeURIComponent(id);};
 const fmtP=n=>'$'+Number(n).toLocaleString('es-AR');
 const genId=d=>d.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9\s]/g,'').trim().replace(/\s+/g,'-').toLowerCase();
 const getPers=id=>Object.values(CONF).filter(c=>c.invitadoId===id);
@@ -385,6 +398,7 @@ window.ST=t=>{
 // ─── FIREBASE ─────────────────────────────────────────────
 function startFirebase(){
   const app=initializeApp(FB); db=getFirestore(app);
+  enableIndexedDbPersistence(db).catch(()=>{});
   onSnapshot(collection(db,'invitados'),snap=>{
     snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete INV[ch.doc.id];else INV[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};});
     refresh();
@@ -463,9 +477,10 @@ function rPrincipal(){
   let invs=Object.values(INV);
   if(sv)invs=invs.filter(i=>i.destinatario.toLowerCase().includes(sv));
   invs.sort((a,b)=>a.destinatario.localeCompare(b.destinatario,'es'));
-  if(!invs.length){tb.innerHTML='<tr><td colspan="10" class="empty">Sin resultados</td></tr>';return;}
+  if(!invs.length){tb.innerHTML='<tr><td colspan="11" class="empty">Sin resultados</td></tr>';return;}
   tb.innerHTML=invs.map(inv=>{
     const ps=getPers(inv.id), conf=ps.length>0;
+    const esEspecial=inv.tipoTarjeta==='Especial_1';
     const PR='prow';
     const nH=conf?ps.map(p=>`<div class="${PR}">${esc(p.nombre||'—')}</div>`).join(''):'—';
     const eH=conf?ps.map(p=>`<div class="${PR}">${p.evento?`<span class="badge ${p.evento==='cena'?'badge-cena':'badge-brindis'}" style="font-size:10px;">${p.evento==='cena'?'Cena':'Brindis'}</span>`:'—'}</div>`).join(''):'—';
@@ -473,8 +488,12 @@ function rPrincipal(){
     const prH=conf?ps.map(p=>`<div class="${PR}" style="font-size:12px;color:#555;">${fmtP(precio(p))}</div>`).join(''):'—';
     const totM=ps.reduce((s,p)=>s+precio(p),0), cobM=ps.filter(p=>p.pagado).reduce((s,p)=>s+precio(p),0);
     const pgH=conf?`${ps.map(p=>`<div class="${PR}"><button class="pago-btn ${p.pagado?'pagado':'pend'}" onclick="togglePago('${p.id}',${!p.pagado})">${p.pagado?'&#10003; Pag&oacute;':'&#10005; Pendiente'}</button></div>`).join('')}<div class="pago-sum"><span>Abonado:</span><span class="pv">${fmtP(cobM)} / ${fmtP(totM)}</span></div>`:'—';
-    return `<tr>
+    const tipoBadge=esEspecial
+      ?'<span style="display:inline-flex;align-items:center;gap:3px;background:#f3e5f5;color:#6a1b9a;border-radius:20px;padding:3px 8px;font-size:11px;font-weight:600;">&#11088; Especial_1</span>'
+      :'<span style="display:inline-flex;align-items:center;gap:3px;background:#e3f2fd;color:#1565c0;border-radius:20px;padding:3px 8px;font-size:11px;font-weight:600;">&#127968; General</span>';
+    return `<tr${esEspecial?' style="background:#fdf6ff;"':''}>
       <td><div style="font-weight:500;">${esc(inv.destinatario)}</div><div style="font-size:10px;color:#aaa;margin-top:2px;">${esc(inv.id)}</div></td>
+      <td>${tipoBadge}</td>
       <td>${conf?`<span class="badge badge-ok">&#10003; (${ps.length})</span>`:'<span class="badge badge-pend">&#8987;</span>'}</td>
       <td>${nH}</td><td>${eH}</td><td>${dH}</td>
       <td style="white-space:nowrap;">${prH}</td>
@@ -535,36 +554,43 @@ function rSongs(){
   const g={};
   songs.forEach(s=>{const k=s.invitadoId||'?';if(!g[k])g[k]={n:INV[k]?.destinatario||k,s:[]};g[k].s.push(s);});
   const emj=['&#127925;','&#127926;','&#127908;','&#127881;'];
-  c.innerHTML=Object.entries(g).map(([,v])=>`<div class="song-card"><div class="song-card-name">&#128100; ${esc(v.n)}</div>${v.s.map((s,i)=>`<div class="song-item"><span>${emj[i%4]}</span><span>${esc(s.texto||'')}</span></div>`).join('')}</div>`).join('');
+  c.innerHTML=Object.entries(g).map(([,v])=>`<div class="song-card"><div class="song-card-name">&#128100; ${esc(v.n)}</div>${v.s.map((s,i)=>`<div class="song-item" style="justify-content:space-between;"><div style="display:flex;align-items:center;gap:8px;"><span>${emj[i%4]}</span><span>${esc(s.texto||'')}</span></div><button onclick="askDelSong('${s.id}')" style="border:none;background:none;color:#e53935;cursor:pointer;font-size:16px;padding:2px 6px;border-radius:4px;flex-shrink:0;" title="Eliminar">&#215;</button></div>`).join('')}</div>`).join('');
 }
+window.askDelSong=id=>{
+  openAuth('Eliminar canción','Ingresá la contraseña para eliminar esta canción.',true,async()=>{
+    await deleteDoc(doc(db,'canciones_master',id));
+  });
+};
 
 // ─── AUTH MODAL ───────────────────────────────────────────
-function openAuth(title, desc, isDanger, cb){
+function openAuth(title, desc, isDanger, cb, pass){
   $('auth-title').textContent=title;
   $('auth-desc').textContent=desc;
   $('auth-pwd').value='';
   $('auth-err').textContent='';
   $('auth-ok').style.background=isDanger?'#e53935':'#6c63ff';
   _authCb=cb;
+  _authPass=pass||PASS;
   $('m-auth').classList.add('open');
   setTimeout(()=>$('auth-pwd').focus(),100);
 }
-window.closeAuth=()=>{$('m-auth').classList.remove('open');_authCb=null;};
+window.closeAuth=()=>{$('m-auth').classList.remove('open');_authCb=null;_authPass=PASS;};
 window.doAuth=()=>{
-  if($('auth-pwd').value!==PASS){$('auth-err').textContent='Contraseña incorrecta';return;}
-  const cb=_authCb;   // guardar ANTES de cerrar (closeAuth lo pone en null)
+  if($('auth-pwd').value!==_authPass){$('auth-err').textContent='Contraseña incorrecta';return;}
+  const cb=_authCb;
   window.closeAuth();
   if(cb)cb();
 };
 
 // ─── ADD MODAL ────────────────────────────────────────────
-window.openAddModal=()=>{$('add-dest').value='';$('add-err').textContent='';$('m-add').classList.add('open');setTimeout(()=>$('add-dest').focus(),100);};
+window.openAddModal=()=>{$('add-dest').value='';$('add-err').textContent='';_addTipo='General';$('add-tipo-general').classList.add('on');$('add-tipo-especial').classList.remove('on');$('m-add').classList.add('open');setTimeout(()=>$('add-dest').focus(),100);};
 window.closeAdd=()=>$('m-add').classList.remove('open');
+window.setAddTipo=t=>{_addTipo=t;$('add-tipo-general').classList.toggle('on',t==='General');$('add-tipo-especial').classList.toggle('on',t==='Especial_1');};
 window.saveAdd=async()=>{
   const dest=$('add-dest').value.trim();
   if(!dest){$('add-err').textContent='Ingresá el nombre';return;}
   $('add-ok').disabled=true;
-  try{await setDoc(doc(db,'invitados',genId(dest)),{destinatario:dest,creado:serverTimestamp()},{merge:true});window.closeAdd();}
+  try{await setDoc(doc(db,'invitados',genId(dest)),{destinatario:dest,tipoTarjeta:_addTipo,creado:serverTimestamp()},{merge:true});window.closeAdd();}
   catch(e){$('add-err').textContent='Error: '+e.message;}
   $('add-ok').disabled=false;
 };
@@ -655,7 +681,40 @@ window.deleteFromEdit=()=>{
   openAuth('Eliminar tarjeta',`Eliminás la tarjeta y TODAS sus confirmaciones. Esta acción no se puede deshacer.`,true,()=>delInv(id));
 };
 
-// ─── DELETE ───────────────────────────────────────────────
+// ─── DELETE ALL ───────────────────────────────────────────
+window.askDeleteAll=()=>{
+  openAuth(
+    '⚠️ Eliminar TODO',
+    `Esta acción borrará los ${Object.keys(INV).length} invitados, todas sus confirmaciones y canciones. NO se puede deshacer.`,
+    true,
+    async()=>{
+      const batch=writeBatch(db);
+      Object.keys(INV).forEach(id=>batch.delete(doc(db,'invitados',id)));
+      Object.keys(CONF).forEach(id=>batch.delete(doc(db,'confirmaciones',id)));
+      Object.keys(SONGS).forEach(id=>batch.delete(doc(db,'canciones_master',id)));
+      await batch.commit();
+    },
+    PASS_BORRAR
+  );
+};
+
+// ─── EXPORT LINKS ─────────────────────────────────────────
+window.exportLinks=()=>{
+  const invs=Object.values(INV).sort((a,b)=>a.destinatario.localeCompare(b.destinatario,'es'));
+  if(!invs.length){alert('No hay invitados para exportar.');return;}
+  const rows=[['Destinatario','Tipo tarjeta','Link']];
+  invs.forEach(inv=>{
+    const tipo=inv.tipoTarjeta||'General';
+    rows.push([inv.destinatario, tipo, mk(inv.id)]);
+  });
+  const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='links-boda-aleycande.csv';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+};
 window.askDel=id=>{
   const inv=INV[id];
   openAuth('Eliminar tarjeta',`Vas a eliminar "${inv?.destinatario||id}" y todas sus confirmaciones. No se puede deshacer.`,true,()=>delInv(id));
@@ -694,12 +753,17 @@ window.handleFile=file=>{
   r.readAsArrayBuffer(file);
 };
 function procRows(rows){
-  _previewData=rows.map(r=>{const d=(r.destinatario||r.Destinatario||r.nombre||r.Nombre||'').trim();return d?{destinatario:d,id:genId(d)}:null;}).filter(Boolean);
+  _previewData=rows.map(r=>{
+    const d=(r.destinatario||r.Destinatario||r.nombre||r.Nombre||'').trim();
+    const t=(r.tipo_tarjeta||r.Tipo_tarjeta||r.tipoTarjeta||r.TipoTarjeta||'').trim();
+    const tipo=(t==='Especial_1')?'Especial_1':'General';
+    return d?{destinatario:d,id:genId(d),tipoTarjeta:tipo}:null;
+  }).filter(Boolean);
   if(!_previewData.length){showSt('No se encontraron destinatarios.',true);return;}
   $('import-status').style.display='none';
   $('import-preview').style.display='block';
   $('preview-count').textContent=_previewData.length+' invitados';
-  $('preview-tbody').innerHTML=_previewData.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.destinatario)}</td><td style="font-family:monospace;font-size:11px;color:#888;">${esc(r.id)}</td></tr>`).join('');
+  $('preview-tbody').innerHTML=_previewData.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.destinatario)}</td><td>${r.tipoTarjeta==='Especial_1'?'&#11088; Especial_1':'&#127968; General'}</td><td style="font-family:monospace;font-size:11px;color:#888;">${esc(r.id)}</td></tr>`).join('');
 }
 function showSt(msg,err){const el=$('import-status');el.style.display='block';el.className='status-msg '+(err?'status-err':'status-ok');el.textContent=msg;}
 window.importInvitados=async()=>{
@@ -707,7 +771,7 @@ window.importInvitados=async()=>{
   const btn=$('import-btn');btn.disabled=true;btn.textContent='Importando...';
   try{
     const batch=writeBatch(db);
-    _previewData.forEach(r=>batch.set(doc(db,'invitados',r.id),{destinatario:r.destinatario,creado:serverTimestamp()},{merge:true}));
+    _previewData.forEach(r=>batch.set(doc(db,'invitados',r.id),{destinatario:r.destinatario,tipoTarjeta:r.tipoTarjeta,creado:serverTimestamp()},{merge:true}));
     await batch.commit();
     showSt('&#10003; '+_previewData.length+' invitados importados.',false);
     _previewData=[];$('import-preview').style.display='none';
@@ -717,7 +781,7 @@ window.importInvitados=async()=>{
 </script>
 <script>
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/boda-aleycande/sw.js',{scope:'/boda-aleycande/',updateViaCache:'none'})
+  navigator.serviceWorker.register('/sw.js',{scope:'/',updateViaCache:'none'})
     .then(reg=>reg.update());
 }
 </script>
