@@ -58,6 +58,8 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 .env-invite{font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:400;font-size:clamp(18px,5vw,23px);color:#8a7050;text-align:center;line-height:1.6;}
 .env-sub{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#b0a080;margin-top:2px;text-align:center;}
 .env-names{font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:400;font-size:clamp(24px,7.5vw,34px);color:#6a5030;text-align:center;line-height:1.4;}
+.env-names-shimmer{width:180px;height:32px;margin:4px auto 0;border-radius:4px;background:linear-gradient(90deg,#e8e0d4 25%,#f5f0e8 50%,#e8e0d4 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 .env-para{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#8a7858;text-align:center;margin-bottom:2px;}
 .env-hint{font-family:'Cormorant Garamond',serif;font-size:clamp(15px,4vw,18px);font-style:normal;font-weight:400;color:#6a5030;text-align:center;animation:pulse 2.4s ease infinite;}
 @keyframes pulse{0%,100%{opacity:.35;}50%{opacity:.9;}}
@@ -358,7 +360,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
       </div>
     </div>
     <div class="env-invite" id="env-invite-text">Nos casamos... Y queremos que estés</div>
-    <div class="env-names" id="env-guest-name">Tu invitaci&oacute;n</div>
+    <div class="env-names" id="env-guest-name"><div class="env-names-shimmer"></div></div>
     <p class="env-hint">Tocá para abrir</p>
   </div>
 </div>
@@ -609,21 +611,6 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
       <div class="fb-status" id="rsvp-status"></div>
       <button class="rsvp-btn" id="rsvp-btn" onclick="submitRsvp()">Confirmar asistencia</button>
     </div>
-  </div>
-
-  <!-- S7: INVITACIÓN CUBIERTA -->
-  <div class="divider"></div>
-  <p class="section-label">Tarjeta</p>
-  <p class="section-title" style="margin-bottom:14px;">Tarjeta por persona</p>
-
-  <div class="qr-box">
-    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(17px,4.5vw,20px);color:#5a4a35;line-height:1.8;text-align:center;margin-bottom:16px;">
-      Hay personas con las que queremos compartir este día de una manera especial, y por eso, en algunos casos la invitación está cubierta por nosotros 🤍
-    </p>
-    <div style="width:36px;height:.5px;background:#d8d4cc;margin:0 auto 16px;"></div>
-    <p style="font-family:'Jost',sans-serif;font-size:15px;color:#7a7060;line-height:1.75;text-align:center;">
-      En tu caso no hace falta realizar ningún aporte...<br/>Simplemente venir a disfrutarlo ✨
-    </p>
   </div>
 
   <!-- S9: REGALO -->
@@ -917,7 +904,7 @@ function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 async function loadInvitadoNombre(){
   const el = document.getElementById('env-guest-name');
   if(!INVITADO_ID){
-    if(el) el.textContent = 'Tu invitación';
+    if(el) el.innerHTML = '<span style="opacity:.5;font-style:italic;">Tu invitación</span>';
     return;
   }
   try {
@@ -931,8 +918,13 @@ async function loadInvitadoNombre(){
       if(invEl) invEl.textContent = esPlural
         ? 'Nos casamos... Y queremos que estén'
         : 'Nos casamos... Y queremos que estés';
+    } else {
+      if(el) el.innerHTML = '<span style="opacity:.5;font-style:italic;">Tu invitación</span>';
     }
-  } catch(e){ console.warn('No se pudo cargar invitado',e); }
+  } catch(e){
+    if(el) el.innerHTML = '<span style="opacity:.5;font-style:italic;">Tu invitación</span>';
+    console.warn('No se pudo cargar invitado',e);
+  }
 }
 loadInvitadoNombre();
 
