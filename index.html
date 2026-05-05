@@ -58,6 +58,22 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 .env-invite{font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:400;font-size:clamp(18px,5vw,23px);color:#8a7050;text-align:center;line-height:1.6;}
 .env-sub{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#b0a080;margin-top:2px;text-align:center;}
 .env-names{font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:400;font-size:clamp(24px,7.5vw,34px);color:#6a5030;text-align:center;line-height:1.4;}
+/* ── SHIMMER nombre invitado ── */
+.env-names.shimmer{
+  color:transparent!important;
+  border-radius:6px;
+  min-width:180px;
+  display:inline-block;
+  background:linear-gradient(90deg,#e8e0d0 25%,#f7f2e8 50%,#e8e0d0 75%);
+  background-size:200% 100%;
+  animation:shimmerSlide 1.5s ease-in-out infinite;
+  min-height:1.4em;
+  vertical-align:middle;
+}
+@keyframes shimmerSlide{
+  0%{background-position:200% 0;}
+  100%{background-position:-200% 0;}
+}
 .env-para{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#8a7858;text-align:center;margin-bottom:2px;}
 .env-hint{font-family:'Cormorant Garamond',serif;font-size:clamp(15px,4vw,18px);font-style:normal;font-weight:400;color:#6a5030;text-align:center;animation:pulse 2.4s ease infinite;}
 @keyframes pulse{0%,100%{opacity:.35;}50%{opacity:.9;}}
@@ -358,7 +374,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
       </div>
     </div>
     <div class="env-invite" id="env-invite-text">Nos casamos... Y queremos que estés</div>
-    <div class="env-names" id="env-guest-name">Tu invitaci&oacute;n</div>
+    <div class="env-names shimmer" id="env-guest-name">&nbsp;</div>
     <p class="env-hint">Tocá para abrir</p>
   </div>
 </div>
@@ -611,19 +627,56 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
     </div>
   </div>
 
-  <!-- S7: INVITACIÓN CUBIERTA -->
+  <!-- S7: QR / PAGO -->
   <div class="divider"></div>
-  <p class="section-label">Tarjeta</p>
-  <p class="section-title" style="margin-bottom:14px;">Tarjeta por persona</p>
+  <p class="section-label">Tarjeta de comida</p>
+  <p class="section-title" style="margin-bottom:14px;">Pago de tarjeta</p>
+
+  <!-- MODAL PRECIOS -->
+  <div id="precio-modal" style="display:none;position:fixed;inset:0;background:rgba(20,18,14,.72);z-index:900;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.style.display='none'">
+    <div style="background:#faf9f7;border-radius:10px;max-width:380px;width:100%;padding:26px 22px;position:relative;box-shadow:0 16px 48px rgba(0,0,0,.3);">
+      <button onclick="document.getElementById('precio-modal').style.display='none'" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:25px;cursor:pointer;color:#9a9488;line-height:1;">×</button>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:23px;font-style:italic;color:#2a2a28;margin-bottom:18px;text-align:center;">💳 Información de precios</p>
+      <div style="display:flex;flex-direction:column;gap:12px;font-family:'Jost',sans-serif;font-size:16px;color:#4a4843;line-height:1.6;">
+        <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
+          <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">🗓️ Hasta junio 2026</p>
+          <p style="color:#7a7870;font-size:15px;">Los valores se mantienen como están actualmente.</p>
+        </div>
+        <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
+          <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">📅 Julio · Agosto · Septiembre</p>
+          <p style="color:#7a7870;font-size:15px;">A partir de estos meses puede haber un ajuste aproximado del <strong>15%</strong>, definido por el servicio de catering. En caso de aplicarse, se verá reflejado automáticamente en esta misma tarjeta.</p>
+        </div>
+        <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
+          <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">📅 Octubre · Noviembre</p>
+          <p style="color:#7a7870;font-size:15px;">Para estos meses podría haber un nuevo ajuste similar al anterior, también establecido por el catering.</p>
+        </div>
+        <div style="background:#f0ece4;border-radius:6px;padding:13px 15px;border-left:3px solid #c8a870;">
+          <p style="color:#7a6a50;font-size:15px;font-style:italic;line-height:1.7;">Si lo desean, pueden ir abonando las tarjetas con anticipación. Cada pago deja cubierta la tarjeta de una persona.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="qr-box">
-    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(17px,4.5vw,20px);color:#5a4a35;line-height:1.8;text-align:center;margin-bottom:16px;">
-      Hay personas con las que queremos compartir este día de una manera especial, y por eso, en algunos casos la invitación está cubierta por nosotros 🤍
-    </p>
-    <div style="width:36px;height:.5px;background:#d8d4cc;margin:0 auto 16px;"></div>
-    <p style="font-family:'Jost',sans-serif;font-size:15px;color:#7a7060;line-height:1.75;text-align:center;">
-      En tu caso no hace falta realizar ningún aporte...<br/>Simplemente venir a disfrutarlo ✨
-    </p>
+    <div class="precio-box">
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px;">
+        <p class="precio-title" style="margin-bottom:0;">Precios vigentes catering</p>
+        <button onclick="document.getElementById('precio-modal').style.display='flex'" style="background:none;border:none;cursor:pointer;padding:0;line-height:1;font-size:13px;font-family:'Jost',sans-serif;color:#9a9488;letter-spacing:.04em;display:inline-flex;align-items:center;gap:5px;"><span style="display:inline-block;animation:pulseBtn 1.6s ease-in-out infinite;background:#c8a870;color:#fff;border-radius:20px;padding:3px 10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;box-shadow:0 0 0 0 rgba(200,168,112,.5);">Ver info</span></button>
+<style>@keyframes pulseBtn{0%,100%{box-shadow:0 0 0 0 rgba(200,168,112,.55);transform:scale(1);}50%{box-shadow:0 0 0 7px rgba(200,168,112,0);transform:scale(1.04);}}</style>
+      </div>
+      <p style="text-align:center;font-family:'Jost',sans-serif;font-size:12px;color:#b0aa9e;letter-spacing:.06em;margin-bottom:10px;">🥂 Recepción &nbsp;·&nbsp; 🍽️ Cena &nbsp;·&nbsp; 🍰 Mucho dulce</p>
+      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena adulto</span><span class="precio-valor">$96.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena joven <small style="font-size:13px;color:#9a9488;">(12 a 17 años)</small></span><span class="precio-valor">$68.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena niño <small style="font-size:13px;color:#9a9488;">(2 a 11 años)</small></span><span class="precio-valor">$48.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis adulto <small style="font-size:13px;color:#9a9488;">(desde 00:00 hs)</small></span><span class="precio-valor">$48.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis <small style="font-size:13px;color:#9a9488;">(hasta 17 años)</small></span><span class="precio-valor">$32.000</span></div>
+    </div>
+    <p class="qr-alias" id="qr-alias-text">BODA.ALEYCANDE</p>
+    <p class="qr-cbu">CBU: 0000003100012345678901</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin:14px 0 4px;">
+      <button class="copy-btn" id="copy-alias-btn" onclick="copyAlias()" style="margin:0;">Copiar alias</button>
+    </div>
+    <p class="total-pagar" id="total-pagar"></p>
   </div>
 
   <!-- S9: REGALO -->
@@ -917,22 +970,24 @@ function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 async function loadInvitadoNombre(){
   const el = document.getElementById('env-guest-name');
   if(!INVITADO_ID){
-    if(el) el.textContent = 'Tu invitación';
+    if(el){ el.textContent = 'Tu invitación'; el.classList.remove('shimmer'); }
     return;
   }
   try {
     const snap = await getDoc(doc(db,'invitados',INVITADO_ID));
     if(snap.exists()){
       const nombre = snap.data().destinatario || INVITADO_ID;
-      if(el) el.textContent = nombre;
-      // Singular / plural según si hay " y " en el nombre
+      if(el){ el.textContent = nombre; el.classList.remove('shimmer'); }
+      // Singular / plural segun si hay " y " en el nombre
       const esPlural = /\s[yY&]\s/.test(nombre) || nombre.includes(' Y ') || nombre.includes(' y ');
       const invEl = document.getElementById('env-invite-text');
       if(invEl) invEl.textContent = esPlural
         ? 'Nos casamos... Y queremos que estén'
         : 'Nos casamos... Y queremos que estés';
+    } else {
+      if(el) el.classList.remove('shimmer');
     }
-  } catch(e){ console.warn('No se pudo cargar invitado',e); }
+  } catch(e){ console.warn('No se pudo cargar invitado',e); if(el) el.classList.remove('shimmer'); }
 }
 loadInvitadoNombre();
 
