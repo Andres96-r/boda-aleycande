@@ -752,14 +752,24 @@ window.handleFile=file=>{
   };
   r.readAsArrayBuffer(file);
 };
+function normKey(s){return String(s||'').toLowerCase().replace(/[\s_\-]/g,'');}
+function findCol(r,names){
+  const keys=Object.keys(r);
+  for(const n of names){
+    const k=keys.find(k=>normKey(k)===normKey(n));
+    if(k&&r[k]!==undefined&&r[k]!=='')return String(r[k]);
+  }
+  return '';
+}
 function procRows(rows){
+  if(!rows.length){showSt('No se encontraron destinatarios.',true);return;}
   _previewData=rows.map(r=>{
-    const d=(r.destinatario||r.Destinatario||r.nombre||r.Nombre||'').trim();
-    const t=(r.tipo_tarjeta||r.Tipo_tarjeta||r.tipoTarjeta||r.TipoTarjeta||'').trim();
+    const d=findCol(r,['destinatario','nombre']).trim();
+    const t=findCol(r,['tipo_tarjeta','tipotarjeta','tipo tarjeta','tipoTarjeta']).trim();
     const tipo=(t==='Especial_1')?'Especial_1':'General';
     return d?{destinatario:d,id:genId(d),tipoTarjeta:tipo}:null;
   }).filter(Boolean);
-  if(!_previewData.length){showSt('No se encontraron destinatarios.',true);return;}
+  if(!_previewData.length){showSt('No se encontraron destinatarios. Verificá que la columna se llame "Destinatario".',true);return;}
   $('import-status').style.display='none';
   $('import-preview').style.display='block';
   $('preview-count').textContent=_previewData.length+' invitados';
