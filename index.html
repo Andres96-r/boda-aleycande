@@ -382,7 +382,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 <!-- FAB CONFIRMAR -->
 <button class="fab-confirm hidden" id="fab-confirm" onclick="document.getElementById('rsvp-title').scrollIntoView({behavior:'smooth', block:'center'})">
   <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-  Confirmar
+  <span id="fab-confirm-text">Confirmar</span>
 </button>
 
 <!-- TARJETA -->
@@ -647,7 +647,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
   </div>
 
   <div class="qr-box">
-    <div class="precio-box">
+    <div class="precio-box" id="precio-box">
       <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px;">
         <p class="precio-title" style="margin-bottom:0;">Precios vigentes catering</p>
         <button onclick="document.getElementById('precio-modal').style.display='flex'" style="background:none;border:none;cursor:pointer;padding:0;line-height:1;font-size:13px;font-family:'Jost',sans-serif;color:#9a9488;letter-spacing:.04em;display:inline-flex;align-items:center;gap:5px;"><span style="display:inline-block;animation:pulseBtn 1.6s ease-in-out infinite;background:#c8a870;color:#fff;border-radius:20px;padding:3px 10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;box-shadow:0 0 0 0 rgba(200,168,112,.5);">Ver info</span></button>
@@ -958,8 +958,10 @@ function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 // CARGAR NOMBRE INVITADO desde Firebase
 async function loadInvitadoNombre(){
   const el = document.getElementById('env-guest-name');
+  const fabTextEl = document.getElementById('fab-confirm-text');
   if(!INVITADO_ID){
     if(el){ el.textContent = 'Tu invitación'; el.classList.remove('shimmer'); }
+    if(fabTextEl) fabTextEl.textContent = '¿Asistirás?';
     return;
   }
   try {
@@ -973,10 +975,12 @@ async function loadInvitadoNombre(){
       if(invEl) invEl.textContent = esPlural
         ? 'Nos casamos... Y queremos que estén'
         : 'Nos casamos... Y queremos que estés';
+      if(fabTextEl) fabTextEl.textContent = esPlural ? '¿Asistirán?' : '¿Asistirás?';
     } else {
       if(el) el.classList.remove('shimmer');
+      if(fabTextEl) fabTextEl.textContent = '¿Asistirás?';
     }
-  } catch(e){ console.warn('No se pudo cargar invitado',e); if(el) el.classList.remove('shimmer'); }
+  } catch(e){ console.warn('No se pudo cargar invitado',e); if(el) el.classList.remove('shimmer'); if(fabTextEl) fabTextEl.textContent = '¿Asistirás?'; }
 }
 loadInvitadoNombre();
 
@@ -1172,13 +1176,25 @@ window.submitRsvp=async()=>{
 
 function updateTotal(){
   const m=myG();
-  const cenaAdultos=m.filter(d=>d.tipo==='adulto'&&d.evento!=='brindis').length;
-  const cenaAdol=m.filter(d=>d.tipo==='joven'&&d.evento!=='brindis').length;
-  const cenaNinos=m.filter(d=>d.tipo==='nino'&&d.evento!=='brindis').length;
-  const brindisAdulto=m.filter(d=>d.tipo==='adulto'&&d.evento==='brindis').length;
-  const brindisJoven=m.filter(d=>(d.tipo==='joven'||d.tipo==='nino')&&d.evento==='brindis').length;
   const el=document.getElementById('total-pagar');
-  if(!m.length){el.textContent='';return;}
+  const precioBox=document.getElementById('precio-box');
+  const todosPagados=m.length>0&&m.every(d=>d.pagado);
+
+  if(todosPagados){
+    // Todos los confirmados ya pagaron: se oculta la tarjeta de precios y el total, sin cartel.
+    if(precioBox)precioBox.style.display='none';
+    el.textContent='';
+    return;
+  }
+  if(precioBox)precioBox.style.display='';
+
+  const pend=m.filter(d=>!d.pagado);
+  const cenaAdultos=pend.filter(d=>d.tipo==='adulto'&&d.evento!=='brindis').length;
+  const cenaAdol=pend.filter(d=>d.tipo==='joven'&&d.evento!=='brindis').length;
+  const cenaNinos=pend.filter(d=>d.tipo==='nino'&&d.evento!=='brindis').length;
+  const brindisAdulto=pend.filter(d=>d.tipo==='adulto'&&d.evento==='brindis').length;
+  const brindisJoven=pend.filter(d=>(d.tipo==='joven'||d.tipo==='nino')&&d.evento==='brindis').length;
+  if(!pend.length){el.textContent='';return;}
   const t=cenaAdultos*PA + cenaAdol*PADOL + cenaNinos*PN + brindisAdulto*PBA + brindisJoven*PBN;
   const parts=[];
   if(cenaAdultos)parts.push(`${cenaAdultos} cena adulto${cenaAdultos>1?'s':''}`);
