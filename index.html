@@ -639,19 +639,8 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
       <p style="font-family:'Cormorant Garamond',serif;font-size:23px;font-style:italic;color:#2a2a28;margin-bottom:18px;text-align:center;">💳 Información de precios</p>
       <div style="display:flex;flex-direction:column;gap:12px;font-family:'Jost',sans-serif;font-size:16px;color:#4a4843;line-height:1.6;">
         <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
-          <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">🗓️ Hasta junio 2026</p>
-          <p style="color:#7a7870;font-size:15px;">Los valores se mantienen como están actualmente.</p>
-        </div>
-        <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
-          <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">📅 Julio · Agosto · Septiembre</p>
-          <p style="color:#7a7870;font-size:15px;">A partir de estos meses puede haber un ajuste aproximado del <strong>15%</strong>, definido por el servicio de catering. En caso de aplicarse, se verá reflejado automáticamente en esta misma tarjeta.</p>
-        </div>
-        <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
-          <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">📅 Octubre · Noviembre</p>
-          <p style="color:#7a7870;font-size:15px;">Para estos meses podría haber un nuevo ajuste similar al anterior, también establecido por el catering.</p>
-        </div>
-        <div style="background:#f0ece4;border-radius:6px;padding:13px 15px;border-left:3px solid #c8a870;">
-          <p style="color:#7a6a50;font-size:15px;font-style:italic;line-height:1.7;">Si lo desean, pueden ir abonando las tarjetas con anticipación. Cada pago deja cubierta la tarjeta de una persona.</p>
+          <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">📌 Vigente para julio</p>
+          <p style="color:#7a7870;font-size:15px;">Debido a la modalidad de actualización del salón, el valor de la tarjeta podrá modificarse mensualmente según los incrementos informados por el servicio de catering. En caso de haber algún cambio, les comunicaremos el nuevo valor al comienzo de cada mes.</p>
         </div>
       </div>
     </div>
@@ -665,11 +654,11 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 <style>@keyframes pulseBtn{0%,100%{box-shadow:0 0 0 0 rgba(200,168,112,.55);transform:scale(1);}50%{box-shadow:0 0 0 7px rgba(200,168,112,0);transform:scale(1.04);}}</style>
       </div>
       <p style="text-align:center;font-family:'Jost',sans-serif;font-size:12px;color:#b0aa9e;letter-spacing:.06em;margin-bottom:10px;">🥂 Recepción &nbsp;·&nbsp; 🍽️ Cena &nbsp;·&nbsp; 🍰 Mucho dulce</p>
-      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena adulto</span><span class="precio-valor">$96.000</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena joven <small style="font-size:13px;color:#9a9488;">(12 a 17 años)</small></span><span class="precio-valor">$68.000</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena niño <small style="font-size:13px;color:#9a9488;">(2 a 11 años)</small></span><span class="precio-valor">$48.000</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis adulto <small style="font-size:13px;color:#9a9488;">(desde 00:00 hs)</small></span><span class="precio-valor">$48.000</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis <small style="font-size:13px;color:#9a9488;">(hasta 17 años)</small></span><span class="precio-valor">$32.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena adulto</span><span class="precio-valor">$105.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena joven <small style="font-size:13px;color:#9a9488;">(12 a 17 años)</small></span><span class="precio-valor">$74.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena niño <small style="font-size:13px;color:#9a9488;">(2 a 11 años)</small></span><span class="precio-valor">$52.500</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis adulto <small style="font-size:13px;color:#9a9488;">(desde 00:00 hs)</small></span><span class="precio-valor">$41.500</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis <small style="font-size:13px;color:#9a9488;">(hasta 17 años)</small></span><span class="precio-valor">$27.500</span></div>
     </div>
     <p class="qr-alias" id="qr-alias-text">BODA.ALEYCANDE.26</p>
     <p class="qr-cbu">CBU: 0000003100022937554265</p>
@@ -963,7 +952,7 @@ function getInvitadoId(){
 const INVITADO_ID = getInvitadoId();
 
 function getDeviceId(){let id=localStorage.getItem('boda_device_id');if(!id){id='inv_'+Math.random().toString(36).substr(2,9)+'_'+Date.now();localStorage.setItem('boda_device_id',id);}return id;}
-const DID=INVITADO_ID || getDeviceId(),PA=96000,PADOL=68000,PN=48000,PBA=48000,PBN=32000;
+const DID=INVITADO_ID || getDeviceId(),PA=105000,PADOL=74000,PN=52500,PBA=41500,PBN=27500;
 function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 // CARGAR NOMBRE INVITADO desde Firebase
