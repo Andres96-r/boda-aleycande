@@ -628,6 +628,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
   </div>
 
   <!-- S7: QR / PAGO -->
+  <div id="seccion-pago">
   <div class="divider"></div>
   <p class="section-label">Tarjeta de comida</p>
   <p class="section-title" style="margin-bottom:14px;">Pago de tarjeta</p>
@@ -667,6 +668,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
     </div>
     <p class="total-pagar" id="total-pagar"></p>
   </div>
+  </div><!-- /seccion-pago -->
 
   <!-- S9: REGALO -->
   <div class="divider"></div>
@@ -1177,16 +1179,16 @@ window.submitRsvp=async()=>{
 function updateTotal(){
   const m=myG();
   const el=document.getElementById('total-pagar');
-  const precioBox=document.getElementById('precio-box');
+  const seccionPago=document.getElementById('seccion-pago');
   const todosPagados=m.length>0&&m.every(d=>d.pagado);
 
   if(todosPagados){
-    // Todos los confirmados ya pagaron: se oculta la tarjeta de precios y el total, sin cartel.
-    if(precioBox)precioBox.style.display='none';
+    // Todos los confirmados ya pagaron: se oculta toda la sección de pago (precios, alias, CBU, botón).
+    if(seccionPago)seccionPago.style.display='none';
     el.textContent='';
     return;
   }
-  if(precioBox)precioBox.style.display='';
+  if(seccionPago)seccionPago.style.display='';
 
   const pend=m.filter(d=>!d.pagado);
   const cenaAdultos=pend.filter(d=>d.tipo==='adulto'&&d.evento!=='brindis').length;
