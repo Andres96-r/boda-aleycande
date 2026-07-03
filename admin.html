@@ -37,9 +37,22 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
 .rec-box{background:#fff;border-radius:10px;padding:20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .rec-box h3{font-size:13px;font-weight:600;color:#666;margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em;}
 .rec-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px;}
-.rec-table th{background:#f8f8f8;padding:8px 10px;text-align:left;font-size:11px;font-weight:600;color:#888;text-transform:uppercase;border-bottom:1px solid #e8e8e8;}
-.rec-table td{padding:8px 10px;border-bottom:1px solid #f5f5f5;}
-.rec-table tr:last-child td{font-weight:700;background:#f8f8f8;}
+.rec-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.rec-table.rec-global{min-width:520px;}
+.rec-table.rec-mes{min-width:820px;}
+.rec-mesrow td{background:#eef1f6!important;font-weight:700;color:#333;font-size:12px;padding:8px 10px;border-top:2px solid #d8dee8;}
+/* CAJA GUARDADO */
+.rec-caja{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+@media(max-width:560px){.rec-caja{grid-template-columns:1fr;}}
+.caja-main,.caja-deuda{background:#fff;border-radius:10px;padding:18px 20px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.caja-main{border-left:4px solid #2e7d32;} .caja-deuda{border-left:4px solid #c62828;}
+.caja-lbl{font-size:12px;font-weight:600;color:#888;margin-bottom:6px;}
+.caja-val{font-size:26px;font-weight:800;color:#2e7d32;line-height:1.1;}
+.caja-sub{font-size:12px;color:#999;margin-top:6px;}
+.rec-table th{background:#f8f8f8;padding:8px 10px;text-align:left;font-size:11px;font-weight:600;color:#888;text-transform:uppercase;border-bottom:1px solid #e8e8e8;white-space:nowrap;}
+.rec-table td{padding:8px 10px;border-bottom:1px solid #f5f5f5;white-space:nowrap;}
+.rec-table th.num{text-align:right;}
+.rec-totrow td{font-weight:700;background:#f8f8f8;}
 .num{text-align:right;font-variant-numeric:tabular-nums;}
 .rec-totals{display:flex;flex-direction:column;gap:6px;padding-top:8px;border-top:1.5px solid #e8e8e8;}
 .rec-row{display:flex;justify-content:space-between;font-size:13px;}
@@ -53,6 +66,7 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
 .search-bar:focus{border-color:#6c63ff;}
 .inv-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .inv-table th{background:#f8f8f8;padding:10px 12px;text-align:left;font-size:11px;font-weight:600;color:#888;text-transform:uppercase;border-bottom:1px solid #e8e8e8;white-space:nowrap;}
+.inv-table th.num{text-align:right;}
 .inv-table td{padding:10px 12px;border-bottom:1px solid #f5f5f5;vertical-align:top;font-size:13px;}
 .inv-table tr:last-child td{border-bottom:none;}
 .inv-table tr:hover td{background:#fafafa;}
@@ -63,10 +77,25 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
 .prow{display:flex;align-items:center;min-height:28px;padding:2px 0;border-bottom:1px dashed #f0f0f0;font-size:12px;}
 .prow:last-child{border-bottom:none;}
 /* PAGO */
-.pago-btn{border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;}
+.pago-btn{border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;user-select:none;-webkit-user-select:none;touch-action:manipulation;transition:filter .15s,transform .15s;}
+.pago-btn.holding{filter:brightness(.8);transform:scale(.94);}
 .pago-btn.pagado{background:#e8f5e9;color:#2e7d32;} .pago-btn.pend{background:#fce4ec;color:#c62828;}
 .pago-sum{margin-top:5px;padding-top:5px;border-top:1px solid #eee;font-size:11px;color:#888;display:flex;justify-content:space-between;}
 .pago-sum .pv{color:#2e7d32;font-weight:600;}
+/* CATERING */
+.pago-btn.cat-ok{background:#e3f2fd;color:#1565c0;} .pago-btn.cat-pend{background:#eceff1;color:#546e7a;}
+.giro-hist{margin-top:10px;padding-top:10px;border-top:1px dashed #e0e0e0;font-size:12px;color:#666;}
+.giro-hist div{display:flex;justify-content:space-between;padding:3px 0;}
+.copy-msg-btn{padding:9px 16px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;}
+.copy-msg-btn.pend{background:#fff3e0;color:#e65100;border:1px solid #ffcc80;}
+.copy-msg-btn.gir{background:#e3f2fd;color:#1565c0;border:1px solid #90caf9;}
+/* FILTROS */
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:12px;background:#fff;border-radius:10px;padding:10px 12px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.filter-bar select{padding:7px 8px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:12px;outline:none;background:#fff;color:#444;cursor:pointer;max-width:150px;}
+.filter-bar select:focus{border-color:#6c63ff;}
+.filter-bar select.fon{border-color:#6c63ff;background:#f3f2ff;color:#4a42d4;font-weight:600;}
+.filter-clear{padding:7px 12px;border:none;border-radius:8px;background:#f5f5f5;color:#888;font-size:12px;cursor:pointer;font-weight:600;}
+.filter-clear:hover{background:#eee;color:#555;}
 /* BUTTONS */
 .btn{padding:10px 20px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;}
 .btn-primary{background:#6c63ff;color:#fff;} .btn-primary:hover{background:#5a52d5;} .btn-primary:disabled{opacity:.5;}
@@ -137,15 +166,14 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
 </div>
 
 <div id="app">
-  <div class="header"><h1>&#128141; Panel — Ale &amp; Cande</h1><span style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;background:rgba(255,255,255,.15);padding:2px 8px;border-radius:10px;">v2.2</span><span>&#9679; en vivo</span></span></div>
+  <div class="header"><h1>&#128141; Panel — Ale &amp; Cande</h1><span style="display:flex;align-items:center;gap:10px;"><span style="font-size:11px;background:rgba(255,255,255,.15);padding:2px 8px;border-radius:10px;">v3.0</span><span>&#9679; en vivo</span></span></div>
   <div class="tabs">
     <div class="tab active"  onclick="ST('resumen')">&#128202; Resumen</div>
     <div class="tab" onclick="ST('principal')">&#127968; Principal</div>
     <div class="tab" onclick="ST('confirmados')">&#10003; Confirmados</div>
-    <div class="tab" onclick="ST('pendientes')">&#8987; Sin respuesta</div>
-    <div class="tab" onclick="ST('cena')">&#127869; Cena</div>
-    <div class="tab" onclick="ST('brindis')">&#129346; Brindis</div>
     <div class="tab" onclick="ST('pagaron')">&#128176; Pagaron</div>
+    <div class="tab" onclick="ST('catering')">&#127858; Catering</div>
+    <div class="tab" onclick="ST('precios')">&#128178; Precios</div>
     <div class="tab" onclick="ST('canciones')">&#127925; Canciones</div>
     <div class="tab" onclick="ST('importar')">&#128229; Importar</div>
   </div>
@@ -154,24 +182,29 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
     <div class="stats">
       <div class="stat-card">       <div class="stat-num" id="st-tarjetas">0</div><div class="stat-label">Tarjetas</div></div>
       <div class="stat-card green"> <div class="stat-num" id="st-personas">0</div><div class="stat-label">Personas confirmadas</div></div>
-      <div class="stat-card amber"> <div class="stat-num" id="st-pend">0</div>   <div class="stat-label">Sin respuesta</div></div>
       <div class="stat-card rose">  <div class="stat-num" id="st-pagas">0</div>  <div class="stat-label">Personas pagas</div></div>
-      <div class="stat-card blue">  <div class="stat-num" id="st-cena">0</div>   <div class="stat-label">&#127869; A la Cena</div></div>
-      <div class="stat-card">       <div class="stat-num" id="st-brindis">0</div><div class="stat-label">&#129346; Al Brindis</div></div>
-      <div class="stat-card">       <div class="stat-num" id="st-celiaco">0</div><div class="stat-label">&#127806; Cel&iacute;acos</div></div>
-      <div class="stat-card">       <div class="stat-num" id="st-veggie">0</div> <div class="stat-label">&#129367; Vegetarianos</div></div>
+      <div class="stat-card blue">  <div class="stat-num" id="st-cena">0</div>   <div class="stat-label">&#127869; Personas a la cena</div></div>
+      <div class="stat-card">       <div class="stat-num" id="st-brindis">0</div><div class="stat-label">&#129346; Personas al brindis</div></div>
+      <div class="stat-card">       <div class="stat-num" id="st-celiaco">0</div><div class="stat-label">&#127806; Men&uacute; cel&iacute;acos</div></div>
+      <div class="stat-card">       <div class="stat-num" id="st-veggie">0</div> <div class="stat-label">&#129367; Men&uacute; vegetariano</div></div>
+    </div>
+    <div id="rec-caja" class="rec-caja"></div>
+    <div class="rec-box">
+      <h3>&#128181; Movimiento por mes (recib&iacute; vs. gir&eacute;)</h3>
+      <div class="rec-scroll">
+      <table class="rec-table rec-global">
+        <thead><tr><th>Mes</th><th class="num">Recib&iacute;</th><th class="num">Gir&eacute; al catering</th><th class="num">Diferencia</th></tr></thead>
+        <tbody id="rec-global"><tr><td colspan="4" class="loading" style="padding:12px;text-align:center;font-size:12px;">Cargando...</td></tr></tbody>
+      </table>
+      </div>
+      <div id="rec-nota" style="font-size:11px;color:#c62828;margin-top:6px;"></div>
     </div>
     <div class="rec-box">
-      <h3>&#128181; Desglose de recaudaci&oacute;n</h3>
-      <table class="rec-table">
-        <thead><tr><th>Categor&iacute;a</th><th class="num">Pers.</th><th class="num">Precio unit.</th><th class="num">Subtotal</th><th class="num">Cobrado</th></tr></thead>
-        <tbody id="rec-tbody"><tr><td colspan="5" class="loading" style="padding:12px;text-align:center;font-size:12px;">Cargando...</td></tr></tbody>
-      </table>
-      <div class="rec-totals">
-        <div class="rec-row"><span class="lbl">Total esperado</span><span class="val blue" id="rec-esp">$0</span></div>
-        <div class="rec-row"><span class="lbl">&#10003; Total cobrado</span><span class="val green" id="rec-cob">$0</span></div>
-        <div class="rec-row"><span class="lbl">&#128308; Pendiente</span><span class="val red" id="rec-pend">$0</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <h3 style="margin:0;">&#128197; Desglose mensual</h3>
+        <select id="sel-mes" onchange="rRec()" style="padding:7px 10px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:12px;outline:none;background:#fff;color:#444;cursor:pointer;"></select>
       </div>
+      <div id="rec-meses"></div>
     </div>
   </div>
 
@@ -185,10 +218,48 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
         <button class="btn btn-sm btn-danger" onclick="askDeleteAll()">&#128465; Eliminar todo</button>
       </div>
     </div>
+    <div class="filter-bar">
+      <select id="f-estado" onchange="fMark(this);rPrincipal()">
+        <option value="">Estado: Todos</option>
+        <option value="conf">&#10003; Confirmados</option>
+        <option value="pend">&#8987; Sin respuesta</option>
+      </select>
+      <select id="f-tarjeta" onchange="fMark(this);rPrincipal()">
+        <option value="">Tarjeta: Todas</option>
+        <option value="General">&#127968; General</option>
+        <option value="Especial_1">&#11088; Especial_1</option>
+      </select>
+      <select id="f-pago" onchange="fMark(this);rPrincipal()">
+        <option value="">Pago: Todos</option>
+        <option value="ok">&#10003; Al d&iacute;a</option>
+        <option value="falta">&#10005; Con pendiente</option>
+      </select>
+      <select id="f-cat" onchange="fMark(this);rPrincipal()">
+        <option value="">Catering: Todos</option>
+        <option value="gir">&#10003; Girado</option>
+        <option value="pgiro">&#8987; Pend. de giro</option>
+      </select>
+      <select id="f-evento" onchange="fMark(this);rPrincipal()">
+        <option value="">Evento: Todos</option>
+        <option value="cena">&#127869; Cena</option>
+        <option value="brindis">&#129346; Brindis</option>
+      </select>
+      <select id="f-dieta" onchange="fMark(this);rPrincipal()">
+        <option value="">Dieta: Todas</option>
+        <option value="celiaco">&#127806; Cel&iacute;aco</option>
+        <option value="vegetariano">&#129367; Vegetariano</option>
+      </select>
+      <select id="f-orden" onchange="fMark(this);rPrincipal()">
+        <option value="">Orden: Nombre A-Z</option>
+        <option value="za">Nombre Z-A</option>
+        <option value="visita">&#128065; &Uacute;lt. visita</option>
+      </select>
+      <button class="filter-clear" onclick="clearFilters()">&#10005; Limpiar</button>
+    </div>
     <div style="overflow-x:auto;">
       <table class="inv-table">
-        <thead><tr><th>Destinatario</th><th>Tarjeta</th><th>Estado</th><th>Personas</th><th>Evento</th><th>Dieta</th><th>Precio</th><th>Pago</th><th>Link</th><th>&#128065; &Uacute;lt. visita</th><th>Acciones</th></tr></thead>
-        <tbody id="tb-principal"><tr><td colspan="11" class="loading">Cargando...</td></tr></tbody>
+        <thead><tr><th>Destinatario</th><th>Tarjeta</th><th>Estado</th><th>Personas</th><th>Evento</th><th>Dieta</th><th>Precio</th><th>Pago</th><th>Catering</th><th>Link</th><th>&#128065; &Uacute;lt. visita</th><th>Acciones</th></tr></thead>
+        <tbody id="tb-principal"><tr><td colspan="12" class="loading">Cargando...</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -201,36 +272,64 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
     </table></div>
   </div>
 
-  <div id="tab-pendientes" class="container" style="display:none;">
-    <h2 style="margin-bottom:12px;">&#8987; Sin respuesta</h2>
+  <div id="tab-precios" class="container" style="display:none;">
+    <div class="table-header">
+      <h2>&#128178; Precios de tarjeta por mes</h2>
+      <button class="btn btn-sm btn-primary" onclick="openPrecio()">+ Agregar mes</button>
+    </div>
+    <p style="font-size:12px;color:#888;margin-bottom:12px;">Los precios se guardan en la base de datos (config/precios). Si un mes no tiene precio cargado, en los c&aacute;lculos se muestra &laquo;&mdash;&raquo; y no suma a los totales.</p>
     <div style="overflow-x:auto;"><table class="inv-table">
-      <thead><tr><th>Destinatario</th><th>Estado</th></tr></thead>
-      <tbody id="tb-pendientes"><tr><td colspan="2" class="loading">Cargando...</td></tr></tbody>
-    </table></div>
-  </div>
-
-  <div id="tab-cena" class="container" style="display:none;">
-    <h2 style="margin-bottom:12px;">&#127869; Cena</h2>
-    <div style="overflow-x:auto;"><table class="inv-table">
-      <thead><tr><th>Destinatario</th><th>Personas</th><th>Dieta</th></tr></thead>
-      <tbody id="tb-cena"><tr><td colspan="3" class="loading">Cargando...</td></tr></tbody>
-    </table></div>
-  </div>
-
-  <div id="tab-brindis" class="container" style="display:none;">
-    <h2 style="margin-bottom:12px;">&#129346; Brindis</h2>
-    <div style="overflow-x:auto;"><table class="inv-table">
-      <thead><tr><th>Destinatario</th><th>Personas</th><th>Dieta</th></tr></thead>
-      <tbody id="tb-brindis"><tr><td colspan="3" class="loading">Cargando...</td></tr></tbody>
+      <thead><tr><th>Mes</th><th class="num">Cena Adulto</th><th class="num">Cena Joven</th><th class="num">Cena Ni&ntilde;o</th><th class="num">Brindis Adulto</th><th class="num">Brindis Jov/Ni&ntilde;o</th><th>Acciones</th></tr></thead>
+      <tbody id="tb-precios"><tr><td colspan="7" class="loading">Cargando...</td></tr></tbody>
     </table></div>
   </div>
 
   <div id="tab-pagaron" class="container" style="display:none;">
     <div class="table-header"><h2>&#128176; Pagaron</h2><span id="pgr-count" style="font-size:13px;color:#888;"></span></div>
     <div style="overflow-x:auto;"><table class="inv-table">
-      <thead><tr><th>Tarjeta</th><th>Persona</th><th>Tipo</th><th>Evento</th><th>Precio</th></tr></thead>
-      <tbody id="tb-pagaron"><tr><td colspan="5" class="loading">Cargando...</td></tr></tbody>
+      <thead><tr><th>Tarjeta</th><th>Persona</th><th>Tipo</th><th>Evento</th><th>Precio</th><th>Fecha pago</th></tr></thead>
+      <tbody id="tb-pagaron"><tr><td colspan="6" class="loading">Cargando...</td></tr></tbody>
     </table></div>
+  </div>
+
+  <div id="tab-catering" class="container" style="display:none;">
+    <div class="table-header">
+      <h2>&#127858; Gesti&oacute;n Catering</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="copy-msg-btn pend" onclick="cpCatMsg('pend',this)">&#128203; Copiar giro pendiente</button>
+        <button class="copy-msg-btn gir" onclick="cpCatMsg('gir',this)">&#128203; Copiar resumen girado</button>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat-card green"><div class="stat-num" id="ct-pagaron">0</div><div class="stat-label">Me pagaron</div></div>
+      <div class="stat-card blue"> <div class="stat-num" id="ct-girado">0</div> <div class="stat-label">Girado al catering</div></div>
+      <div class="stat-card amber"><div class="stat-num" id="ct-pend">0</div>   <div class="stat-label">Pendiente de girar</div></div>
+    </div>
+
+    <div class="rec-box">
+      <h3>&#8987; Pendiente de girar al catering</h3>
+      <div class="rec-scroll"><table class="rec-table" style="min-width:420px;">
+        <thead><tr><th>Categor&iacute;a</th><th class="num">Cant.</th><th class="num">Valor actual</th></tr></thead>
+        <tbody id="cat-pend-tbody"></tbody>
+      </table></div>
+    </div>
+
+    <div class="rec-box">
+      <h3>&#10003; Girado al catering</h3>
+      <div class="rec-scroll"><table class="rec-table" style="min-width:360px;">
+        <thead><tr><th>Categor&iacute;a</th><th class="num">Cant.</th></tr></thead>
+        <tbody id="cat-gir-tbody"></tbody>
+      </table></div>
+      <div class="giro-hist" id="cat-giros"></div>
+    </div>
+
+    <div class="rec-box">
+      <h3>&#128176; Total que me pagaron</h3>
+      <div class="rec-scroll"><table class="rec-table" style="min-width:360px;">
+        <thead><tr><th>Categor&iacute;a</th><th class="num">Cant.</th></tr></thead>
+        <tbody id="cat-pag-tbody"></tbody>
+      </table></div>
+    </div>
   </div>
 
   <div id="tab-canciones" class="container" style="display:none;">
@@ -263,6 +362,54 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
       </div>
       <div id="import-status" style="display:none;"></div>
     </div>
+  </div>
+</div>
+
+<!-- MODAL: CONFIRMAR SI/NO -->
+<div class="modal-bg" id="m-confirm">
+  <div class="modal" style="max-width:340px;">
+    <div class="modal-hdr"><h2 id="cf-title">Confirmar</h2><button class="modal-close" onclick="closeConfirm()">&#215;</button></div>
+    <p class="modal-sub" id="cf-desc" style="margin-bottom:6px;font-size:14px;color:#444;"></p>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeConfirm()">No</button>
+      <button class="btn btn-primary" id="cf-ok" onclick="doConfirm()">S&iacute;</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: FECHA (long-press) -->
+<div class="modal-bg" id="m-fecha">
+  <div class="modal" style="max-width:360px;">
+    <div class="modal-hdr"><h2 id="fx-title">Editar fecha</h2><button class="modal-close" onclick="closeFecha()">&#215;</button></div>
+    <p class="modal-sub" id="fx-desc" style="font-size:13px;color:#555;"></p>
+    <div class="form-row"><label>Fecha</label><input type="date" id="fx-date" style="width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;"/></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeFecha()">Cancelar</button>
+      <button class="btn btn-primary" id="fx-ok" onclick="saveFecha()">Guardar</button>
+    </div>
+    <div class="merr" id="fx-err"></div>
+  </div>
+</div>
+
+<!-- MODAL: PRECIO MES -->
+<div class="modal-bg" id="m-precio">
+  <div class="modal" style="max-width:400px;">
+    <div class="modal-hdr"><h2 id="px-title">Agregar precios de mes</h2><button class="modal-close" onclick="closePrecio()">&#215;</button></div>
+    <p class="modal-sub">Precios de la tarjeta para el mes seleccionado. Dej&aacute; en blanco lo que no aplique (se mostrar&aacute; &laquo;&mdash;&raquo;).</p>
+    <div class="form-row"><label>Mes</label><input type="month" id="px-mes" onchange="actPxCopyBtn()" style="width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;"/></div>
+    <button class="btn btn-ghost btn-sm" id="px-copy" onclick="copyPrevPrecio()" style="margin-bottom:12px;">&#128203; Copiar valores del mes anterior</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div class="form-row"><label>Cena Adulto</label><input type="text" inputmode="numeric" id="px-a" oninput="fmtMoneyInp(this)" style="width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;"/></div>
+      <div class="form-row"><label>Cena Joven</label><input type="text" inputmode="numeric" id="px-j" oninput="fmtMoneyInp(this)" style="width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;"/></div>
+      <div class="form-row"><label>Cena Ni&ntilde;o</label><input type="text" inputmode="numeric" id="px-n" oninput="fmtMoneyInp(this)" style="width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;"/></div>
+      <div class="form-row"><label>Brindis Adulto</label><input type="text" inputmode="numeric" id="px-ba" oninput="fmtMoneyInp(this)" style="width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;"/></div>
+      <div class="form-row"><label>Brindis Jov/Ni&ntilde;o</label><input type="text" inputmode="numeric" id="px-bjn" oninput="fmtMoneyInp(this)" style="width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;"/></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closePrecio()">Cancelar</button>
+      <button class="btn btn-primary" id="px-ok" onclick="savePrecio()">Guardar</button>
+    </div>
+    <div class="merr" id="px-err"></div>
   </div>
 </div>
 
@@ -335,7 +482,7 @@ body{font-family:system-ui,sans-serif;font-size:14px;background:#f5f5f5;color:#1
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import{getFirestore,collection,doc,setDoc,updateDoc,deleteDoc,addDoc,onSnapshot,writeBatch,serverTimestamp,enableIndexedDbPersistence}
+import{getFirestore,collection,doc,setDoc,updateDoc,deleteDoc,addDoc,onSnapshot,writeBatch,serverTimestamp,deleteField,enableIndexedDbPersistence}
   from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 // ─── CONFIG ───────────────────────────────────────────────
@@ -344,15 +491,14 @@ const PASS_BORRAR='borrarbodaac2026';
 const TARJETA_URL='https://boda-aleycande.lat/';
 const TARJETA_URL_ESPECIAL='https://boda-aleycande.lat/index2.html';
 const FB={apiKey:"AIzaSyB4kzCf-bP_Pugektvai9Yhq5BCdyIubbg",authDomain:"boda-aleycande.firebaseapp.com",projectId:"boda-aleycande",storageBucket:"boda-aleycande.firebasestorage.app",messagingSenderId:"576590448403",appId:"1:576590448403:web:a577eba607016bbfbd7ce6"};
-const TABS=['resumen','principal','confirmados','pendientes','cena','brindis','pagaron','canciones','importar'];
-// Precios
-const PA=96000,PADOL=68000,PN=48000,PBA=48000,PBN=32000;
+const TABS=['resumen','principal','confirmados','pagaron','catering','precios','canciones','importar'];
+// Categorías (los precios viven en Firestore: config/precios)
 const CATS=[
-  {lbl:'&#127869; Cena — Adulto',   f:p=>p.evento!=='brindis'&&p.tipo==='adulto', pu:PA},
-  {lbl:'&#127869; Cena — Joven',    f:p=>p.evento!=='brindis'&&p.tipo==='joven',  pu:PADOL},
-  {lbl:'&#127869; Cena — Ni&ntilde;o',    f:p=>p.evento!=='brindis'&&p.tipo==='nino',   pu:PN},
-  {lbl:'&#129346; Brindis — Adulto',f:p=>p.evento==='brindis'&&p.tipo==='adulto', pu:PBA},
-  {lbl:'&#129346; Brindis — Jov/Ni&ntilde;o',f:p=>p.evento==='brindis'&&(p.tipo==='joven'||p.tipo==='nino'),pu:PBN},
+  {lbl:'&#127869; Cena — Adulto',    k:'adulto',        f:p=>p.evento!=='brindis'&&p.tipo==='adulto'},
+  {lbl:'&#127869; Cena — Joven',     k:'joven',         f:p=>p.evento!=='brindis'&&p.tipo==='joven'},
+  {lbl:'&#127869; Cena — Ni&ntilde;o',     k:'nino',          f:p=>p.evento!=='brindis'&&p.tipo==='nino'},
+  {lbl:'&#129346; Brindis — Adulto', k:'brindisAdulto', f:p=>p.evento==='brindis'&&p.tipo==='adulto'},
+  {lbl:'&#129346; Brindis — Jov/Ni&ntilde;o',k:'brindisJN',  f:p=>p.evento==='brindis'&&(p.tipo==='joven'||p.tipo==='nino')},
 ];
 const DE={"celiaco":"&#127806;","vegetariano":"&#129367;"};
 const DL={"celiaco":"Cel&iacute;aco","vegetariano":"Vegetariano"};
@@ -361,6 +507,7 @@ const TL={"adulto":"Adulto","joven":"Joven","nino":"Ni&ntilde;o"};
 // ─── STATE ────────────────────────────────────────────────
 let db;
 const INV={}, CONF={}, SONGS={};
+let PRECIOS={};
 let _authCb=null, _authPass=PASS, _editId=null, _editPs=[], _addTipo='General';
 
 // ─── HELPERS ──────────────────────────────────────────────
@@ -370,7 +517,18 @@ const mk=id=>{const inv=INV[id];const base=inv?.tipoTarjeta==='Especial_1'?TARJE
 const fmtP=n=>'$'+Number(n).toLocaleString('es-AR');
 const genId=d=>d.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9\s]/g,'').trim().replace(/\s+/g,'-').toLowerCase();
 const getPers=id=>Object.values(CONF).filter(c=>c.invitadoId===id);
-const precio=p=>{if(p.evento==='brindis')return p.tipo==='adulto'?PBA:PBN;if(p.tipo==='joven')return PADOL;if(p.tipo==='nino')return PN;return PA;};
+// Precios por mes (config/precios). null = sin precio cargado → se muestra '—'
+const tsDate=ts=>{if(!ts)return null;try{let d;if(ts.toDate)d=ts.toDate();else if(ts instanceof Date)d=ts;else if(typeof ts.seconds==='number')d=new Date(ts.seconds*1000);else d=new Date(ts);return isNaN(d)?null:d;}catch(e){return null;}};
+const ymOf=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+const ymNow=()=>ymOf(new Date());
+const MESN=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const lblYm=ym=>{const[y,m]=ym.split('-');return MESN[parseInt(m)-1]+' '+y;};
+const keyDe=p=>p.evento==='brindis'?(p.tipo==='adulto'?'brindisAdulto':'brindisJN'):(p.tipo==='joven'?'joven':p.tipo==='nino'?'nino':'adulto');
+const puDe=(ym,k)=>{const t=PRECIOS[ym];const v=t?t[k]:null;return(typeof v==='number'&&v>0)?v:null;};
+// Mes que corresponde a la persona: si pagó → mes de su fechaPago (sellado); si no → mes actual
+const ymDe=p=>{if(p.pagado){const d=tsDate(p.fechaPago);return d?ymOf(d):null;}return ymNow();};
+const getPrecio=p=>{const ym=ymDe(p);return ym?puDe(ym,keyDe(p)):null;};
+const fmtPN=n=>n==null?'—':fmtP(n);
 function copyText(t){navigator.clipboard.writeText(t).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);});}
 
 // ─── LOGIN ────────────────────────────────────────────────
@@ -389,10 +547,9 @@ window.ST=t=>{
   document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',TABS[i]===t));
   if(t==='canciones')rSongs();
   if(t==='pagaron')rPagaron();
+  if(t==='catering')rCatering();
+  if(t==='precios')rPrecios();
   if(t==='confirmados')rFilter('tb-confirmados','conf',5);
-  if(t==='pendientes')rFilter('tb-pendientes','pend',2);
-  if(t==='cena')rFilter('tb-cena','cena',3);
-  if(t==='brindis')rFilter('tb-brindis','brin',3);
 };
 
 // ─── FIREBASE ─────────────────────────────────────────────
@@ -407,6 +564,10 @@ function startFirebase(){
     snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete CONF[ch.doc.id];else CONF[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};});
     refresh();
   });
+  onSnapshot(doc(db,'config','precios'),snap=>{
+    PRECIOS=snap.exists()?snap.data():{};
+    refresh();
+  });
   onSnapshot(collection(db,'canciones_master'),snap=>{
     snap.docChanges().forEach(ch=>{if(ch.type==='removed')delete SONGS[ch.doc.id];else SONGS[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};});
     rStats(); rSongs();
@@ -414,52 +575,143 @@ function startFirebase(){
 }
 
 function refresh(){
-  rStats(); rPrincipal();
+  rStats(); rRec(); rPrincipal();
   const ai=[...document.querySelectorAll('.tab')].findIndex(e=>e.classList.contains('active'));
   const t=TABS[ai];
   if(t==='confirmados')rFilter('tb-confirmados','conf',5);
-  if(t==='pendientes')rFilter('tb-pendientes','pend',2);
-  if(t==='cena')rFilter('tb-cena','cena',3);
-  if(t==='brindis')rFilter('tb-brindis','brin',3);
   if(t==='pagaron')rPagaron();
+  if(t==='catering')rCatering();
+  if(t==='precios')rPrecios();
 }
 
 // ─── STATS ────────────────────────────────────────────────
 function rStats(){
-  const invs=Object.values(INV), asis=Object.values(CONF), songs=Object.values(SONGS);
-  const conf=invs.filter(i=>getPers(i.id).length>0);
+  const invs=Object.values(INV), asis=Object.values(CONF);
   $('st-tarjetas').textContent=invs.length;
   $('st-personas').textContent=asis.length;
-  $('st-pend').textContent=invs.length-conf.length;
   $('st-pagas').textContent=asis.filter(a=>a.pagado).length;
   $('st-cena').textContent=asis.filter(a=>a.evento==='cena').length;
   $('st-brindis').textContent=asis.filter(a=>a.evento==='brindis').length;
   $('st-celiaco').textContent=asis.filter(a=>a.dieta==='celiaco').length;
   $('st-veggie').textContent=asis.filter(a=>a.dieta==='vegetariano').length;
-  let esp=0, cob=0;
-  const rows=CATS.map(cat=>{
-    const ps=asis.filter(cat.f); if(!ps.length)return '';
-    const sub=ps.length*cat.pu;
-    const pag=ps.filter(p=>p.pagado).reduce((s,p)=>s+precio(p),0);
-    esp+=sub; cob+=pag;
-    return `<tr><td>${cat.lbl}</td><td class="num">${ps.length}</td><td class="num">${fmtP(cat.pu)}</td><td class="num">${fmtP(sub)}</td><td class="num" style="color:#2e7d32;font-weight:600;">${fmtP(pag)}</td></tr>`;
-  }).filter(Boolean);
-  rows.push(`<tr><td><strong>TOTAL</strong></td><td class="num"><strong>${asis.length}</strong></td><td></td><td class="num"><strong>${fmtP(esp)}</strong></td><td class="num" style="color:#2e7d32;"><strong>${fmtP(cob)}</strong></td></tr>`);
-  $('rec-tbody').innerHTML=rows.join('')||'<tr><td colspan="5" style="text-align:center;color:#aaa;padding:12px;">Sin confirmaciones</td></tr>';
-  $('rec-esp').textContent=fmtP(esp);
-  $('rec-cob').textContent=fmtP(cob);
-  $('rec-pend').textContent=fmtP(esp-cob);
 }
+
+// ─── RECAUDACION POR MES ──────────────────────────────────
+function mesesDisponibles(){
+  const s=new Set(Object.keys(PRECIOS));
+  Object.values(CONF).forEach(p=>{if(p.pagado){const d=tsDate(p.fechaPago);if(d)s.add(ymOf(d));}});
+  s.add(ymNow());
+  return[...s].sort();
+}
+// Valor girado al catering de una persona = precio del mes en que se giró (fechaPagoCatering)
+const puGiro=p=>{const d=tsDate(p.fechaPagoCatering);if(!d)return null;return puDe(ymOf(d),keyDe(p));};
+function rRec(){
+  const gt=$('rec-global'); if(!gt)return;
+  const asis=Object.values(CONF), now=ymNow();
+  const pagadas=asis.filter(p=>p.pagado);
+  const sinFecha=pagadas.filter(p=>!tsDate(p.fechaPago));
+  const conFecha=pagadas.filter(p=>tsDate(p.fechaPago));
+  const noPagas=asis.filter(p=>!p.pagado);
+  const girados=asis.filter(p=>p.pagadoCatering&&tsDate(p.fechaPagoCatering));
+  const meses=mesesDisponibles();
+  let notas=false;
+  // ── Recaudado guardado: personas pagadas cuyo dinero NO giré al catering, a lo que me pagaron ──
+  const noGirados=pagadas.filter(p=>!p.pagadoCatering);
+  let recaudado=0, spRecG=false;
+  noGirados.forEach(p=>{const d=tsDate(p.fechaPago);const v=d?puDe(ymOf(d),keyDe(p)):null;if(v==null)spRecG=true;else recaudado+=v;});
+  if(spRecG)notas=true;
+  // ── Deuda con catering: mismos pagados no girados, pero a precio actual ──
+  let deuda=0, spDeuda=false;
+  noGirados.forEach(p=>{const v=puDe(now,keyDe(p));if(v==null)spDeuda=true;else deuda+=v;});
+  if(spDeuda)notas=true;
+  // ── Cajas grandes arriba ──
+  $('rec-caja').innerHTML=
+    `<div class="caja-main">
+       <div class="caja-lbl">&#128176; Recaudado (guardado en el tel&eacute;fono)</div>
+       <div class="caja-val">${fmtP(recaudado)}${spRecG?' *':''}</div>
+       <div class="caja-sub">${noGirados.length} persona(s) pagada(s) que a&uacute;n no giraste, a lo que te pagaron</div>
+     </div>
+     <div class="caja-deuda">
+       <div class="caja-lbl">&#127858; Falta girar al catering <span style="font-weight:400;color:#999;">(a valores de ${lblYm(now)})</span></div>
+       <div class="caja-val" style="color:#e65100;">${fmtP(deuda)}${spDeuda?' *':''}</div>
+       <div class="caja-sub">Mismas ${noGirados.length} persona(s), valuadas a precio actual</div>
+     </div>`;
+  // ── Tabla global: por mes recibí / giré / diferencia ──
+  let rows='';
+  meses.forEach(m=>{
+    const psR=conFecha.filter(p=>ymOf(tsDate(p.fechaPago))===m);
+    const psG=girados.filter(p=>ymOf(tsDate(p.fechaPagoCatering))===m);
+    if(!psR.length&&!psG.length)return;
+    let rec=0,gir=0,sp=false;
+    psR.forEach(p=>{const v=puDe(m,keyDe(p));if(v==null)sp=true;else rec+=v;});
+    psG.forEach(p=>{const v=puGiro(p);if(v==null)sp=true;else gir+=v;});
+    if(sp)notas=true;
+    const dif=rec-gir;
+    const col=dif<0?'#c62828':dif>0?'#e65100':'#2e7d32';
+    rows+=`<tr>
+      <td>${lblYm(m)}</td>
+      <td class="num" style="color:#2e7d32;">${fmtP(rec)}${sp?' *':''}</td>
+      <td class="num" style="color:#1565c0;">${fmtP(gir)}</td>
+      <td class="num" style="color:${col};font-weight:700;">${fmtP(dif)}</td>
+    </tr>`;
+  });
+  if(sinFecha.length)rows+=`<tr><td colspan="4" style="color:#e65100;font-size:12px;">&#9888;&#65039; ${sinFecha.length} pagado(s) sin fecha — no entran en el c&aacute;lculo hasta que les pongas fecha (click sostenido en el bot&oacute;n Pago).</td></tr>`;
+  if(!rows)rows='<tr><td colspan="4" style="text-align:center;color:#aaa;padding:12px;">Sin movimientos</td></tr>';
+  gt.innerHTML=rows;
+  // ── Selector de mes (preserva selección) ──
+  const sel=$('sel-mes'), prev=sel.value;
+  sel.innerHTML='<option value="all">Todos los meses</option>'+meses.slice().reverse().map(m=>`<option value="${m}">${lblYm(m)}${m===now?' (actual)':''}</option>`).join('');
+  sel.value=(prev&&(prev==='all'||meses.includes(prev)))?prev:now;
+  // ── Desglose: UNA sola tabla con subtítulos de mes ──
+  const mostrar=sel.value==='all'?meses.slice().reverse():[sel.value];
+  const body=mostrar.map(m=>filasMes(m,conFecha,noPagas,girados,now)).join('');
+  $('rec-meses').innerHTML=`<div class="rec-scroll"><table class="rec-table rec-mes">
+    <thead><tr><th>Categor&iacute;a</th><th class="num">Personas</th><th class="num">Precio unit.</th><th class="num">Pendiente</th><th class="num">Cobrado</th><th class="num">Girado catering</th><th class="num">Diferencia</th></tr></thead>
+    <tbody>${body||'<tr><td colspan="7" style="text-align:center;color:#aaa;padding:12px;">Sin movimientos</td></tr>'}</tbody>
+  </table></div>`;
+  $('rec-nota').textContent=notas?'* Hay personas sin precio cargado para su mes: no suman a ese total. Cargá los precios en la pestaña Precios.':'';
+}
+function filasMes(m,conFecha,noPagas,girados,now){
+  const esActual=m===now;
+  const pagM=conFecha.filter(p=>ymOf(tsDate(p.fechaPago))===m);
+  const pendM=esActual?noPagas:[];
+  const grupo=pagM.concat(pendM);
+  const girM=girados.filter(p=>ymOf(tsDate(p.fechaPagoCatering))===m);
+  let tPend=0,tCob=0,tGir=0,inc=false,filas='';
+  CATS.forEach(cat=>{
+    const ps=grupo.filter(cat.f);
+    const gc=girM.filter(cat.f);
+    if(!ps.length&&!gc.length)return;
+    const pu=puDe(m,cat.k), n=ps.length, nPag=ps.filter(p=>p.pagado).length, nPend=n-nPag;
+    const pend=pu==null?null:nPend*pu, cob=pu==null?null:nPag*pu;
+    let girV=0,girSP=false; gc.forEach(p=>{const v=puGiro(p);if(v==null)girSP=true;else girV+=v;});
+    if(pu==null)inc=true; else{tPend+=(pend||0);tCob+=(cob||0);}
+    if(girSP)inc=true; tGir+=girV;
+    const difV=(cob||0)-girV, difCol=difV<0?'#c62828':difV>0?'#e65100':'#2e7d32';
+    const difShow=(cob==null&&!gc.length)?'—':fmtP(difV)+((pu==null||girSP)?' *':'');
+    filas+=`<tr>
+      <td>${cat.lbl}</td>
+      <td class="num">${n||'—'}</td>
+      <td class="num">${fmtPN(pu)}</td>
+      <td class="num" style="color:#c62828;">${esActual?fmtPN(pend):'—'}</td>
+      <td class="num" style="color:#2e7d32;font-weight:600;">${fmtPN(cob)}</td>
+      <td class="num" style="color:#1565c0;">${gc.length?fmtP(girV)+(girSP?' *':''):'—'}</td>
+      <td class="num" style="color:${difCol};font-weight:600;">${difShow}</td>
+    </tr>`;
+  });
+  const difT=tCob-tGir, difTCol=difT<0?'#c62828':difT>0?'#e65100':'#2e7d32';
+  const hdr=`<tr class="rec-mesrow"><td colspan="7">&#128197; ${lblYm(m)}${esActual?' — mes actual (incluye pendientes de pago)':''}</td></tr>`;
+  if(!filas)return hdr+`<tr><td colspan="7" style="text-align:center;color:#aaa;padding:10px;">Sin movimientos</td></tr>`;
+  const tot=`<tr class="rec-totrow"><td>TOTAL ${lblYm(m)}</td><td class="num">${grupo.length}</td><td></td><td class="num" style="color:#c62828;">${esActual?fmtP(tPend)+(inc?' *':''):'—'}</td><td class="num" style="color:#2e7d32;">${fmtP(tCob)}${inc?' *':''}</td><td class="num" style="color:#1565c0;">${fmtP(tGir)}</td><td class="num" style="color:${difTCol};">${fmtP(difT)}${inc?' *':''}</td></tr>`;
+  return hdr+filas+tot;
+}
+window.rRec=rRec;
 
 // ─── PRINCIPAL ────────────────────────────────────────────
 // Formatea el timestamp de ultimaVisita de forma legible
 function fmtVisita(ts){
-  if(!ts) return '—';
-  // Firestore puede devolver Timestamp con .toDate() o {seconds, nanoseconds}
-  let d;
-  try { d = ts.toDate ? ts.toDate() : new Date(ts.seconds*1000); }
-  catch(e){ return '—'; }
-  if(isNaN(d)) return '—';
+  const d=tsDate(ts);
+  if(!d) return '—';
   const ahora=new Date(), hoy=new Date(ahora.getFullYear(),ahora.getMonth(),ahora.getDate());
   const ayer=new Date(hoy-86400000);
   const hora=d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
@@ -474,10 +726,29 @@ function fmtVisita(ts){
 function rPrincipal(){
   const tb=$('tb-principal'); if(!tb)return;
   const sv=($('search-p')?.value||'').toLowerCase();
+  const fe=$('f-estado')?.value||'', ft=$('f-tarjeta')?.value||'', fp=$('f-pago')?.value||'',
+        fc=$('f-cat')?.value||'', fev=$('f-evento')?.value||'', fd=$('f-dieta')?.value||'',
+        ord=$('f-orden')?.value||'';
   let invs=Object.values(INV);
   if(sv)invs=invs.filter(i=>i.destinatario.toLowerCase().includes(sv));
-  invs.sort((a,b)=>a.destinatario.localeCompare(b.destinatario,'es'));
-  if(!invs.length){tb.innerHTML='<tr><td colspan="11" class="empty">Sin resultados</td></tr>';return;}
+  invs=invs.filter(i=>{
+    const ps=getPers(i.id);
+    if(fe==='conf'&&!ps.length)return false;
+    if(fe==='pend'&&ps.length)return false;
+    if(ft&&(i.tipoTarjeta||'General')!==ft)return false;
+    if(fp==='ok'&&!(ps.length&&ps.every(p=>p.pagado)))return false;
+    if(fp==='falta'&&!(ps.length&&ps.some(p=>!p.pagado)))return false;
+    if(fc==='gir'&&!(ps.some(p=>p.pagado)&&ps.filter(p=>p.pagado).every(p=>p.pagadoCatering)))return false;
+    if(fc==='pgiro'&&!ps.some(p=>p.pagado&&!p.pagadoCatering))return false;
+    if(fev&&!ps.some(p=>p.evento===fev))return false;
+    if(fd&&!ps.some(p=>p.dieta===fd))return false;
+    return true;
+  });
+  const tsMs=ts=>{const d=tsDate(ts);return d?d.getTime():0;};
+  if(ord==='za')      invs.sort((a,b)=>b.destinatario.localeCompare(a.destinatario,'es'));
+  else if(ord==='visita')invs.sort((a,b)=>tsMs(b.ultimaVisita)-tsMs(a.ultimaVisita)||a.destinatario.localeCompare(b.destinatario,'es'));
+  else                invs.sort((a,b)=>a.destinatario.localeCompare(b.destinatario,'es'));
+  if(!invs.length){tb.innerHTML='<tr><td colspan="12" class="empty">Sin resultados</td></tr>';return;}
   tb.innerHTML=invs.map(inv=>{
     const ps=getPers(inv.id), conf=ps.length>0;
     const esEspecial=inv.tipoTarjeta==='Especial_1';
@@ -485,9 +756,16 @@ function rPrincipal(){
     const nH=conf?ps.map(p=>`<div class="${PR}">${esc(p.nombre||'—')}</div>`).join(''):'—';
     const eH=conf?ps.map(p=>`<div class="${PR}">${p.evento?`<span class="badge ${p.evento==='cena'?'badge-cena':'badge-brindis'}" style="font-size:10px;">${p.evento==='cena'?'Cena':'Brindis'}</span>`:'—'}</div>`).join(''):'—';
     const dH=conf?ps.map(p=>`<div class="${PR}">${p.dieta?`${DE[p.dieta]||''} ${DL[p.dieta]||p.dieta}`:'<span style="color:#ccc;">—</span>'}</div>`).join(''):'—';
-    const prH=conf?ps.map(p=>`<div class="${PR}" style="font-size:12px;color:#555;">${fmtP(precio(p))}</div>`).join(''):'—';
-    const totM=ps.reduce((s,p)=>s+precio(p),0), cobM=ps.filter(p=>p.pagado).reduce((s,p)=>s+precio(p),0);
-    const pgH=conf?`${ps.map(p=>`<div class="${PR}"><button class="pago-btn ${p.pagado?'pagado':'pend'}" onclick="togglePago('${p.id}',${!p.pagado})">${p.pagado?'&#10003; Pag&oacute;':'&#10005; Pendiente'}</button></div>`).join('')}<div class="pago-sum"><span>Abonado:</span><span class="pv">${fmtP(cobM)} / ${fmtP(totM)}</span></div>`:'—';
+    const prH=conf?ps.map(p=>`<div class="${PR}" style="font-size:12px;color:#555;">${fmtPN(getPrecio(p))}</div>`).join(''):'—';
+    let totM=0,cobM=0,incM=false;
+    ps.forEach(p=>{const v=getPrecio(p);if(v==null){incM=true;return;}totM+=v;if(p.pagado)cobM+=v;});
+    const ast=incM?' <span title="Hay precios sin cargar para su mes">*</span>':'';
+    const LP=(kind,id)=>`onpointerdown="lpDown(event,'${kind}','${id}')" onpointerup="lpUp(event)" onpointerleave="lpUp(event)" onpointercancel="lpUp(event)" oncontextmenu="return false" onclick="lpClick('${kind}','${id}')"`;
+    const pgH=conf?`${ps.map(p=>`<div class="${PR}"><button class="pago-btn ${p.pagado?'pagado':'pend'}" ${LP('pago',p.id)}>${p.pagado?'&#10003; Pag&oacute;':'&#10005; Pendiente'}</button></div>`).join('')}<div class="pago-sum"><span>Abonado:</span><span class="pv">${fmtP(cobM)} / ${fmtP(totM)}${ast}</span></div>`:'—';
+    const ctH=conf?ps.map(p=>{
+      if(!p.pagado)return `<div class="${PR}"><span style="font-size:11px;color:#ccc;">—</span></div>`;
+      return `<div class="${PR}"><button class="pago-btn ${p.pagadoCatering?'cat-ok':'cat-pend'}" ${LP('cat',p.id)}>${p.pagadoCatering?'&#10003; Girado':'&#8987; Girar'}</button></div>`;
+    }).join(''):'—';
     const tipoBadge=esEspecial
       ?'<span style="display:inline-flex;align-items:center;gap:3px;background:#f3e5f5;color:#6a1b9a;border-radius:20px;padding:3px 8px;font-size:11px;font-weight:600;">&#11088; Especial_1</span>'
       :'<span style="display:inline-flex;align-items:center;gap:3px;background:#e3f2fd;color:#1565c0;border-radius:20px;padding:3px 8px;font-size:11px;font-weight:600;">&#127968; General</span>';
@@ -498,6 +776,7 @@ function rPrincipal(){
       <td>${nH}</td><td>${eH}</td><td>${dH}</td>
       <td style="white-space:nowrap;">${prH}</td>
       <td>${pgH}</td>
+      <td>${ctH}</td>
       <td><button class="copy-link" onclick="cpLink('${inv.id}',this)">&#128203; Copiar</button></td>
       <td style="font-size:12px;white-space:nowrap;">${fmtVisita(inv.ultimaVisita)}</td>
       <td><div style="display:flex;gap:5px;">
@@ -508,23 +787,23 @@ function rPrincipal(){
   }).join('');
 }
 window.rPrincipal=rPrincipal;
+window.fMark=el=>el.classList.toggle('fon',!!el.value);
+window.clearFilters=()=>{
+  ['f-estado','f-tarjeta','f-pago','f-cat','f-evento','f-dieta','f-orden'].forEach(id=>{const el=$(id);if(el){el.value='';el.classList.remove('fon');}});
+  const s=$('search-p'); if(s)s.value='';
+  rPrincipal();
+};
 
 // ─── FILTER TABS ──────────────────────────────────────────
 function rFilter(tbId,f,cols){
   const tb=$(tbId); if(!tb)return;
-  let invs=Object.values(INV);
-  if(f==='conf') invs=invs.filter(i=>getPers(i.id).length>0);
-  if(f==='pend') invs=invs.filter(i=>getPers(i.id).length===0);
-  if(f==='cena') invs=invs.filter(i=>getPers(i.id).some(p=>p.evento==='cena'));
-  if(f==='brin') invs=invs.filter(i=>getPers(i.id).some(p=>p.evento==='brindis'));
+  let invs=Object.values(INV).filter(i=>getPers(i.id).length>0);
   invs.sort((a,b)=>a.destinatario.localeCompare(b.destinatario,'es'));
   if(!invs.length){tb.innerHTML=`<tr><td colspan="${cols}" class="empty">Sin resultados</td></tr>`;return;}
-  if(f==='pend'){tb.innerHTML=invs.map(i=>`<tr><td style="font-weight:500;">${esc(i.destinatario)}</td><td><span class="badge badge-pend">&#8987; Sin respuesta</span></td></tr>`).join('');return;}
   tb.innerHTML=invs.map(inv=>{
-    const ps=getPers(inv.id).filter(p=>f==='cena'?p.evento==='cena':f==='brin'?p.evento==='brindis':true);
+    const ps=getPers(inv.id);
     const nH=ps.map(p=>`<div class="prow">${esc(p.nombre||'—')}</div>`).join('');
     const dH=ps.map(p=>`<div class="prow">${p.dieta?`${DE[p.dieta]||''} ${DL[p.dieta]||p.dieta}`:'<span style="color:#ccc;">—</span>'}</div>`).join('');
-    if(f==='cena'||f==='brin')return`<tr><td style="font-weight:500;">${esc(inv.destinatario)}</td><td>${nH}</td><td>${dH}</td></tr>`;
     const eH=ps.map(p=>`<div class="prow">${p.evento?`<span class="badge ${p.evento==='cena'?'badge-cena':'badge-brindis'}" style="font-size:10px;">${p.evento==='cena'?'Cena':'Brindis'}</span>`:'—'}</div>`).join('');
     return`<tr><td style="font-weight:500;">${esc(inv.destinatario)}</td><td><span class="badge badge-ok">&#10003; (${ps.length})</span></td><td>${nH}</td><td>${eH}</td><td>${dH}</td></tr>`;
   }).join('');
@@ -535,14 +814,15 @@ function rPagaron(){
   const tb=$('tb-pagaron'); if(!tb)return;
   const pgs=Object.values(CONF).filter(p=>p.pagado);
   $('pgr-count').textContent=pgs.length+' personas';
-  if(!pgs.length){tb.innerHTML='<tr><td colspan="5" class="empty">Nadie pag&oacute; a&uacute;n</td></tr>';return;}
+  if(!pgs.length){tb.innerHTML='<tr><td colspan="6" class="empty">Nadie pag&oacute; a&uacute;n</td></tr>';return;}
   pgs.sort((a,b)=>(INV[a.invitadoId]?.destinatario||'').localeCompare(INV[b.invitadoId]?.destinatario||'','es'));
   tb.innerHTML=pgs.map(p=>`<tr>
     <td style="font-weight:500;">${esc(INV[p.invitadoId]?.destinatario||p.invitadoId)}</td>
     <td>${esc(p.nombre||'—')}</td>
     <td>${TL[p.tipo]||p.tipo||'—'}</td>
     <td>${p.evento?`<span class="badge ${p.evento==='cena'?'badge-cena':'badge-brindis'}" style="font-size:11px;">${p.evento==='cena'?'Cena':'Brindis'}</span>`:'—'}</td>
-    <td style="font-weight:600;color:#2e7d32;">${fmtP(precio(p))}</td>
+    <td style="font-weight:600;color:#2e7d32;">${fmtPN(getPrecio(p))}</td>
+    <td style="font-size:12px;color:#666;">${(()=>{const d=tsDate(p.fechaPago);return d?d.getDate().toString().padStart(2,'0')+'/'+(d.getMonth()+1).toString().padStart(2,'0')+'/'+d.getFullYear():'<span style="color:#e65100;">Sin fecha</span>';})()}</td>
   </tr>`).join('');
 }
 
@@ -603,7 +883,7 @@ window.openEdit=id=>{
     $('edit-title').textContent='Editar: '+(inv?.destinatario||id);
     $('edit-dest').value=inv?.destinatario||'';
     $('edit-err').textContent='';
-    _editPs=getPers(id).map(c=>({fid:c.id,nombre:c.nombre||'',tipo:c.tipo||'adulto',dieta:c.dieta||'',evento:c.evento||'cena',pagado:c.pagado||false}));
+    _editPs=getPers(id).map(c=>({fid:c.id,nombre:c.nombre||'',tipo:c.tipo||'adulto',dieta:c.dieta||'',evento:c.evento||'cena',pagado:c.pagado||false,fechaPago:c.fechaPago||null,pagadoCatering:c.pagadoCatering||false,fechaPagoCatering:c.fechaPagoCatering||null}));
     renderEditPs();
     $('m-edit').classList.add('open');
   });
@@ -644,7 +924,7 @@ window.updEditName=(i,v)=>{ _editPs[i].nombre=v; };
 window.setEditP=(i,campo,val)=>{ _editPs[i][campo]=val; renderEditPs(); };
 window.removeEditP=(i)=>{ _editPs.splice(i,1); renderEditPs(); };
 window.addEditP=()=>{
-  _editPs.push({fid:null,nombre:'',tipo:'adulto',dieta:'',evento:'cena',pagado:false});
+  _editPs.push({fid:null,nombre:'',tipo:'adulto',dieta:'',evento:'cena',pagado:false,fechaPago:null,pagadoCatering:false,fechaPagoCatering:null});
   renderEditPs();
   setTimeout(()=>{const ins=document.querySelectorAll('.name-inp');if(ins.length)ins[ins.length-1].focus();},80);
 };
@@ -666,7 +946,11 @@ window.saveEdit=async()=>{
       await addDoc(collection(db,'confirmaciones'),{
         nombre:p.nombre.trim(), tipo:p.tipo||'adulto',
         dieta:p.dieta||'', evento:p.evento||'cena',
-        pagado:p.pagado||false, invitadoId:_editId,
+        pagado:p.pagado||false,
+        fechaPago:p.fechaPago||null,
+        pagadoCatering:p.pagadoCatering||false,
+        fechaPagoCatering:p.fechaPagoCatering||null,
+        invitadoId:_editId,
         dispositivo:'admin', ts:serverTimestamp()
       });
     }
@@ -727,8 +1011,264 @@ async function delInv(id){
   await batch.commit();
 }
 
+// ─── CONFIRMACION SI/NO ───────────────────────────────────
+let _cfCb=null;
+function openConfirm(title,desc,positive,cb){
+  $('cf-title').textContent=title;
+  $('cf-desc').textContent=desc;
+  $('cf-ok').style.background=positive?'#2e7d32':'#e53935';
+  _cfCb=cb;
+  $('m-confirm').classList.add('open');
+}
+window.closeConfirm=()=>{$('m-confirm').classList.remove('open');_cfCb=null;};
+window.doConfirm=()=>{const cb=_cfCb;window.closeConfirm();if(cb)cb();};
+
 // ─── PAGO ─────────────────────────────────────────────────
-window.togglePago=async(confId,val)=>await updateDoc(doc(db,'confirmaciones',confId),{pagado:val});
+window.askTogglePago=confId=>{
+  const p=CONF[confId]; if(!p)return;
+  const val=!p.pagado, nom=p.nombre||'esta persona';
+  const v=val?puDe(ymNow(),keyDe(p)):null;
+  openConfirm(
+    val?'Confirmar pago':'Quitar pago',
+    val?`¿Confirmás que ${nom} PAGÓ${v!=null?' '+fmtP(v):''}?`
+       :`¿Confirmás marcar a ${nom} como NO pagado? Se borrará su fecha de pago.`,
+    val,
+    async()=>await updateDoc(doc(db,'confirmaciones',confId),{pagado:val,fechaPago:val?serverTimestamp():null})
+  );
+};
+
+// ─── CATERING ─────────────────────────────────────────────
+window.askToggleCat=confId=>{
+  const p=CONF[confId]; if(!p)return;
+  const val=!p.pagadoCatering, nom=p.nombre||'esta persona';
+  const v=getPrecio(p);
+  openConfirm(
+    val?'Confirmar giro al catering':'Quitar giro',
+    val?`¿Confirmás que giraste al catering lo de ${nom}${v!=null?' ('+fmtP(v)+')':''}?`
+       :`¿Confirmás marcar lo de ${nom} como NO girado al catering?`,
+    val,
+    async()=>await updateDoc(doc(db,'confirmaciones',confId),{pagadoCatering:val,fechaPagoCatering:val?serverTimestamp():null})
+  );
+};
+
+// ─── LONG PRESS (800ms) → editar fecha ────────────────────
+let _lpT=null,_lpFired=false;
+window.lpDown=(ev,kind,id)=>{
+  _lpFired=false;
+  const b=ev.currentTarget;
+  clearTimeout(_lpT);
+  _lpT=setTimeout(()=>{_lpFired=true;b.classList.remove('holding');openFecha(kind,id);},800);
+  b.classList.add('holding');
+};
+window.lpUp=ev=>{clearTimeout(_lpT);ev.currentTarget.classList.remove('holding');};
+window.lpClick=(kind,id)=>{
+  if(_lpFired){_lpFired=false;return;}
+  if(kind==='pago')window.askTogglePago(id);else window.askToggleCat(id);
+};
+
+// ─── MODAL FECHA ──────────────────────────────────────────
+let _fxKind=null,_fxId=null;
+function openFecha(kind,id){
+  const p=CONF[id]; if(!p)return;
+  if(kind==='cat'&&!p.pagado){alert('Primero marcá el pago de esta persona.');return;}
+  _fxKind=kind;_fxId=id;
+  const nom=p.nombre||'esta persona';
+  const ts=kind==='pago'?p.fechaPago:p.fechaPagoCatering;
+  const d=tsDate(ts)||new Date();
+  $('fx-title').textContent=kind==='pago'?'Fecha de pago':'Fecha de giro al catering';
+  const estado=kind==='pago'?(p.pagado?'Actualmente PAGADO'+(tsDate(p.fechaPago)?'':' (sin fecha)'):'Actualmente NO pagado — al guardar quedará como pagado'):(p.pagadoCatering?'Actualmente GIRADO'+(tsDate(p.fechaPagoCatering)?'':' (sin fecha)'):'Actualmente NO girado — al guardar quedará como girado');
+  $('fx-desc').textContent=nom+' — '+estado+'. Elegí la fecha correcta:';
+  $('fx-date').value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  $('fx-err').textContent='';
+  $('m-fecha').classList.add('open');
+}
+window.closeFecha=()=>{$('m-fecha').classList.remove('open');_fxKind=null;_fxId=null;};
+window.saveFecha=async()=>{
+  const v=$('fx-date').value;
+  if(!v){$('fx-err').textContent='Elegí una fecha';return;}
+  const[y,m,dd]=v.split('-').map(Number);
+  const fecha=new Date(y,m-1,dd,12,0,0);
+  $('fx-ok').disabled=true;
+  try{
+    const upd=_fxKind==='pago'?{pagado:true,fechaPago:fecha}:{pagadoCatering:true,fechaPagoCatering:fecha};
+    await updateDoc(doc(db,'confirmaciones',_fxId),upd);
+    window.closeFecha();
+  }catch(e){$('fx-err').textContent='Error: '+e.message;}
+  $('fx-ok').disabled=false;
+};
+
+const TLP={"adulto":"Adulto","joven":"Joven","nino":"Niño"};
+const DLP={"celiaco":"Celíaco","vegetariano":"Vegetariano"};
+function catGroups(list){
+  const g={};
+  list.forEach(p=>{
+    const k=(p.evento==='brindis'?'Brindis':'Cena')+'|'+(p.tipo||'adulto')+'|'+(p.dieta||'');
+    g[k]=(g[k]||0)+1;
+  });
+  const oE={'Cena':0,'Brindis':1}, oT={'adulto':0,'joven':1,'nino':2}, oD={'':0,'celiaco':1,'vegetariano':2};
+  return Object.entries(g).map(([k,n])=>{const[e,t,d]=k.split('|');return{e,t,d,n};})
+    .sort((a,b)=>(oE[a.e]-oE[b.e])||(oT[a.t]-oT[b.t])||(oD[a.d]-oD[b.d]));
+}
+const catLbl=r=>`${r.e} — ${TLP[r.t]||r.t}${r.d?' — '+(DLP[r.d]||r.d):''}`;
+// withVal: si es 'now' agrega columna de valor a precio actual (para pendientes)
+function catTable(tbId,list,withVal){
+  const rows=catGroups(list);
+  const tb=$(tbId); if(!tb)return;
+  const cols=withVal?3:2;
+  if(!rows.length){tb.innerHTML=`<tr><td colspan="${cols}" style="text-align:center;color:#aaa;padding:12px;">Sin personas</td></tr>`;return;}
+  const now=ymNow(); let tot=0,inc=false;
+  const keyR=r=>r.e==='Brindis'?(r.t==='adulto'?'brindisAdulto':'brindisJN'):(r.t==='joven'?'joven':r.t==='nino'?'nino':'adulto');
+  let html=rows.map(r=>{
+    if(!withVal)return `<tr><td>${esc(catLbl(r))}</td><td class="num">${r.n}</td></tr>`;
+    const pu=puDe(now,keyR(r)); const val=pu==null?null:pu*r.n;
+    if(pu==null)inc=true; else tot+=val;
+    return `<tr><td>${esc(catLbl(r))}</td><td class="num">${r.n}</td><td class="num" style="color:#e65100;">${fmtPN(val)}</td></tr>`;
+  }).join('');
+  html+=withVal
+    ?`<tr class="rec-totrow"><td>TOTAL</td><td class="num">${list.length}</td><td class="num" style="color:#e65100;">${fmtP(tot)}${inc?' *':''}</td></tr>`
+    :`<tr class="rec-totrow"><td>TOTAL</td><td class="num">${list.length}</td></tr>`;
+  tb.innerHTML=html;
+}
+function fmtDia(ts){
+  const d=tsDate(ts);
+  if(!d)return 'Sin fecha';
+  return d.getDate().toString().padStart(2,'0')+'/'+(d.getMonth()+1).toString().padStart(2,'0')+'/'+d.getFullYear();
+}
+function rCatering(){
+  if(!$('cat-pend-tbody'))return;
+  const asis=Object.values(CONF);
+  const pag=asis.filter(p=>p.pagado);
+  const gir=pag.filter(p=>p.pagadoCatering);
+  const pen=pag.filter(p=>!p.pagadoCatering);
+  $('ct-pagaron').textContent=pag.length;
+  $('ct-girado').textContent=gir.length;
+  $('ct-pend').textContent=pen.length;
+  catTable('cat-pend-tbody',pen,true);
+  catTable('cat-gir-tbody',gir,false);
+  catTable('cat-pag-tbody',pag,false);
+  // Historial de giros por fecha: cantidad + total $ a precio de esa fecha
+  const h={};
+  gir.forEach(p=>{const k=fmtDia(p.fechaPagoCatering);if(!h[k])h[k]={n:0,v:0,sp:false};h[k].n++;const val=puGiro(p);if(val==null)h[k].sp=true;else h[k].v+=val;});
+  const dias=Object.entries(h).sort((a,b)=>{
+    const pa=a[0].split('/').reverse().join(''), pb=b[0].split('/').reverse().join('');
+    return pb.localeCompare(pa);
+  });
+  $('cat-giros').innerHTML=dias.length
+    ?'<strong style="display:block;margin-bottom:4px;color:#888;font-size:11px;text-transform:uppercase;letter-spacing:.05em;">Historial de giros (valor a precio de cada fecha)</strong>'
+      +dias.map(([d,o])=>`<div><span>&#128197; ${d} — ${o.n} persona${o.n===1?'':'s'}</span><span style="color:#1565c0;font-weight:600;">${fmtP(o.v)}${o.sp?' *':''}</span></div>`).join('')
+    :'';
+}
+
+function buildCatMsg(list,titulo,conMontos){
+  const rows=catGroups(list);
+  const hoy=new Date();
+  const f=hoy.getDate().toString().padStart(2,'0')+'/'+(hoy.getMonth()+1).toString().padStart(2,'0')+'/'+hoy.getFullYear();
+  const now=ymNow();
+  const keyR=r=>r.e==='Brindis'?(r.t==='adulto'?'brindisAdulto':'brindisJN'):(r.t==='joven'?'joven':r.t==='nino'?'nino':'adulto');
+  let m='\u{1F37D}\uFE0F CATERING — Boda Ale & Cande\n'+titulo+' — '+f+'\n\n';
+  if(!rows.length){m+='(Sin personas)';return m;}
+  let tot=0, sinPrecio=false;
+  rows.forEach(r=>{
+    if(conMontos){
+      const pu=puDe(now,keyR(r));
+      if(pu==null){sinPrecio=true;m+='• '+catLbl(r)+': '+r.n+' × (sin precio)\n';}
+      else{const sub=pu*r.n;tot+=sub;m+='• '+catLbl(r)+': '+r.n+' × '+fmtP(pu)+' = '+fmtP(sub)+'\n';}
+    }else{
+      m+='• '+catLbl(r)+': '+r.n+'\n';
+    }
+  });
+  m+='\nTOTAL: '+list.length+' persona'+(list.length===1?'':'s');
+  if(conMontos)m+=' — '+fmtP(tot)+(sinPrecio?' (*)':'');
+  return m;
+}
+window.cpCatMsg=(tipo,btn)=>{
+  const pag=Object.values(CONF).filter(p=>p.pagado);
+  const list=tipo==='gir'?pag.filter(p=>p.pagadoCatering):pag.filter(p=>!p.pagadoCatering);
+  copyText(buildCatMsg(list,tipo==='gir'?'Resumen girado a la fecha':'Giro pendiente',tipo==='pend'));
+  const o=btn.innerHTML; btn.innerHTML='&#10003; Copiado';
+  setTimeout(()=>{btn.innerHTML=o;},2000);
+};
+
+// ─── PRECIOS ──────────────────────────────────────────────
+function rPrecios(){
+  const tb=$('tb-precios'); if(!tb)return;
+  const meses=Object.keys(PRECIOS).sort().reverse();
+  if(!meses.length){tb.innerHTML='<tr><td colspan="7" class="empty">Sin precios cargados. Agreg&aacute; el primer mes.</td></tr>';return;}
+  const now=ymNow();
+  tb.innerHTML=meses.map(m=>{
+    const t=PRECIOS[m]||{};
+    const c=k=>(typeof t[k]==='number'&&t[k]>0)?fmtP(t[k]):'<span style="color:#ccc;">—</span>';
+    return `<tr${m===now?' style="background:#f3f8ff;"':''}>
+      <td style="font-weight:600;">${lblYm(m)}${m===now?' <span style="font-size:10px;color:#1565c0;">(actual)</span>':''}</td>
+      <td class="num">${c('adulto')}</td><td class="num">${c('joven')}</td><td class="num">${c('nino')}</td>
+      <td class="num">${c('brindisAdulto')}</td><td class="num">${c('brindisJN')}</td>
+      <td><div style="display:flex;gap:5px;">
+        <button class="btn btn-warn btn-sm" onclick="openPrecio('${m}')">&#9998; Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="askDelPrecio('${m}')">&#128465;</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+window.rPrecios=rPrecios;
+let _pxEdit=null;
+// Formato moneda en inputs: muestra $ y separador de miles, guarda solo dígitos
+window.fmtMoneyInp=el=>{
+  const dig=el.value.replace(/\D/g,'');
+  el.value=dig?'$'+Number(dig).toLocaleString('es-AR'):'';
+};
+const setMoney=(id,val)=>{$(id).value=(val&&val>0)?'$'+Number(val).toLocaleString('es-AR'):'';};
+const getMoney=id=>{const d=$(id).value.replace(/\D/g,'');const v=parseInt(d,10);return(isNaN(v)||v<=0)?null:v;};
+// Mes anterior más cercano con precios cargados, respecto a un ym dado
+function prevMesConPrecio(ym){
+  const previos=Object.keys(PRECIOS).filter(k=>k<ym).sort();
+  return previos.length?previos[previos.length-1]:null;
+}
+window.openPrecio=ym=>{
+  _pxEdit=ym||null;
+  $('px-title').textContent=ym?('Editar precios — '+lblYm(ym)):'Agregar precios de mes';
+  $('px-err').textContent='';
+  const t=ym?(PRECIOS[ym]||{}):{};
+  $('px-mes').value=ym||ymNow();
+  $('px-mes').disabled=!!ym;
+  setMoney('px-a',t.adulto);setMoney('px-j',t.joven);setMoney('px-n',t.nino);
+  setMoney('px-ba',t.brindisAdulto);setMoney('px-bjn',t.brindisJN);
+  actPxCopyBtn();
+  $('m-precio').classList.add('open');
+};
+window.actPxCopyBtn=actPxCopyBtn;
+function actPxCopyBtn(){
+  const ref=prevMesConPrecio($('px-mes').value||ymNow());
+  const b=$('px-copy');
+  if(ref){b.style.display='';b.innerHTML='&#128203; Copiar valores de '+lblYm(ref);b.disabled=false;}
+  else{b.style.display='none';}
+}
+window.copyPrevPrecio=()=>{
+  const ref=prevMesConPrecio($('px-mes').value||ymNow());
+  if(!ref)return;
+  const t=PRECIOS[ref]||{};
+  setMoney('px-a',t.adulto);setMoney('px-j',t.joven);setMoney('px-n',t.nino);
+  setMoney('px-ba',t.brindisAdulto);setMoney('px-bjn',t.brindisJN);
+};
+window.closePrecio=()=>{$('m-precio').classList.remove('open');_pxEdit=null;};
+window.savePrecio=()=>{
+  const ym=$('px-mes').value;
+  if(!ym){$('px-err').textContent='Elegí el mes';return;}
+  const obj={adulto:getMoney('px-a'),joven:getMoney('px-j'),nino:getMoney('px-n'),brindisAdulto:getMoney('px-ba'),brindisJN:getMoney('px-bjn')};
+  if(Object.values(obj).every(v=>v==null)){$('px-err').textContent='Cargá al menos un precio';return;}
+  Object.keys(obj).forEach(k=>{if(obj[k]==null)delete obj[k];});
+  const esEd=!!_pxEdit;
+  window.closePrecio();
+  openAuth(esEd?'Editar precios':'Guardar precios',`Ingresá la contraseña para ${esEd?'modificar':'guardar'} los precios de ${lblYm(ym)}.`,false,async()=>{
+    await setDoc(doc(db,'config','precios'),{[ym]:obj},{mergeFields:[ym]});
+  });
+};
+window.askDelPrecio=ym=>{
+  const nPag=Object.values(CONF).filter(p=>{if(!p.pagado)return false;const d=tsDate(p.fechaPago);return d&&ymOf(d)===ym;}).length;
+  const warn=nPag?` ⚠️ Hay ${nPag} pago${nPag===1?'':'s'} sellado${nPag===1?'':'s'} en ese mes: pasarán a mostrarse sin precio (—) y saldrán de los totales.`:'';
+  openAuth('Eliminar precios',`Vas a borrar los precios de ${lblYm(ym)}.${warn} Ingresá la contraseña para confirmar.`,true,async()=>{
+    await updateDoc(doc(db,'config','precios'),{[ym]:deleteField()});
+  });
+};
 
 // ─── LINK ─────────────────────────────────────────────────
 window.cpLink=(id,btn)=>{
