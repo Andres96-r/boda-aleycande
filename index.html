@@ -640,7 +640,7 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
       <p style="font-family:'Cormorant Garamond',serif;font-size:23px;font-style:italic;color:#2a2a28;margin-bottom:18px;text-align:center;">💳 Información de precios</p>
       <div style="display:flex;flex-direction:column;gap:12px;font-family:'Jost',sans-serif;font-size:16px;color:#4a4843;line-height:1.6;">
         <div style="background:#f5f2ed;border-radius:6px;padding:13px 15px;">
-          <p style="font-weight:400;color:#2a2a28;margin-bottom:4px;">📌 Vigente para julio</p>
+          <p id="precio-mes-vigente" style="font-weight:400;color:#2a2a28;margin-bottom:4px;">📌 Vigente para julio</p>
           <p style="color:#7a7870;font-size:15px;">Debido a la modalidad de actualización del salón, el valor de la tarjeta podrá modificarse mensualmente según los incrementos informados por el servicio de catering. En caso de haber algún cambio, les comunicaremos el nuevo valor al comienzo de cada mes.</p>
         </div>
       </div>
@@ -655,11 +655,11 @@ body{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#2a2
 <style>@keyframes pulseBtn{0%,100%{box-shadow:0 0 0 0 rgba(200,168,112,.55);transform:scale(1);}50%{box-shadow:0 0 0 7px rgba(200,168,112,0);transform:scale(1.04);}}</style>
       </div>
       <p style="text-align:center;font-family:'Jost',sans-serif;font-size:12px;color:#b0aa9e;letter-spacing:.06em;margin-bottom:10px;">🥂 Recepción &nbsp;·&nbsp; 🍽️ Cena &nbsp;·&nbsp; 🍰 Mucho dulce</p>
-      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena adulto</span><span class="precio-valor">$105.000</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena joven <small style="font-size:13px;color:#9a9488;">(12 a 17 años)</small></span><span class="precio-valor">$74.000</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena niño <small style="font-size:13px;color:#9a9488;">(2 a 11 años)</small></span><span class="precio-valor">$52.500</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis adulto <small style="font-size:13px;color:#9a9488;">(desde 00:00 hs)</small></span><span class="precio-valor">$41.500</span></div>
-      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis <small style="font-size:13px;color:#9a9488;">(hasta 17 años)</small></span><span class="precio-valor">$27.500</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena adulto</span><span class="precio-valor" id="pv-adulto">$105.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena joven <small style="font-size:13px;color:#9a9488;">(12 a 17 años)</small></span><span class="precio-valor" id="pv-joven">$74.000</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🍽️ Cena niño <small style="font-size:13px;color:#9a9488;">(2 a 11 años)</small></span><span class="precio-valor" id="pv-nino">$52.500</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis adulto <small style="font-size:13px;color:#9a9488;">(desde 00:00 hs)</small></span><span class="precio-valor" id="pv-brindisAdulto">$41.500</span></div>
+      <div class="precio-fila"><span class="precio-tipo">🥂 Brindis <small style="font-size:13px;color:#9a9488;">(hasta 17 años)</small></span><span class="precio-valor" id="pv-brindisJN">$27.500</span></div>
     </div>
     <p class="qr-alias" id="qr-alias-text">BODA.ALEYCANDE.26</p>
     <p class="qr-cbu">CBU: 0000003100022937554265</p>
@@ -954,7 +954,9 @@ function getInvitadoId(){
 const INVITADO_ID = getInvitadoId();
 
 function getDeviceId(){let id=localStorage.getItem('boda_device_id');if(!id){id='inv_'+Math.random().toString(36).substr(2,9)+'_'+Date.now();localStorage.setItem('boda_device_id',id);}return id;}
-const DID=INVITADO_ID || getDeviceId(),PA=105000,PADOL=74000,PN=52500,PBA=41500,PBN=27500;
+const DID=INVITADO_ID || getDeviceId();
+// Precios catering: valores por defecto (fallback). Se sobrescriben con el mes vigente de config/precios.
+let PA=105000,PADOL=74000,PN=52500,PBA=41500,PBN=27500;
 function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 // CARGAR NOMBRE INVITADO desde Firebase
@@ -1206,6 +1208,42 @@ function updateTotal(){
   if(brindisJoven)parts.push(`${brindisJoven} brindis joven${brindisJoven>1?'es':''}`);
   el.textContent='💳 Total estimado: $'+t.toLocaleString('es-AR')+' ('+parts.join(' + ')+')';
 }
+
+// ── PRECIOS CATERING desde Firestore (config/precios) ──
+// Mes vigente = la clave "AAAA-MM" más alta que tenga precios cargados (NO el mes calendario).
+const MESES_ES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+function aplicarPrecios(precios){
+  if(!precios||typeof precios!=='object')return;
+  const claves=Object.keys(precios).filter(k=>/^\d{4}-\d{2}$/.test(k)&&precios[k]&&typeof precios[k]==='object').sort();
+  if(!claves.length)return;
+  const claveVigente=claves[claves.length-1];
+  const p=precios[claveVigente]||{};
+
+  // Variables usadas en el total. Si falta una categoría, se conserva el valor previo (fallback), no se rompe.
+  if(typeof p.adulto==='number')PA=p.adulto;
+  if(typeof p.joven==='number')PADOL=p.joven;
+  if(typeof p.nino==='number')PN=p.nino;
+  if(typeof p.brindisAdulto==='number')PBA=p.brindisAdulto;
+  if(typeof p.brindisJN==='number')PBN=p.brindisJN;
+
+  // Tabla visible: valor formateado si está cargado, guion "—" si falta la categoría en el mes vigente.
+  const fmt=v=>(typeof v==='number')?'$'+v.toLocaleString('es-AR'):'—';
+  const setPrecio=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=fmt(v);};
+  setPrecio('pv-adulto',p.adulto);
+  setPrecio('pv-joven',p.joven);
+  setPrecio('pv-nino',p.nino);
+  setPrecio('pv-brindisAdulto',p.brindisAdulto);
+  setPrecio('pv-brindisJN',p.brindisJN);
+
+  // Texto del mes vigente (ej: "Julio 2026") en el modal "Ver info".
+  const [anio,mes]=claveVigente.split('-');
+  const nombreMes=MESES_ES[parseInt(mes,10)-1]||'';
+  const elMes=document.getElementById('precio-mes-vigente');
+  if(elMes&&nombreMes)elMes.textContent='📌 Vigente para '+nombreMes+' '+anio;
+
+  updateTotal();
+}
+onSnapshot(doc(db,'config','precios'),snap=>{ if(snap.exists())aplicarPrecios(snap.data()); });
 
 // Fuerza al browser a chequear si sw.js cambió en cada visita
 if('serviceWorker' in navigator){
